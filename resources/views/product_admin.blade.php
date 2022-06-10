@@ -11,7 +11,7 @@
     <div class="col-12">
         <div class="card">
         <div class="button-list">
-        <a class="btn btn-warning btn-rounded m-b-10 m-l-5" href="{{ route('addProduct') }}">Add New Flower</a></div>
+        <a class="btn btn-warning btn-rounded m-b-10 m-l-5" href="{{ route('addProduct') }}">Add New Perfume</a></div>
         <div class="row" style="padding: 15px">
         <form action="" method="GET">
             @csrf
