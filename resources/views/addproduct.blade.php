@@ -13,19 +13,19 @@
                 <div class="button-list">
         <form action="" method="post" enctype="multipart/form-data">
             @csrf
-            Name : <input type="text" name="ten_san_pham"/>
+            Name :</br> <input type="text" name="ten_san_pham"/></br>
             <em style="color: red"></em>
-            Description : <input type="text" name="mo_ta"/>
+            Description : </br><input type="text" name="mo_ta"/></br>
             <em style="color: red"></em>
-            Catagory : <select name="ma_loai">
+            Catagory : </br><select name="ma_loai">
                 <option value="">--Select catagory--</option>
                 {{-- @foreach ($lstLoaiSanPham as $item)
                     <option value="{{ $item->id }}">{{ $item->ten_loai }}</option>
                 @endforeach --}}
-            </select></br></br>
-            Price : <input type="text" name="don_gia"/>
+            </select></br>
+            Price :</br> <input type="text" name="don_gia"/></br>
             <em style="color: red"> </em>
-            Stock : <input type="text" name="so_luong" value="0" readonly/></br></br>
+            Stock :</br> <input type="text" name="so_luong" value="0" readonly/></br></br>
             <label for="file">Image : </label>
             <input type="file" name="hinh_anh" id="file"/>
             <br/>
