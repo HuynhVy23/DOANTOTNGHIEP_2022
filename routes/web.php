@@ -57,14 +57,7 @@ Route::get('/admin', function () {
     return view('index_admin');
 })->name('indexAdmin');
 
-Route::get('/admin_product', function () {
-    return view('product_admin');
-})->name('productAdmin');
-
-Route::get('/create_product', function () {
-    return view('addproduct');
-})->name('addProduct');
-
-Route::get('/update_product', function () {
-    return view('updateproduct');
-})->name('updateProduct');
+Route::resource('brand', BrandController::class)->except('show');
+Route::resource('product', ProductController::class)->except('show');
+Route::resource('scent', ScentController::class)->except('show');
+Route::resource('product_detail', ProductDetailController::class)->except('show');
