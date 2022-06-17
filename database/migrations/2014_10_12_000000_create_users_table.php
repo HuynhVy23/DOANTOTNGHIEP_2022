@@ -23,9 +23,9 @@ class CreateUsersTable extends Migration
             $table->string('address');
             $table->date('birthday');
             $table->string('phone');
-            $table->integer('gender');
+            $table->integer('gender'); # 0 male, 1 female
             $table->string('avatar')->nullable();
-            $table->integer('status')->default(0);
+            $table->integer('status')->default(0); # 0 acitve, 1 disactive
             $table->rememberToken();
             $table->timestamps();
         });

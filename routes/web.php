@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,3 +69,5 @@ Route::get('/create_product', function () {
 Route::get('/update_product', function () {
     return view('updateproduct');
 })->name('updateProduct');
+
+Route::resource('account',UserController::class);
