@@ -17,8 +17,8 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('concentration');
-            $table->string('description');
-            $table->string('hinh_anh');
+            $table->longText('description');
+            $table->string('image');
             $table->integer('brand_id');
             $table->integer('scent_id');
             $table->timestamps();

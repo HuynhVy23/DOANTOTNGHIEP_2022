@@ -82,7 +82,7 @@
                         <li class="nav-devider"></li>
                         <li><a aria-expanded="false" href=""><i class="fa fa-file-text"></i><span class="hide-menu">Invoice </span></a></li>
                         <li><a aria-expanded="false" href=""><i class="fa fa-file-text"></i><span class="hide-menu">Good Receipt</span></a></li>
-                        <li ><a aria-expanded="false" href="{{ route('product.index') }}"><i class="fa fa-pagelines "></i><span class="hide-menu ">Product Model</span></a></li>
+                        <li ><a aria-expanded="false" href="{{ route('productad.index') }}"><i class="fa fa-pagelines "></i><span class="hide-menu ">Product Model</span></a></li>
                         <li ><a aria-expanded="false" href="{{ route('product_detail.index') }}"><i class="fa fa-snowflake-o "></i><span class="hide-menu ">Product</span></a></li>
                         <li ><a aria-expanded="false" href="{{ route('brand.index') }}"><i class="fa fa-leaf"></i><span class="hide-menu">Brand</span></a></li>
                         <li ><a aria-expanded="false" href="{{ route('scent.index') }}"><i class="fa fa-star"></i></i><span class="hide-menu">Scent</span></a></li>

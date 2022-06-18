@@ -10,7 +10,7 @@
     <div class="col-6">
         <div class="card">
         <div class="button-list">
-                        <form action="{{ route('product.update',$product->id) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('productad.update',$product->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('PATCH')
                             Name : <input type="text" name="name" value="{{ $product->name }}"/></br></br>

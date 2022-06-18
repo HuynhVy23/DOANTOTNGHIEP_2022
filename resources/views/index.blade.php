@@ -35,17 +35,20 @@
               <a href="{{ route('product') }}">view more <i class="fa fa-angle-right"></i></a>
             </div>
           </div>
+          @foreach ($lstProduct as $pd)
           <div class="col-md-4">
             <div class="product-item">
-              <a href="{{route('productdetail')}}"><img src="../images/product-1-370x270.jpg" alt=""></a>
+              <a href="{{route('productdetail',$pd->id)}}"><img src="{{ $pd->hinh_anh }}" width="370px" height="370px"></a>
               <div class="down-content">
-                <a href="{{route('productdetail')}}"><h4>Lorem ipsum dolor sit amet.</h4></a>
-                <h6><small><del>$999.00 </del></small> $779.00</h6>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dicta voluptas quia dolor fuga odit.</p>
+                <a href="{{route('productdetail',$pd->id)}}"><h4>{{ $pd->name }}</h4></a>
+                {{-- <h6><small><del>$999.00 </del></small> $779.00</h6> --}}
+                  <p><strong>Description : </strong>{{ $pd->description }}</p>
               </div>
             </div>
           </div>
-
+          @endforeach
+          
+{{-- 
           <div class="col-md-4">
             <div class="product-item">
               <a href="{{route('productdetail')}}"><img src="../images/product-2-370x270.jpg" alt=""></a>
@@ -55,51 +58,7 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non beatae soluta, placeat vitae cum maxime culpa itaque minima.</p>
               </div>
             </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="product-item">
-              <a href="{{route('productdetail')}}"><img src="../images/product-3-370x270.jpg" alt=""></a>
-              <div class="down-content">
-                <a href="{{route('productdetail')}}"><h4>Lorem ipsum dolor sit amet.</h4></a>
-                <h6><small><del>$1999.00</del></small>   $1779.00</h6>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt nisi quia aspernatur, harum facere delectus saepe enim?</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="product-item">
-              <a href="{{route('productdetail')}}"><img src="../images/product-4-370x270.jpg" alt=""></a>
-              <div class="down-content">
-                <a href="{{route('productdetail')}}"><h4>Lorem ipsum dolor sit amet.</h4></a>
-                <h6><small><del>$999.00 </del></small> $779.00</h6>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dicta voluptas quia dolor fuga odit.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="product-item">
-              <a href="{{route('productdetail')}}"><img src="../images/product-5-370x270.jpg" alt=""></a>
-              <div class="down-content">
-                <a href="{{route('productdetail')}}"><h4>Lorem ipsum dolor sit amet.</h4></a>
-                <h6><small><del>$999.00 </del></small> $779.00</h6>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dicta voluptas quia dolor fuga odit.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="product-item">
-              <a href="{{route('productdetail')}}"><img src="../images/product-6-370x270.jpg" alt=""></a>
-              <div class="down-content">
-                <a href="{{route('productdetail')}}"><h4>Lorem ipsum dolor sit amet.</h4></a>
-                <h6><small><del>$999.00 </del></small> $779.00</h6>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dicta voluptas quia dolor fuga odit.</p>
-              </div>
-            </div>
-          </div>
+          </div> --}}
         </div>
       </div>
     </div>

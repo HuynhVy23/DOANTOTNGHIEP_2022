@@ -16,6 +16,15 @@ class ProductDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function fixImage(Product $pd){
+        if(Storage::disk('public')->exists($pd->hinh_anh)){
+            $pd->hinh_anh=Storage::url($pd->hinh_anh);
+        }else{
+            $pd->hinh_anh='/image/product/auto.jpg';
+        }
+    }
+
     public function index()
     {
         $lstProductDetail = ProductDetail::all();
@@ -59,9 +68,16 @@ class ProductDetailController extends Controller
      * @param  \App\Models\ProductDetail  $productDetail
      * @return \Illuminate\Http\Response
      */
-    public function show(ProductDetail $productDetail)
+    public function show($id)
     {
-        //
+        $productall=Product::all();
+        foreach($productall as $pd){
+            $this->fixImage($pd);
+        }
+        $product=Product::find($id);
+        $this->fixImage($product);
+        $productDetail=ProductDetail::where('product_id','=',$product->id)->get();
+        return view('productdetail',['product'=>$product,'detail'=>$productDetail,'all'=>$productall]);
     }
 
     /**

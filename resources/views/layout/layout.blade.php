@@ -72,7 +72,11 @@
                 <li class="nav-item"><a class="nav-link" href="{{ route('checkout') }}">Checkout</a></li>
 
                 <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">Contact Us</a></li>
+                @if ( Session::has('success') )
+                <li class="nav-item" style="padding-left: 50px"><form><button type="submit" style="background-color: #212529; border: none;  color: white; margin-top: 10px; ">Log out</button></form></li>
+                @else
                 <li class="nav-item" style="padding-left: 50px"><button style="background-color: #212529; border: none;  color: white; margin-top: 10px; "data-toggle="modal" data-target="#myModal" >Login</button></li>
+                @endif
             </ul>
           </div>
         </div>
@@ -86,14 +90,15 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
-            <form >
+            <form action="{{ url('/login') }}" method="POST">
+              @csrf
               <div class="form-group">
                 <label for="username" class="col-form-label">Username:</label>
                 <input type="text" class="form-control" name="username">
               </div>
               <div class="form-group">
                 <label for="password" class="col-form-label">Password:</label>
-                <input type="text" class="form-control" name="password">
+                <input type="password" class="form-control" name="password">
               </div>
               <div style="text-align: center">
                 <p>You do not already have an account? <a href="{{ route('account.create') }}"><strong>Register</strong></a></p> 
@@ -132,16 +137,18 @@
       <!-- Additional Scripts -->
       <script src="{{ url('js/custom.js')}}"></script>
       <script src="{{ url('js/owl.js')}}"></script>
-      <script type="text/javascript">
-        $(function() {
-            $('#datepicker').datetimepicker({
-              timepicker:false,
-              datepicker:true,
-              format:'d-m-Y',
-              value:'1-9-2000',
-              week:true,
-            });
-        });
-    </script>
     </body>
   </html>
+  <script>
+ document.getElementById("getprice").onchange = function(){
+    var value = document.getElementById("getprice").value;
+    var message = document.getElementById('price');
+    message.innerHTML=document.getElementById('price'+value).value;
+ }
+//     function priceChanged()
+// {
+//     var message = document.getElementById('show_price');
+//     var value = document.getElementById('getprice').value;
+//     message.innerHTML=document.getElementById(value);
+// }
+  </script>

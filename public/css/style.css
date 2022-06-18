@@ -429,7 +429,14 @@ header .navbar {
 }
 
 .product-item .down-content p {
-	margin-bottom: 20px;
+	text-overflow: ellipsis;
+    max-width: 300px;
+    max-height: 100px;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 25px;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
 }
 
 .product-item .down-content ul li {

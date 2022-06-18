@@ -12,6 +12,8 @@ use App\Models\Scent;
 
 class ProductController extends Controller
 {
+     
+
     public function fixImage(Product $pd){
         if(Storage::disk('public')->exists($pd->hinh_anh)){
             $pd->hinh_anh=Storage::url($pd->hinh_anh);
@@ -71,7 +73,7 @@ class ProductController extends Controller
         }
 
         $product->save();
-        return Redirect::route('product.index');
+        return Redirect::route('productad.index');
     }
 
     /**
@@ -82,7 +84,11 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        $lstProduct=Product::all();
+        foreach($lstProduct as $pd){
+            $this->fixImage($pd);
+        }
+        return view('index',['lstProduct'=>$lstProduct]);
     }
 
     /**
@@ -122,7 +128,7 @@ class ProductController extends Controller
         ]);
         
         $product->save();
-        return Redirect::route('product.index');
+        return Redirect::route('productad.index');
     }
 
     /**
@@ -135,6 +141,6 @@ class ProductController extends Controller
     {
         $product=Product::find($id);
         $product->delete();
-        return Redirect::route('product.index');
+        return Redirect::route('productad.index');
     }
 }

@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ScentController;
+use App\Http\Controllers\ProductDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,17 +18,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
 
 Route::get('/product', function () {
     return view('product');
 })->name('product');
 
-Route::get('/productdetail', function () {
-    return view('productdetail');
-})->name('productdetail');
 
 Route::get('/aboutus', function () {
     return view('aboutus');
@@ -58,23 +56,13 @@ Route::get('/admin', function () {
     return view('index_admin');
 })->name('indexAdmin');
 
-<<<<<<< HEAD
-Route::get('/admin_product', function () {
-    return view('product_admin');
-})->name('productAdmin');
+Route::get('/', [ProductController::class, 'show'])->name('index');
+Route::post('/login', [UserController::class, 'login']);
+Route::get('/productdetail/{id}', [ProductDetailController::class, 'show'])->name('productdetail');
 
-Route::get('/create_product', function () {
-    return view('addproduct');
-})->name('addProduct');
 
-Route::get('/update_product', function () {
-    return view('updateproduct');
-})->name('updateProduct');
-
-Route::resource('account',UserController::class);
-=======
+Route::resource('account', UserController::class);
 Route::resource('brand', BrandController::class)->except('show');
-Route::resource('product', ProductController::class)->except('show');
+Route::resource('productad', ProductController::class)->except('show');
 Route::resource('scent', ScentController::class)->except('show');
-Route::resource('product_detail', ProductDetailController::class)->except('show');
->>>>>>> 067fc539ed5ce91b7f341711053ebbfd00e522fb
+Route::resource('product_detail', ProductDetailController::class);

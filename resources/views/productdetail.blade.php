@@ -6,8 +6,8 @@
         <div class="row">
           <div class="col-md-12">
             <div class="text-content">
-              <h4>Lorem ipsum dolor sit amet</h4>
-              <h2>Product Details</h2>
+              <h4>Product Detail</h4>
+              <h2>{{ $product->name }}</h2>
             </div>
           </div>
         </div>
@@ -19,45 +19,31 @@
         <div class="row">
           <div class="col-md-4 col-xs-12">
             <div>
-              <img src="../images/product-1-370x270.jpg" alt="" class="img-fluid wc-image">
+              <img src="{{ $product->hinh_anh }}" alt="" class="img-fluid wc-image" width="370px" height="370px">
             </div>
             <br>
             <div class="row">
-              <div class="col-sm-4 col-xs-6">
-                <div>
-                  <img src="../images/product-1-370x270.jpg" alt="" class="img-fluid">
-                </div>
-                <br>
-              </div>
-              <div class="col-sm-4 col-xs-6">
-                <div>
-                  <img src="../images/product-2-370x270.jpg" alt="" class="img-fluid">
-                </div>
-                <br>
-              </div>
-              <div class="col-sm-4 col-xs-6">
-                <div>
-                  <img src="../images/product-3-370x270.jpg" alt="" class="img-fluid">
-                </div>
-                <br>
-              </div>
             </div>
           </div>
 
           <div class="col-md-8 col-xs-12">
             <form action="#" method="post" class="form">
-              <h2>Lorem ipsum dolor sit amet.</h2>
+              <h2>{{ $product->name }}</h2>
 
               <br>
 
               <p class="lead">
-                <small><del> $999.00</del></small><strong class="text-primary">$779.00</strong>
+                {{-- <small><del> $999.00</del></small><strong class="text-primary">$779.00</strong> --}}
+                <strong id="price" style="color: #f33f3f">{{ number_format( $detail[0]->price , 0, ',', '.') . " VND" }}</strong>
+                @foreach ($detail as $dt)
+                <input id="price{{ $dt->id }}" style="display: none;opacity:0" type="hidden" value=" {{ number_format( $dt->price , 0, ',', '.') . " VND" }}"/>
+                @endforeach
               </p>
 
               <br>
 
               <p class="lead">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi ratione molestias maxime odio. Provident ratione vero, corrupti, optio laborum aut!
+                {{ $product->description }}
               </p>
 
               <br> 
@@ -66,10 +52,10 @@
                 <div class="col-sm-4">
                   <label class="control-label">Extra 1</label>
                   <div class="form-group">
-                    <select class="form-control">
-                      <option value="0">18 gears</option>
-                      <option value="1">21 gears</option>
-                      <option value="2">27 gears</option>
+                    <select class="form-control"  id="getprice">
+                      @foreach ($detail as $dt)
+                      <option value="{{ $dt->id }}">{{ $dt->capacity }}</option>
+                      @endforeach
                     </select>
                   </div>
                 </div>
@@ -104,50 +90,21 @@
               <a href="products.html">view more <i class="fa fa-angle-right"></i></a>
             </div>
           </div>
+          @for ($i=0;$i<3;$i++)
           <div class="col-md-4">
             <div class="product-item">
-              <a href="product-details.html"><img src="../images/product-1-370x270.jpg" alt=""></a>
+              <a href="{{route('productdetail',$all[$i]->id)}}"><img src="{{ $all[$i]->hinh_anh }}" width="250px" height="210px" alt=""></a>
               <div class="down-content">
-                <a href="product-details.html"><h4>Omega bicycle</h4></a>
-                <h6><small><del>$999.00 </del></small> $779.00</h6>
+                <a href="{{route('productdetail',$all[$i]->id)}}"><h4>{{ $all[$i]->name }}</h4></a>
+                {{-- <h6><small><del>$999.00 </del></small> $779.00</h6> --}}
+                <p><strong>Description : </strong>{{ $all[$i]->description }}</p>
               </div>
             </div>
           </div>
-
-          <div class="col-md-4">
-            <div class="product-item">
-              <a href="product-details.html"><img src="../images/product-2-370x270.jpg" alt=""></a>
-              <div class="down-content">
-                <a href="product-details.html"><h4>Nike Revolution 5 Shoes</h4></a>
-                <h6><small><del>$99.00</del></small>  $79.00</h6>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="product-item">
-              <a href="product-details.html"><img src="../images/product-3-370x270.jpg" alt=""></a>
-              <div class="down-content">
-                <a href="product-details.html"><h4>Treadmill Orion Sprint</h4></a>
-                <h6><small><del>$1999.00</del></small>   $1779.00</h6>
-              </div>
-            </div>
-          </div>
+          @endfor
         </div>
       </div>
     </div>
-
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="inner-content">
-              <p>Copyright © 2020 Company Name - Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -214,6 +171,4 @@
         </div>
       </div>
     </div>
-
-
 @stop

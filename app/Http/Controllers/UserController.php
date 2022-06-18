@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -115,8 +116,21 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function login(User $user)
+    public function login(Request $request)
     {
-        
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required'
+        ]);
+
+        if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password])) {
+
+            return redirect()->intended('/');
+        }
+        elseif (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
+
+            return redirect()->intended('/admin');
+        }
+        return back()->withInput($request->only('email'));
     }
 }

@@ -11,7 +11,7 @@
     <div class="col-12">
         <div class="card">
         <div class="button-list">
-        <a class="btn btn-warning btn-rounded m-b-10 m-l-5" href="{{ route('product.create') }}">Add New Perfume Model</a></div>
+        <a class="btn btn-warning btn-rounded m-b-10 m-l-5" href="{{ route('productad.create') }}">Add New Perfume Model</a></div>
         <div class="row" style="padding: 15px">
         <form action="" method="GET">
             @csrf
@@ -65,8 +65,8 @@
                             <td>{{ $pd->brand->name_brand }}</td>
                             <td>{{ $pd->scent->name_scent }}</td>
                             <td><img src="{{ $pd->hinh_anh }}" width="100px" height="100px"> </td>
-                            <td><a class="btn btn-info btn-rounded" href="{{ route('product.edit',$pd->id) }}"> Update</a></td>
-                            <td><form method="post" action="{{route('product.destroy',$pd->id)}}">
+                            <td><a class="btn btn-info btn-rounded" href="{{ route('productad.edit',$pd->id) }}"> Update</a></td>
+                            <td><form method="post" action="{{route('productad.destroy',$pd->id)}}">
                                 @csrf
                                 @method('DELETE')
                                     <button type="submit"class="btn btn-info btn-rounded"><i class="fa fa-trash"></i></button>
