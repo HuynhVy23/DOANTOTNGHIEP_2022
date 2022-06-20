@@ -37,7 +37,7 @@
             </select></br></br>
 
             <label for="file">Image : </label>
-            <input type="file" name="hinh_anh" id="file"/>
+            <input type="file" name="image" id="file"/>
             <br/>
             <input class="tg-btn" type="submit" name="submit" value="Submit"/>
         </form>

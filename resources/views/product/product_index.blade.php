@@ -64,7 +64,7 @@
                             <td>{{ $pd->description }}</td>
                             <td>{{ $pd->brand->name_brand }}</td>
                             <td>{{ $pd->scent->name_scent }}</td>
-                            <td><img src="{{ $pd->hinh_anh }}" width="100px" height="100px"> </td>
+                            <td><img src="{{ $pd->image }}" width="100px" height="100px"> </td>
                             <td><a class="btn btn-info btn-rounded" href="{{ route('productad.edit',$pd->id) }}"> Update</a></td>
                             <td><form method="post" action="{{route('productad.destroy',$pd->id)}}">
                                 @csrf

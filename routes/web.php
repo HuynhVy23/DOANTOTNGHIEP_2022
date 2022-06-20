@@ -19,10 +19,7 @@ use App\Http\Controllers\ProductDetailController;
 */
 
 
-Route::get('/product', function () {
-    return view('product');
-})->name('product');
-
+Route::get('/product', [ProductController::class, 'product'])->name('product');
 
 Route::get('/aboutus', function () {
     return view('aboutus');

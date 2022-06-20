@@ -1,7 +1,7 @@
 @extends('layout.layout')
 @section('main')
     <!-- Page Content -->
-    <div class="page-heading about-heading header-text" style="background-image: url(../images/heading-6-1920x500.jpg);">
+    <div class="page-heading about-heading header-text" style="background-image: url(../images/heading-5-1920x500.jpg);">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
@@ -50,7 +50,7 @@
 
               <div class="row">
                 <div class="col-sm-4">
-                  <label class="control-label">Extra 1</label>
+                  <label class="control-label">Choose capacity</label>
                   <div class="form-group">
                     <select class="form-control"  id="getprice">
                       @foreach ($detail as $dt)
@@ -61,16 +61,16 @@
                 </div>
                 <div class="col-sm-8">
                   <label class="control-label">Quantity</label>
-
                   <div class="row">
                     <div class="col-sm-6">
                       <div class="form-group">
-                        <input type="text" class="form-control" placeholder="1">
+                        <input type="number" class="form-control" placeholder="1" min="0">
                       </div>
                     </div>
 
                     <div class="col-sm-6">
-                      <a href="#" class="btn btn-primary btn-block">Add to Cart</a>
+                      <button class="btn btn-primary btn-block" type="submit">Add to cart</button>
+                      {{-- <a href="#" class="btn btn-primary btn-block">Add to Cart</a> --}}
                     </div>
                   </div>
                 </div>

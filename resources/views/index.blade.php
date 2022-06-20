@@ -85,7 +85,7 @@
           </div>
           <div class="col-md-6">
             <div class="right-image">
-              <img src="../images/about-1-570x350.jpg" alt="">
+              <img src="{{ url('images/about-1-570x350.jpg') }}" alt="" width="570px" height="350px">
             </div>
           </div>
         </div>
@@ -218,7 +218,7 @@
     </div>
 
 
-    <div class="call-to-action">
+    {{-- <div class="call-to-action">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
@@ -236,5 +236,5 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
 @stop

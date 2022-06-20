@@ -15,10 +15,10 @@ class ProductController extends Controller
      
 
     public function fixImage(Product $pd){
-        if(Storage::disk('public')->exists($pd->hinh_anh)){
-            $pd->hinh_anh=Storage::url($pd->hinh_anh);
+        if(Storage::disk('public')->exists($pd->image)){
+            $pd->image=Storage::url($pd->image);
         }else{
-            $pd->hinh_anh='/image/product/auto.jpg';
+            $pd->image='/image/product/auto.jpg';
         }
     }
 
@@ -62,14 +62,14 @@ class ProductController extends Controller
             'name'=>$request->input('name'),
             'concentration'=>$request->input('concentration'),
             'description'=>$request->input('description'),
-            'hinh_anh'=>'',
+            'image'=>'',
             'brand_id'=>$request->input('brand_id'),
             'scent_id'=>$request->input('scent_id'),
         ]);
 
         $product->save();
-        if($request->hasFile('hinh_anh')){
-            $product->hinh_anh=$request->file('hinh_anh')->store('img/product/'.$product->id,'public');
+        if($request->hasFile('image')){
+            $product->image=$request->file('image')->store('img/product/'.$product->id,'public');
         }
 
         $product->save();
@@ -116,8 +116,8 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $product=Product::find($id);
-        if($request->hasFile('hinh_anh')){
-            $product->hinh_anh=$request->file('hinh_anh')->store('img/product/'.$product->id,'public');
+        if($request->hasFile('image')){
+            $product->image=$request->file('image')->store('img/product/'.$product->id,'public');
         }
         $product->fill([
             'name'=>$request->input('name'),
@@ -142,5 +142,14 @@ class ProductController extends Controller
         $product=Product::find($id);
         $product->delete();
         return Redirect::route('productad.index');
+    }
+
+    public function product()
+    {
+        $lstProduct=Product::paginate(9);
+        foreach($lstProduct as $pd){
+            $this->fixImage($pd);
+        }
+        return view('product',['lstProduct'=>$lstProduct]);
     }
 }

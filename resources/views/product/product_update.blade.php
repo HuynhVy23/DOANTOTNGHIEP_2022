@@ -40,7 +40,7 @@
                     </div>
                 </div>
                     <div class="card">
-                        <img src="{{ $product->hinh_anh }}" width="500px" height="500px">
+                        <img src="{{ $product->image }}" width="500px" height="500px">
                     </div>
 </div>
                 @stop

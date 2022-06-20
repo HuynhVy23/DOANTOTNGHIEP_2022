@@ -40,7 +40,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'username'=>'bail|required|alpha_dash|between:5,50',
+            'username'=>'bail|required|alpha_dash|between:4,50|unique:users,username',
             'email'=>'bail|required|email',
             'password'=>'bail|required|between:5,20|confirmed',
             'address'=>'required',
