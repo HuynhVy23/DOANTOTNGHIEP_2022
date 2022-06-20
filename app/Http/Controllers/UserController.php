@@ -4,12 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use GrahamCampbell\ResultType\Success;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+    public function fixImage(User $user){
+        if(Storage::disk('public')->exists($user->avatar)){
+            $user->avatar=Storage::url($user->avatar);
+        }else{
+            $user->avatar='/image/user/auto.jpg';
+        }
+    }
     /**
      * Display a listing of the resource.
      *
@@ -41,9 +51,9 @@ class UserController extends Controller
     {
         $request->validate([
             'username'=>'bail|required|alpha_dash|between:4,50|unique:users,username',
-            'email'=>'bail|required|email',
+            'email'=>'bail|required|email|unique:users,email',
             'password'=>'bail|required|between:5,20|confirmed',
-            'address'=>'required',
+            'address'=>'required|alpha_dash',
             'phone'=>'bail|required|numeric|digits:10'
         ]);
             $user=new User();
@@ -75,7 +85,6 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
     }
 
     /**
@@ -84,9 +93,11 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($id)
     {
-        //
+        $user=User::find($id);
+        $this->fixImage($user);
+        return view('infouser',['user'=>$user]);
     }
 
     /**
@@ -96,9 +107,26 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'address'=>'required|alpha_dash',
+            'phone'=>'bail|required|numeric|digits:10'
+        ]);
+
+        $user=User::find($id);
+        if($request->hasFile('avatar')){
+            $user->avatar=$request->file('avatar')->store('img/user/'.$user->id,'public');
+        }
+        $user->fill([
+            'address'=>$request->input('address'),
+            'birthday'=>$request->input('birthday'),
+            'phone'=>$request->input('phone'),
+            'gender'=>$request->input('gender'),
+        ]);
+        $user->save();
+        $this->fixImage($user);
+        return view('infouser',['user'=>$user,'success'=>1]);
     }
 
     /**
@@ -133,4 +161,24 @@ class UserController extends Controller
         }
         return back()->withInput($request->only('email'));
     }
+
+    public function showchangePass()
+    {
+        return view('changepass');
+    }
+
+    public function changePass(Request $request,$id)
+    {
+        $user=User::find($id);
+        $request->request->add(['password_old' => $user->password]);
+        $this->validate($request, [
+            'password' => 'required|same:password_old',
+            'newpassword'=>'bail|required|between:5,20|confirmed',
+        ]);
+
+        $user->password=bcrypt($request->input('newpassword'));
+        $user->save();
+        return route('changepass',['success'=>1]);
+    }
+
 }

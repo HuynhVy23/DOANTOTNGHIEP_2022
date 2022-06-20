@@ -76,7 +76,7 @@
                 <li class="nav-item" style="padding-left: 50px"><form><button type="submit" style="background-color: #212529; border: none;  color: white; margin-top: 10px; ">Log out</button></form></li>
                 @else --}}
                 <li class="nav-item dropdown" style="padding-left: 50px">
-                  <a href="#">
+                  <a href="{{ route('account.edit',1) }}">
                   <img  src="{{ url('images/about-1-570x350.jpg') }}" alt="" style="border-radius: 50%;" width="50px" height="50px"></a>
                   </li>
                 {{-- @endif --}}

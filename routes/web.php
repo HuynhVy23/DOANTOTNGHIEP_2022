@@ -56,7 +56,8 @@ Route::get('/admin', function () {
 Route::get('/', [ProductController::class, 'show'])->name('index');
 Route::post('/login', [UserController::class, 'login']);
 Route::get('/productdetail/{id}', [ProductDetailController::class, 'show'])->name('productdetail');
-
+Route::get('/changepass', [UserController::class, 'showchangePass'])->name('changepass');
+Route::post('/changepass', [UserController::class, 'changePass'])->name('changepassform');
 
 Route::resource('account', UserController::class);
 Route::resource('brand', BrandController::class)->except('show');
