@@ -14,11 +14,7 @@ class UserController extends Controller
 {
 
     public function fixImage(User $user){
-        if(Storage::disk('public')->exists($user->avatar)){
-            $user->avatar=Storage::url($user->avatar);
-        }else{
-            $user->avatar='/image/user/auto.jpg';
-        }
+        $user->avatar=Storage::url($user->avatar);
     }
     /**
      * Display a listing of the resource.
@@ -70,6 +66,8 @@ class UserController extends Controller
             $user->save();
             if ($request->hasFile('avatar')) {
                $user->avatar = $request->file('avatar')->store('img/user/' . $user->id, 'public');
+           }else{
+            $user->avatar = 'img/user/auto.jpg';
            }
            $user->save();
            return view('register',['success'=>1]);

@@ -42,7 +42,13 @@ class BrandController extends Controller
         $lstBrand = new Brand;
         $lstBrand->fill([
             'name_brand'=>$request->input('name_brand'),
+            'detail'=>$request->input('detail'),
+            'image_brand'=>'',
         ]);
+        $lstBrand->save();
+        if ($request->hasFile('image_brand')) {
+            $lstBrand->imgae_brand = $request->file('image_brand')->store('img/brand/' . $lstBrand->id, 'public');
+        }
         $lstBrand->save();
         return Redirect::route('brand.index',['lstBrand'=>$lstBrand]);
     }
@@ -98,5 +104,17 @@ class BrandController extends Controller
         $lstBrand=Brand::find($id);
         $lstBrand->delete();
         return Redirect::route('brand.index');
+    }
+
+    public function brand()
+    {
+        $lstBrand=Brand::all();
+        return view('brand',['brand'=>$lstBrand]);
+    }
+
+    public function showbrand($id)
+    {
+        $brand=Brand::find($id);
+        return view('branddetail',['brand'=>$brand]);
     }
 }

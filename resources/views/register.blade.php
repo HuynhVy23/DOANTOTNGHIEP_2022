@@ -1,7 +1,7 @@
 @extends('layout.layout')
 
 @section('main')
-<div class="page-heading about-heading header-text" style="background-image: url(../images/heading-1-1920x500.jpg);">
+<div class="page-heading about-heading header-text" style="background-image: url({{ url('images/heading-1-1920x500.jpg') }});">
     <div class="container">
       <div class="row">
         <div class="col-md-12">

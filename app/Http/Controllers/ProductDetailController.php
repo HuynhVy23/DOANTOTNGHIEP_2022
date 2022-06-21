@@ -18,10 +18,10 @@ class ProductDetailController extends Controller
      */
 
     public function fixImage(Product $pd){
-        if(Storage::disk('public')->exists($pd->hinh_anh)){
-            $pd->hinh_anh=Storage::url($pd->hinh_anh);
+        if(Storage::disk('public')->exists($pd->image)){
+            $pd->image=Storage::url($pd->image);
         }else{
-            $pd->hinh_anh='/image/product/auto.jpg';
+            $pd->image='/image/product/auto.jpg';
         }
     }
 
@@ -74,10 +74,16 @@ class ProductDetailController extends Controller
         foreach($productall as $pd){
             $this->fixImage($pd);
         }
-        $product=Product::find($id);
-        $this->fixImage($product);
-        $productDetail=ProductDetail::where('product_id','=',$product->id)->get();
-        return view('productdetail',['product'=>$product,'detail'=>$productDetail,'all'=>$productall]);
+        $product=Product::
+        join('brands','brands.id','=','products.brand_id')
+        ->join('scents','scents.id','=','products.scent_id')
+        ->where('products.id','=',$id)->get();
+        $product[0]->image=Storage::url($product[0]->image);
+        $productDetail=ProductDetail::where('product_id','=',$product[0]->id)
+        ->where('stock','>',0)
+        ->get();
+        $array=explode('.', $product[0]->description );
+        return view('productdetail',['product'=>$product,'detail'=>$productDetail,'all'=>$productall,'array'=>$array]);
     }
 
     /**

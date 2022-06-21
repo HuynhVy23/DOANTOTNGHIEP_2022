@@ -25,13 +25,7 @@ Route::get('/aboutus', function () {
     return view('aboutus');
 })->name('aboutus');
 
-Route::get('/blog', function () {
-    return view('blog');
-})->name('blog');
 
-Route::get('/blogdetail', function () {
-    return view('blogdetail');
-})->name('blogdetail');
 
 Route::get('/checkout', function () {
     return view('checkout');
@@ -53,11 +47,13 @@ Route::get('/admin', function () {
     return view('index_admin');
 })->name('indexAdmin');
 
-Route::get('/', [ProductController::class, 'show'])->name('index');
+Route::get('/', [ProductController::class, 'indexUser'])->name('index');
 Route::post('/login', [UserController::class, 'login']);
 Route::get('/productdetail/{id}', [ProductDetailController::class, 'show'])->name('productdetail');
 Route::get('/changepass', [UserController::class, 'showchangePass'])->name('changepass');
 Route::post('/changepass', [UserController::class, 'changePass'])->name('changepassform');
+Route::get('/brands', [BrandController::class, 'brand'])->name('brand');
+Route::get('/branddetail/{id}', [BrandController::class, 'showbrand'])->name('branddetail');
 
 Route::resource('account', UserController::class);
 Route::resource('brand', BrandController::class)->except('show');

@@ -38,7 +38,7 @@
           @foreach ($lstProduct as $pd)
           <div class="col-md-4">
             <div class="product-item">
-              <a href="{{route('productdetail',$pd->id)}}"><img src="{{ $pd->hinh_anh }}" width="370px" height="370px"></a>
+              <a href="{{route('productdetail',$pd->id)}}"><img src="{{ $pd->image }}" width="370px" height="370px"></a>
               <div class="down-content">
                 <a href="{{route('productdetail',$pd->id)}}"><h4>{{ $pd->name }}</h4></a>
                 {{-- <h6><small><del>$999.00 </del></small> $779.00</h6> --}}
@@ -97,50 +97,28 @@
         <div class="row">
           <div class="col-md-12">
             <div class="section-heading">
-              <h2>Latest blog posts</h2>
+              <h2>Favorite brand</h2>
 
-              <a href="blog.html">read more <i class="fa fa-angle-right"></i></a>
+              <a href="{{ route('brand') }}">read more <i class="fa fa-angle-right"></i></a>
             </div>
           </div>
-
+          @foreach ($brand as $b)
           <div class="col-lg-4 col-md-6">
             <div class="service-item">
-              <a href="#" class="services-item-image"><img src="../images/blog-1-370x270.jpg" class="img-fluid" alt=""></a>
+              <a href="{{ route('branddetail',$b->id) }}" class="services-item-image"><img src="{{ $b->image_brand }}" class="img-fluid" alt="" width="289px" height="211px"></a>
 
               <div class="down-content">
-                <h4><a href="#">Lorem ipsum dolor sit amet, consectetur adipisicing elit hic</a></h4>
-
-                <p style="margin: 0;"> John Doe &nbsp;&nbsp;|&nbsp;&nbsp; 12/06/2020 10:30 &nbsp;&nbsp;|&nbsp;&nbsp; 114</p>
+                <h4><a href="#">{{ $b->name_brand }}</a></h4>
+                <p style="margin: 0;"> {{ $b->detail }}</p>
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6">
-            <div class="service-item">
-              <a href="#" class="services-item-image"><img src="../images/blog-2-370x270.jpg" class="img-fluid" alt=""></a>
-
-              <div class="down-content">
-                <h4><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit</a></h4>
-
-                <p style="margin: 0;"> John Doe &nbsp;&nbsp;|&nbsp;&nbsp; 12/06/2020 10:30 &nbsp;&nbsp;|&nbsp;&nbsp; 114</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-            <div class="service-item">
-              <a href="#" class="services-item-image"><img src="../images/blog-3-370x270.jpg" class="img-fluid" alt=""></a>
-
-              <div class="down-content">
-                <h4><a href="#">Aperiam modi voluptatum fuga officiis cumque</a></h4>
-
-                <p style="margin: 0;"> John Doe &nbsp;&nbsp;|&nbsp;&nbsp; 12/06/2020 10:30 &nbsp;&nbsp;|&nbsp;&nbsp; 114</p>
-              </div>
-            </div>
-          </div>
+          @endforeach
         </div>
       </div>
     </div>
 
-    <div class="happy-clients">
+    {{-- <div class="happy-clients">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
@@ -215,7 +193,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
 
 
     {{-- <div class="call-to-action">

@@ -7,7 +7,7 @@
           <div class="col-md-12">
             <div class="text-content">
               <h4>Product Detail</h4>
-              <h2>{{ $product->name }}</h2>
+              <h2>{{ $product[0]->name }}</h2>
             </div>
           </div>
         </div>
@@ -19,7 +19,7 @@
         <div class="row">
           <div class="col-md-4 col-xs-12">
             <div>
-              <img src="{{ $product->hinh_anh }}" alt="" class="img-fluid wc-image" width="370px" height="370px">
+              <img src="{{ $product[0]->image }}" alt="" class="img-fluid wc-image" width="370px" height="370px">
             </div>
             <br>
             <div class="row">
@@ -28,7 +28,7 @@
 
           <div class="col-md-8 col-xs-12">
             <form action="#" method="post" class="form">
-              <h2>{{ $product->name }}</h2>
+              <h2>{{ $product[0]->name }}</h2>
 
               <br>
 
@@ -39,20 +39,21 @@
                 <input id="price{{ $dt->id }}" style="display: none;opacity:0" type="hidden" value=" {{ number_format( $dt->price , 0, ',', '.') . " VND" }}"/>
                 @endforeach
               </p>
-
               <br>
-
+              <p class="lead"><strong>Brand : </strong>{{ $product[0]->name_brand }}</p>
+              <p class="lead"><strong>Scent : </strong>{{ $product[0]->name_scent }}</p>
+              <br>
+              @foreach ($array as $a)
               <p class="lead">
-                {{ $product->description }}
-              </p>
-
+                {{ $a }}
+              </p><br>
+              @endforeach
               <br> 
-
               <div class="row">
                 <div class="col-sm-4">
                   <label class="control-label">Choose capacity</label>
                   <div class="form-group">
-                    <select class="form-control"  id="getprice">
+                    <select class="form-control"  id="getprice" onchange="a($detail)">
                       @foreach ($detail as $dt)
                       <option value="{{ $dt->id }}">{{ $dt->capacity }}</option>
                       @endforeach
@@ -64,9 +65,12 @@
                   <div class="row">
                     <div class="col-sm-6">
                       <div class="form-group">
-                        <input type="number" class="form-control" placeholder="1" min="0">
+                        <input id="quantity" name="quantity" type="number" class="form-control" placeholder="1" min="0" max="{{ $detail[0]->stock }}" >
                       </div>
                     </div>
+                    @foreach ($detail as $dt)
+                <input id="stock{{ $dt->id }}" style="display: none;opacity:0" type="hidden" value="{{ $dt->stock }}"/>
+                @endforeach
 
                     <div class="col-sm-6">
                       <button class="btn btn-primary btn-block" type="submit">Add to cart</button>
@@ -87,13 +91,13 @@
           <div class="col-md-12">
             <div class="section-heading">
               <h2>Similar Products</h2>
-              <a href="products.html">view more <i class="fa fa-angle-right"></i></a>
+              <a href="{{ route('product') }}">view more <i class="fa fa-angle-right"></i></a>
             </div>
           </div>
           @for ($i=0;$i<3;$i++)
           <div class="col-md-4">
             <div class="product-item">
-              <a href="{{route('productdetail',$all[$i]->id)}}"><img src="{{ $all[$i]->hinh_anh }}" width="250px" height="210px" alt=""></a>
+              <a href="{{route('productdetail',$all[$i]->id)}}"><img src="{{ $all[$i]->image }}" width="250px" height="210px" alt=""></a>
               <div class="down-content">
                 <a href="{{route('productdetail',$all[$i]->id)}}"><h4>{{ $all[$i]->name }}</h4></a>
                 {{-- <h6><small><del>$999.00 </del></small> $779.00</h6> --}}

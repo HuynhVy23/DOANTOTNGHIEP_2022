@@ -20,7 +20,7 @@
       @foreach ($lstProduct as $pd)
       <div class="col-md-4">
         <div class="product-item">
-          <a href="{{route('productdetail',$pd->id)}}"><img src="{{ $pd->hinh_anh }}" width="350px" height="350px"></a>
+          <a href="{{route('productdetail',$pd->id)}}"><img src="{{ $pd->image }}" width="350px" height="350px"></a>
               <div class="down-content">
                 <a href="{{route('productdetail',$pd->id)}}"><h4>{{ $pd->name }}</h4></a>
                 {{-- <h6><small><del>$999.00 </del></small> $779.00</h6> --}}

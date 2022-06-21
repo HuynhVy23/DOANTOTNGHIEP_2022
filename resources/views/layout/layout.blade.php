@@ -68,7 +68,7 @@
                     </div>
                 </li> --}}
 
-                <li class="nav-item"><a class="nav-link" href="{{ route('product') }}">Brand</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('brand') }}">Brand</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('checkout') }}">Cart</a></li>
 
                 <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">Contact Us</a></li>
@@ -76,7 +76,7 @@
                 <li class="nav-item" style="padding-left: 50px"><form><button type="submit" style="background-color: #212529; border: none;  color: white; margin-top: 10px; ">Log out</button></form></li>
                 @else --}}
                 <li class="nav-item dropdown" style="padding-left: 50px">
-                  <a href="{{ route('account.edit',1) }}">
+                  <a href="{{ route('account.edit',2) }}">
                   <img  src="{{ url('images/about-1-570x350.jpg') }}" alt="" style="border-radius: 50%;" width="50px" height="50px"></a>
                   </li>
                 {{-- @endif --}}
@@ -161,9 +161,11 @@
   <script>
  document.getElementById("getprice").onchange = function(){
     var value = document.getElementById("getprice").value;
-    var message = document.getElementById('price');
-    message.innerHTML=document.getElementById('price'+value).value;
+    var max=document.getElementById('stock'+value).value;
+    document.getElementById('price').innerHTML=document.getElementById('price'+value).value;
+    document.getElementById("quantity").max = max;
  }
+
 //     function priceChanged()
 // {
 //     var message = document.getElementById('show_price');

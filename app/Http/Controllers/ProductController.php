@@ -22,6 +22,14 @@ class ProductController extends Controller
         }
     }
 
+    public function fixImageBrand(Brand $br){
+        if(Storage::disk('public')->exists($br->image)){
+            $br->image=Storage::url($br->image);
+        }else{
+            $br->image='/image/brand/auto.jpg';
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -84,11 +92,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $lstProduct=Product::all();
-        foreach($lstProduct as $pd){
-            $this->fixImage($pd);
-        }
-        return view('index',['lstProduct'=>$lstProduct]);
+       //
     }
 
     /**
@@ -151,5 +155,18 @@ class ProductController extends Controller
             $this->fixImage($pd);
         }
         return view('product',['lstProduct'=>$lstProduct]);
+    }
+
+    public function indexUser()
+    {
+        $lstBrand=Brand::take(3)->get();
+        foreach($lstBrand as $br){
+            $this->fixImageBrand($br);
+        }
+        $lstProduct=Product::take(6)->get();
+        foreach($lstProduct as $pd){
+            $this->fixImage($pd);
+        }
+        return view('index',['lstProduct'=>$lstProduct,'brand'=>$lstBrand]);
     }
 }
