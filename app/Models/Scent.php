@@ -11,8 +11,8 @@ class Scent extends Model
     protected $guarded=[];
     protected $primaryKey = 'id';
 
-    public function product()
+    public function totalPerfume()
     {
-       return $this->hasMany(Product::class);
+       return $this->hasMany(Product::class,'scent_id','id');
     }
 }

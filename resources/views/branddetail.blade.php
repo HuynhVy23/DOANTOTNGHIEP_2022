@@ -6,8 +6,8 @@
         <div class="row">
           <div class="col-md-12">
             <div class="text-content">
-              <h4><i class="fa fa-user"></i>John Doe  &nbsp;&nbsp;&nbsp;&nbsp;  <i class="fa fa-calendar"></i> 12/06/2020 10:30   &nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-eye"></i> 114</h4>
-              <h2>Lorem ipsum dolor sit amet, consectetur adipisicing</h2>
+              <h4>Brand</h4>
+              <h2>{{ $brand->name_brand }}</h2>
             </div>
           </div>
         </div>
@@ -19,30 +19,17 @@
         <div class="row">
             <div class="col-md-12">
               <div class="section-heading">
-                <h2>Lorem ipsum dolor sit amet, consectetur.</h2>
+                <h2>{{ $brand->name_brand }}</h2>
               </div>
             </div>
 
             <div class="col-md-8">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat, sed. Ex, id autem cum assumenda, quisquam cupiditate amet dolorem atque ipsam pariatur sequi voluptatem est nesciunt eum, aspernatur, tenetur rem. <br>
-
-                <br>
-
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, consequatur, magnam. Dolorum vitae a vel quisquam. Fuga quia suscipit id veritatis sint earum impedit corporis quidem eum consectetur ipsam ex sequi ad, distinctio enim tenetur eveniet eligendi. Laborum, sapiente, magnam.</p>
-
-                <br>
-
-                <h5>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, modi.</h5>
-
-                <br>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam officia in adipisci. Corporis rem beatae cupiditate neque consequuntur necessitatibus expedita laudantium temporibus quam ex quidem, aut non blanditiis soluta deserunt dolores mollitia repudiandae voluptatibus perspiciatis dolor quos distinctio! Atque, magnam. <br>
-
-                <br>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt dolore ducimus, ad itaque reprehenderit repellat dignissimos, qui velit dolores voluptas.</p>
+              @foreach ($brand->detail as $dt)
+                  <p>{{ $dt }}</p><br>
+              @endforeach
             </div>
 
-            <div class="col-md-4">
+            {{-- <div class="col-md-4">
               <div class="left-content">
                 <h4>Lorem ipsum dolor sit amet.</h4>
 
@@ -52,18 +39,46 @@
                 
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum, minus?</p>
               </div>
-            </div>
+            </div> --}}
         </div>
 
         <br>
         
         <div>
-          <img src="../images/blog-image-fullscren-1-1920x700.jpg" class="img-fluid" alt="">
+          <img src="{{ $brand->image_brand }}" class="img-fluid" alt="" width="930px" height="339px">
         </div>
       </div>
     </div>
 
     <div class="send-message">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-heading">
+              <h2>Product of brand</h2>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="row">
+          @foreach ($product as $pd)
+          <div class="col-md-4">
+            <div class="product-item">
+              <a href="{{route('productdetail',$pd->id)}}"><img src="{{ $pd->image }}" width="350px" height="350px"></a>
+                  <div class="down-content">
+                    <a href="{{route('productdetail',$pd->id)}}"><h4>{{ $pd->name }}</h4></a>
+                    {{-- <h6><small><del>$999.00 </del></small> $779.00</h6> --}}
+                      <p><strong>Description : </strong>{{ $pd->description }}</p>
+                  </div>
+                </div>
+              </div>  
+          @endforeach
+        </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+    {{-- <div class="send-message">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
@@ -117,6 +132,6 @@
             </div>
         </div>
       </div>
-    </div>
+    </div> --}}
 
     @stop

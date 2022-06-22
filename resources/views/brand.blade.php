@@ -14,12 +14,14 @@
     </div>
 
     <div class="products">
-      <div class="container">
+      <div class="container" >
         <div class="row">
-          <div class="col-md-8">
+         
+          <div class="col-md-12">
             <div class="row">
+              
               @foreach ($brand as $br)
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="service-item">
                   <a href="{{ route('branddetail',$br->id) }}" class="services-item-image"><img src="{{ $br->image_brand }}" class="img-fluid" alt="" width="290px" height="212px"></a>
 
@@ -54,32 +56,6 @@
                 </ul>
               </div>
             </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="contact-form">
-              <div class="form-group">
-                <h5>Blog Search</h5>
-              </div>
-
-              <div class="row">
-                <div class="col-8">
-                  <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
-                </div>
-
-                <div class="col-4">
-                  <button class="filled-button" type="button">Go</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <h5>Lorem ipsum dolor sit amet</h5>
-            </div>
-
-            <p><a href="blog-details.html">Lorem ipsum dolor sit amet, consectetur adipisicing.</a></p>
-            <p><a href="blog-details.html">Et animi voluptatem, assumenda enim, consectetur quaerat!</a></p>
-            <p><a href="blog-details.html">Ducimus magni eveniet sit doloremque molestiae alias mollitia vitae.</a></p>
           </div>
         </div>
       </div>

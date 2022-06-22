@@ -154,7 +154,9 @@ class ProductController extends Controller
         foreach($lstProduct as $pd){
             $this->fixImage($pd);
         }
-        return view('product',['lstProduct'=>$lstProduct]);
+        $brand=Brand::all();
+        $scent=Scent::all();
+        return view('product',['lstProduct'=>$lstProduct,'brand'=>$brand,'scent'=>$scent]);
     }
 
     public function indexUser()

@@ -54,6 +54,7 @@ Route::get('/changepass', [UserController::class, 'showchangePass'])->name('chan
 Route::post('/changepass', [UserController::class, 'changePass'])->name('changepassform');
 Route::get('/brands', [BrandController::class, 'brand'])->name('brand');
 Route::get('/branddetail/{id}', [BrandController::class, 'showbrand'])->name('branddetail');
+Route::get('/scent/{id}', [ScentController::class, 'showscent'])->name('scent');
 
 Route::resource('account', UserController::class);
 Route::resource('brand', BrandController::class)->except('show');

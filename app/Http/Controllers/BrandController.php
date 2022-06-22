@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -115,6 +117,12 @@ class BrandController extends Controller
     public function showbrand($id)
     {
         $brand=Brand::find($id);
-        return view('branddetail',['brand'=>$brand]);
+        $brand->detail=explode('.',$brand->detail);
+        $product=Product::where('brand_id','=',$id)->get();
+        foreach($product as $p){
+            $p->image=Storage::url($p->image);
+        }
+        return view('branddetail',['brand'=>$brand,'product'=>$product]);
     }
+
 }

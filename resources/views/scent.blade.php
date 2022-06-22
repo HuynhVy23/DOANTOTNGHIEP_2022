@@ -6,8 +6,8 @@
     <div class="row">
       <div class="col-md-12">
         <div class="text-content">
-          <h4>Perfume</h4>
-          <h2>All Product</h2>
+          <h4>Scent</h4>
+          <h2>{{ $scent->name_scent }}</h2>
         </div>
       </div>
     </div>
@@ -15,30 +15,9 @@
 </div>
 
 <div class="products">
-  <div class="container" style="max-width:1500px">
+  <div class="container">
     <div class="row">
-      <div class="col-md-2">
-        <div class="contact-form">
-          <div >
-            <h5>Brands</h5>
-          </div>
-          <div class="row">
-            <div class="col-8">
-              @foreach ($brand as $b)
-                <a href="{{ route('branddetail',$b->id) }}">{{ $b->name_brand  }} ({{ $b->totalPerfume->count() }})</a><br>
-              @endforeach
-            </div>
-          </div>
-        </div>
-        <br>
-        <div>
-          <h5>Scents</h5>
-        </div>
-        @foreach ($scent as $c)
-        <a href="{{ route('scent',$c->id) }}">{{ $c->name_scent    }} ({{ $c->totalPerfume->count() }})</a><br>
-      @endforeach
-      </div>
-      <div class="col-md-8">
+      <div class="col-md-12">
         <div class="row">
       @foreach ($lstProduct as $pd)
       <div class="col-md-4">
@@ -52,10 +31,6 @@
             </div>
           </div>  
       @endforeach
-        
-      <div class="col-md-12">
-        {{ $lstProduct->appends(request()->all())->links() }}
-      </div>
     </div>
   </div>
     </div>

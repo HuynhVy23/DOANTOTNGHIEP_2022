@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Scent;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -98,5 +100,15 @@ class ScentController extends Controller
         $lstScent=Scent::find($id);
         $lstScent->delete();
         return Redirect::route('scent.index');
+    }
+
+    public function showscent($id)
+    {
+        $scent=Scent::find($id);
+        $lstProduct=Product::where('scent_id','=',$id)->get();
+        foreach($lstProduct as $p){
+            $p->image=Storage::url($p->image);
+        }
+        return view('scent',['scent'=>$scent,'lstProduct'=>$lstProduct]);
     }
 }
