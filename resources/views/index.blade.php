@@ -106,9 +106,8 @@
           <div class="col-lg-4 col-md-6">
             <div class="service-item">
               <a href="{{ route('branddetail',$b->id) }}" class="services-item-image"><img src="{{ $b->image_brand }}" class="img-fluid" alt="" width="289px" height="211px"></a>
-
               <div class="down-content">
-                <h4><a href="#">{{ $b->name_brand }}</a></h4>
+                <h4><a href="{{ route('branddetail',$b->id) }}">{{ $b->name_brand }}</a></h4>
                 <p style="margin: 0;"> {{ $b->detail }}</p>
               </div>
             </div>

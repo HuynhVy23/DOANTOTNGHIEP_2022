@@ -69,7 +69,7 @@
                 </li> --}}
 
                 <li class="nav-item"><a class="nav-link" href="{{ route('brand') }}">Brand</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('checkout') }}">Cart</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('cart.index') }}">Cart</a></li>
 
                 <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">Contact Us</a></li>
                 {{-- @if ( Auth::guard('user')->check() )

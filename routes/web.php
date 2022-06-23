@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ScentController;
 use App\Http\Controllers\ProductDetailController;
@@ -25,11 +26,6 @@ Route::get('/aboutus', function () {
     return view('aboutus');
 })->name('aboutus');
 
-
-
-Route::get('/checkout', function () {
-    return view('checkout');
-})->name('checkout');
 
 Route::get('/contact', function () {
     return view('contact');
@@ -55,6 +51,7 @@ Route::post('/changepass', [UserController::class, 'changePass'])->name('changep
 Route::get('/brands', [BrandController::class, 'brand'])->name('brand');
 Route::get('/branddetail/{id}', [BrandController::class, 'showbrand'])->name('branddetail');
 Route::get('/scent/{id}', [ScentController::class, 'showscent'])->name('scent');
+Route::resource('cart', CartController::class);
 
 Route::resource('account', UserController::class);
 Route::resource('brand', BrandController::class)->except('show');

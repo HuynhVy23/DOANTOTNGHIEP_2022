@@ -133,4 +133,6 @@ class ProductDetailController extends Controller
         $productDetail->delete();
         return Redirect::route('product_detail.index');
     }
+
+    
 }
