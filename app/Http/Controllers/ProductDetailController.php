@@ -79,7 +79,7 @@ class ProductDetailController extends Controller
         ->join('scents','scents.id','=','products.scent_id')
         ->where('products.id','=',$id)->get();
         $product[0]->image=Storage::url($product[0]->image);
-        $productDetail=ProductDetail::where('product_id','=',$product[0]->id)
+        $productDetail=ProductDetail::where('product_id','=',$id)
         ->where('stock','>',0)
         ->get();
         $array=explode('.', $product[0]->description );

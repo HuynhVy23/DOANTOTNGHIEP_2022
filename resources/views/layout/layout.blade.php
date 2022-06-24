@@ -58,18 +58,16 @@
 
                 <li class="nav-item"><a class="nav-link" href="{{ route('product') }}">Products</a></li>
 
-                {{-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">More</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">Gender</a>
                     <div class="dropdown-menu">
-                      <a class="dropdown-item" href="{{ route('aboutus') }}">About Us</a>
-                      <a class="dropdown-item" href="{{ route('blog') }}">Blog</a>
-                      <a class="dropdown-item" href="{{ route('testimonial') }}">Testimonials</a>
-                      <a class="dropdown-item" href="{{ route('term') }}">Terms</a>
-                    </div>
-                </li> --}}
+                      <a class="dropdown-item" href="">Men</a>
+                      <a class="dropdown-item" href="">Women</a>
+                      <a class="dropdown-item" href="">Unisex</a>
+                </li>
 
                 <li class="nav-item"><a class="nav-link" href="{{ route('brand') }}">Brand</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('cart.index') }}">Cart</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('cart.show','dinooo') }}">Cart</a></li>
 
                 <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">Contact Us</a></li>
                 {{-- @if ( Auth::guard('user')->check() )
@@ -166,10 +164,23 @@
     document.getElementById("quantity").max = max;
  }
 
-//     function priceChanged()
-// {
-//     var message = document.getElementById('show_price');
-//     var value = document.getElementById('getprice').value;
-//     message.innerHTML=document.getElementById(value);
-// }
+    function cartquantity(id)
+{
+    var price = document.getElementById('price'+id).value;
+    var quantity = document.getElementById('quantity'+id).value;
+    a=price*quantity;
+    total=new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format(a);
+    document.getElementById('total'+id).innerHTML=total;
+    document.getElementById('ttotal'+id).value=a;
+
+    var total1=0;
+    var x = document.getElementsByClassName("total");
+    var i;
+    for (i = 0; i < x.length; i++) {
+    total1=total1+parseInt(x[i].value);
+    
+  }
+  bill=new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format(total1);
+  document.getElementById('total').innerHTML=bill;
+}
   </script>

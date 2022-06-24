@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ScentController;
 use App\Http\Controllers\ProductDetailController;
@@ -52,6 +53,8 @@ Route::get('/brands', [BrandController::class, 'brand'])->name('brand');
 Route::get('/branddetail/{id}', [BrandController::class, 'showbrand'])->name('branddetail');
 Route::get('/scent/{id}', [ScentController::class, 'showscent'])->name('scent');
 Route::resource('cart', CartController::class);
+Route::resource('invoice', InvoiceController::class);
+Route::get('/cartd/{id}', [CartController::class, 'delete'])->name('cartdelete');
 
 Route::resource('account', UserController::class);
 Route::resource('brand', BrandController::class)->except('show');
