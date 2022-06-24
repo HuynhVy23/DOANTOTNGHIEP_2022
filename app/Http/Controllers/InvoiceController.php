@@ -8,7 +8,8 @@ use Carbon\Carbon;
 use App\Models\Cart;
 use App\Models\Invoice;
 use App\Models\InvoiceDetail;
-use App\Models\Product;
+
+use Illuminate\Support\Facades\Storage;
 use App\Models\ProductDetail;
 use Illuminate\Support\Facades\Redirect;
 
@@ -21,7 +22,26 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        //
+        $invoice=Invoice::where('username','like','dinooo')->get();
+        // $quantity=array();
+        // foreach($invoice as $inv){
+        //     $invdetail=InvoiceDetail::where('id_invoice','=',$inv->id);
+        //     $quantity[$inv->id]=0;
+        //     foreach($invdetail as $dt){
+        //         $quantity[$inv->id]+=$dt->quantity;
+        //     }
+        // }
+        foreach($invoice as $inv){
+            if($inv->status==0){
+                $inv->status='Waiting for confirmation';
+            }else if($inv->status==1){
+                $inv->status='Being shipped';
+            }else{
+                $inv->status='Delivered';
+            }
+        }
+        return view('invoice',['invoice'=>$invoice]);
+        
     }
 
     /**
@@ -115,7 +135,24 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
-        //
+        $invoice=Invoice::find($id);
+        if($invoice->status==0){
+            $invoice->status='Waiting for confirmation';
+        }else if($invoice->status==1){
+            $invoice->status='Being shipped';
+        }else{
+            $invoice->status='Delivered';
+        }
+        $invoicedetail=InvoiceDetail::select('product_details.id','image','name','invoice_details.price','invoice_details.quantity','capacity')
+        ->join('product_details','product_details.id','=','invoice_details.id_product')
+        ->join('products','products.id','=','product_details.product_id')
+        ->where('id_invoice','=',$id)->get();
+        $total=0;
+        foreach($invoicedetail as $inv){
+            $total+=$inv->price*$inv->quantity;
+            $inv->image=Storage::url($inv->image);
+        }
+        return view('invoicedetail',['invoicedetail'=>$invoicedetail,'total'=>$total,'invoice'=>$invoice]);
     }
 
     /**

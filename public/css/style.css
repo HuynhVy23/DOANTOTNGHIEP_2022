@@ -1117,3 +1117,8 @@ footer .inner-content p a {
 	}
 }
 .error p{color:#f16745; border: none; margin: 0;}
+.inv p{
+    font-size: 15px;
+    font-weight: 400;
+    color: #212529;
+}

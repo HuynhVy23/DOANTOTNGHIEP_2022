@@ -69,7 +69,7 @@
                 <li class="nav-item"><a class="nav-link" href="{{ route('brand') }}">Brand</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('cart.show','dinooo') }}">Cart</a></li>
 
-                <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">Contact Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('invoice.index') }}">My bill</a></li>
                 {{-- @if ( Auth::guard('user')->check() )
                 <li class="nav-item" style="padding-left: 50px"><form><button type="submit" style="background-color: #212529; border: none;  color: white; margin-top: 10px; ">Log out</button></form></li>
                 @else --}}
