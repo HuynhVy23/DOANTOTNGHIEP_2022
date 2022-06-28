@@ -64,6 +64,7 @@
                       <a class="dropdown-item" href="">Men</a>
                       <a class="dropdown-item" href="">Women</a>
                       <a class="dropdown-item" href="">Unisex</a>
+                    </div>
                 </li>
 
                 <li class="nav-item"><a class="nav-link" href="{{ route('brand') }}">Brand</a></li>
@@ -73,9 +74,24 @@
                 {{-- @if ( Auth::guard('user')->check() )
                 <li class="nav-item" style="padding-left: 50px"><form><button type="submit" style="background-color: #212529; border: none;  color: white; margin-top: 10px; ">Log out</button></form></li>
                 @else --}}
-                <li class="nav-item dropdown" style="padding-left: 50px">
-                  <a href="{{ route('account.edit',2) }}">
-                  <img  src="{{ url('images/about-1-570x350.jpg') }}" alt="" style="border-radius: 50%;" width="50px" height="50px"></a>
+               
+                  @if (Auth::check())
+                  <li class="nav-item dropdown" style="padding-left: 50px">
+                    <a class="nav-link dropdown-toggle" style="margin-top: 0;border-bottom:none;padding-bottom:11px;" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">
+                    <img  src="{{ url(Auth::user()->avatar) }}" alt="" style="border-radius: 50%;" width="50px" height="50px"></a>
+                    <div class="dropdown-menu">
+                      <form action="{{ route('updateuser') }} " method="POST">
+                        @csrf
+                        <input type="hidden" value="{{ Auth::user()->id }}" name="id">
+                        <button class="dropdown-item" type="submit">Infomation</button>
+                      </form>
+                      <a class="dropdown-item" href="{{ route('changepassform') }}">Change Password</a>
+                      <a class="dropdown-item" href="{{ route('logout') }}">Log out</a>
+                    </div>
+                    @else
+                    <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+                  @endif
+                  
                   </li>
                 {{-- @endif --}}
             </ul>

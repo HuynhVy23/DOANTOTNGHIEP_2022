@@ -19,7 +19,7 @@
             <div class="inv">
             <p>Shipping Address : {{ $invoice->shipping_address }}</p><br>
             <p>Shipping Phone : {{ $invoice->shipping_phone }}</p><br>
-            <p>Date payment : {{ $invoice->created_at }}</p><br>
+            <p>Date payment : {{ $date }}</p><br>
         </div>
                <div class="table-responsive">
                     <table class="table table-striped">
@@ -30,6 +30,7 @@
                                 <th>Capacity</th>
                                 <th>Quantity</th>
                                 <th>Price</th>
+                                <th>Sub-total</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,6 +41,7 @@
                               <td>{{ $inv->capacity }}</td>
                               <td>{{ $inv->quantity }}</td>
                               <td>{{ number_format( $inv->price , 0, ',', '.') . " VND" }}</td>
+                              <td>{{ number_format( $inv->price*$inv->quantity , 0, ',', '.') . " VND" }}</td>
                            </tr>
                            @endforeach  
                              </tbody>

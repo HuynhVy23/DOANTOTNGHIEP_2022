@@ -127,7 +127,7 @@
 
                    <div class="clearfix">
                         
-                        <button type="submit" class="filled-button pull-right">Finish</button>
+                        <button type="submit" class="filled-button pull-right">Checkout</button>
                    </div>
               </form>
           </div>

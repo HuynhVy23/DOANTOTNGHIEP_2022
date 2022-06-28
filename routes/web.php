@@ -45,10 +45,13 @@ Route::get('/admin', function () {
 })->name('indexAdmin');
 
 Route::get('/', [ProductController::class, 'indexUser'])->name('index');
-Route::post('/login', [UserController::class, 'login']);
-Route::get('/productdetail/{id}', [ProductDetailController::class, 'show'])->name('productdetail');
+Route::get('/login', [UserController::class, 'formlogin'])->name('login')->middleware('checkuser');
+Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+Route::post('/updateuser', [UserController::class, 'updateuser'])->name('updateuser');
+Route::post('/handlelogin', [UserController::class, 'handlelogin'])->name('handlelogin');
 Route::get('/changepass', [UserController::class, 'showchangePass'])->name('changepass');
 Route::post('/changepass', [UserController::class, 'changePass'])->name('changepassform');
+Route::get('/productdetail/{id}', [ProductDetailController::class, 'show'])->name('productdetail');
 Route::get('/brands', [BrandController::class, 'brand'])->name('brand');
 Route::get('/branddetail/{id}', [BrandController::class, 'showbrand'])->name('branddetail');
 Route::get('/scent/{id}', [ScentController::class, 'showscent'])->name('scent');

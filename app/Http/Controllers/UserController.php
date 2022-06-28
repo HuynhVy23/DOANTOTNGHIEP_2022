@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -21,7 +22,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -91,9 +91,6 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user=User::find($id);
-        $this->fixImage($user);
-        return view('infouser',['user'=>$user]);
     }
 
     /**
@@ -140,22 +137,38 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function login(Request $request)
+    public function formlogin()
+    {
+       return view('login');
+    }
+
+    public function handlelogin(Request $request)
     {
         $this->validate($request, [
-            'email'   => 'required|email',
+            'username'   => 'required',
             'password' => 'required'
         ]);
 
-        if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password])) {
-
-            return redirect()->intended('/');
+        if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+            Auth::user()->avatar=Storage::url(Auth::user()->avatar);
+            return Redirect::action([ProductController::class,'indexUser']);
         }
-        elseif (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
-
-            return redirect()->intended('/admin');
+        else{
+            var_dump('fail');
         }
-        return back()->withInput($request->only('email'));
+    }
+
+    public function updateuser(Request $request)
+    {
+        $user=User::find($request->id);
+        $this->fixImage($user);
+        return view('infouser',['user'=>$user]);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return Redirect::action([ProductController::class,'indexUser']);
     }
 
     public function showchangePass()
@@ -163,9 +176,9 @@ class UserController extends Controller
         return view('changepass');
     }
 
-    public function changePass(Request $request,$id)
+    public function changePass(Request $request)
     {
-        $user=User::find($id);
+        $user=User::find($request->id);
         $request->request->add(['password_old' => $user->password]);
         $this->validate($request, [
             'password' => 'required|same:password_old',

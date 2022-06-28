@@ -23,7 +23,7 @@
           </div>
         </div>
         <div class="col-md-6">
-            <form action="" method="POST">
+            <form action="{{ route('handlelogin') }}" method="POST">
               @csrf
                 <div class="form-group">
                   <label for="username" class="col-form-label">Username: <em style="color: red">*</em></label>

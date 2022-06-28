@@ -1,7 +1,7 @@
 @extends('layout.layout')
 
 @section('main')
-<div class="page-heading about-heading header-text" style="background-image: url({{ url('images/heading-1-1920x500.jpg') }});">
+<div class="page-heading about-heading header-text" style="background-image: url({{ url('images/heading-6-1920x500.jpg') }});">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -36,11 +36,11 @@
               @csrf
               @method('PATCH')
                 <div class="form-group">
-                  <label for="username" class="col-form-label">Username: <em style="color: red">*</em></label>
+                  <label for="username" class="col-form-label">Username: </label>
                   <input type="text" class="form-control" name="username" value="{{ $user->username }}" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="email" class="col-form-label">Email: <em style="color: red">*</em></label>
+                    <label for="email" class="col-form-label">Email: </label>
                     <input type="text" class="form-control" name="email" value="{{ $user->email }}" readonly>
                   </div>
                   <div class="form-group">
@@ -65,6 +65,8 @@
                   <p>{{$errors->first('phone')}}</p>
                 </div>
                   @endif
+                  <div class="form-group">
+                    <label for="address" class="col-form-label">Gender:</label><br>
                   <div class="form-check-inline">
                     <label class="form-check-label" for="radio1">
                       <input type="radio" class="form-check-input" id="radio1" name="gender" value="0" @if ($user->gender==0)checked
@@ -76,6 +78,7 @@
                       <input type="radio" class="form-check-input" id="radio2" name="gender" value="1"@if ($user->gender==1)checked
                       @endif>Female
                     </label>
+                  </div>
                   </div>
                   <div class="form-group">
                     <label for="avatar" class="col-form-label">Avatar:</label>

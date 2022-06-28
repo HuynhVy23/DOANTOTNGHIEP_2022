@@ -23,14 +23,16 @@ class InvoiceController extends Controller
     public function index()
     {
         $invoice=Invoice::where('username','like','dinooo')->get();
-        // $quantity=array();
-        // foreach($invoice as $inv){
-        //     $invdetail=InvoiceDetail::where('id_invoice','=',$inv->id);
-        //     $quantity[$inv->id]=0;
-        //     foreach($invdetail as $dt){
-        //         $quantity[$inv->id]+=$dt->quantity;
-        //     }
-        // }
+        $date=array();
+        foreach($invoice as $inv){
+            $day=substr($inv->id,6,2);
+            $month=substr($inv->id,4,2);
+            $year=substr($inv->id,0,4);
+            $hour=substr($inv->id,8,2);
+            $minute=substr($inv->id,10,2);
+            $second=substr($inv->id,12,2);
+            $date[$inv->id]=$hour.":".$minute.":".$second." ".$day."-".$month."-".$year;
+        }
         foreach($invoice as $inv){
             if($inv->status==0){
                 $inv->status='Waiting for confirmation';
@@ -40,7 +42,7 @@ class InvoiceController extends Controller
                 $inv->status='Delivered';
             }
         }
-        return view('invoice',['invoice'=>$invoice]);
+        return view('invoice',['invoice'=>$invoice,'date'=>$date]);
         
     }
 
@@ -148,11 +150,18 @@ class InvoiceController extends Controller
         ->join('products','products.id','=','product_details.product_id')
         ->where('id_invoice','=',$id)->get();
         $total=0;
+        $day=substr($invoice->id,6,2);
+        $month=substr($invoice->id,4,2);
+        $year=substr($invoice->id,0,4);
+        $hour=substr($invoice->id,8,2);
+        $minute=substr($invoice->id,10,2);
+        $second=substr($invoice->id,12,2);
+        $date=$hour.":".$minute.":".$second." ".$day."-".$month."-".$year;
         foreach($invoicedetail as $inv){
             $total+=$inv->price*$inv->quantity;
             $inv->image=Storage::url($inv->image);
         }
-        return view('invoicedetail',['invoicedetail'=>$invoicedetail,'total'=>$total,'invoice'=>$invoice]);
+        return view('invoicedetail',['invoicedetail'=>$invoicedetail,'total'=>$total,'invoice'=>$invoice,'date'=>$date]);
     }
 
     /**

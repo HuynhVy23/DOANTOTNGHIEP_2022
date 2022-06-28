@@ -42,7 +42,7 @@
                               <td>{{ $inv->id }}</td>
                               <td>{{ $inv->shipping_address }}</td>
                               <td>{{ $inv->shipping_phone }}</td>
-                              <td>{{ $inv->created_at }}</td>
+                              <td>{{ $date[$inv->id] }}</td>
                               <td style="color: #FFA500">{{ $inv->status }}</td>
                               <td><a href="{{ route('invoice.show',$inv->id) }}" class="btn btn-info btn-rounded">
                                    Detail</a></td>
