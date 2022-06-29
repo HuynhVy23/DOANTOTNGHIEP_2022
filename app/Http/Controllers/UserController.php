@@ -100,14 +100,18 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
+    {
+    }
+
+    public function handleupdateuser(Request $request)
     {
         $request->validate([
             'address'=>'required|alpha_dash',
             'phone'=>'bail|required|numeric|digits:10'
         ]);
 
-        $user=User::find($id);
+        $user=User::find($request->id);
         if($request->hasFile('avatar')){
             $user->avatar=$request->file('avatar')->store('img/user/'.$user->id,'public');
         }
@@ -150,11 +154,23 @@ class UserController extends Controller
         ]);
 
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-            Auth::user()->avatar=Storage::url(Auth::user()->avatar);
-            return Redirect::action([ProductController::class,'indexUser']);
+            $user=User::where('username','=',$request->username)->first();
+            Auth::login($user);
+            Auth::user()->avatar=Storage::url($user->avatar);
+            if($user->username=="Admin")
+            {
+                return Redirect::route('indexAdmin');
+            }else{
+                return Redirect::action([ProductController::class,'indexUser']);
+            }
         }
         else{
-            var_dump('fail');
+            $user=User::where('username','=',$request->username)->first();
+            if($user){
+                return Redirect::back()->withErrors(['fail' =>"Incorrect password."]);
+            }else{
+                return Redirect::back()->withErrors(['fail' =>"Incorrect username and password."]);
+            }
         }
     }
 

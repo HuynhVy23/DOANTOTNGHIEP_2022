@@ -78,7 +78,7 @@
                   @if (Auth::check())
                   <li class="nav-item dropdown" style="padding-left: 50px">
                     <a class="nav-link dropdown-toggle" style="margin-top: 0;border-bottom:none;padding-bottom:11px;" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">
-                    <img  src="{{ url(Auth::user()->avatar) }}" alt="" style="border-radius: 50%;" width="50px" height="50px"></a>
+                    <img  src="{{ Storage::url(Auth::user()->avatar) }}" alt="" style="border-radius: 50%;" width="50px" height="50px"></a>
                     <div class="dropdown-menu">
                       <form action="{{ route('updateuser') }} " method="POST">
                         @csrf

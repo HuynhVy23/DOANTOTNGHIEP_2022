@@ -25,6 +25,14 @@
         <div class="col-md-6">
             <form action="{{ route('handlelogin') }}" method="POST">
               @csrf
+              @if($errors->any())
+          @error('fail')
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{$message}}
+            </button>
+          </div>
+          @enderror
+          @endif
                 <div class="form-group">
                   <label for="username" class="col-form-label">Username: <em style="color: red">*</em></label>
                   <input type="text" class="form-control" name="username" placeholder="Enter Username">

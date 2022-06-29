@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
-class CheckUser
+class CheckAdmin
 {
     /**
      * Handle an incoming request.
@@ -19,11 +19,11 @@ class CheckUser
     public function handle(Request $request, Closure $next)
     {
         if(Auth::check()){
-            if(Auth::user()->username!="Admin"){
+            if(Auth::user()->username=="Admin"){
                 return $next($request);
             }
             return Redirect::back()->withInput();
         }
-        return $next($request);
+       return Redirect::route('login');
     }
 }

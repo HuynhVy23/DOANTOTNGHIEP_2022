@@ -19,18 +19,29 @@ use App\Http\Controllers\ProductDetailController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::prefix('/')->middleware(['auth','checkuser'])->group(function (){
+Route::post('updateuser', [UserController::class, 'updateuser'])->name('updateuser');
+Route::post('handleupdateuser', [UserController::class, 'handleupdateuser'])->name('handleupdateuser');
+Route::get('changepass', [UserController::class, 'showchangePass'])->name('changepass');
+Route::post('changepass', [UserController::class, 'changePass'])->name('changepassform');
+Route::resource('cart', CartController::class);
+Route::resource('invoice', InvoiceController::class);
+Route::get('cartd/{id}', [CartController::class, 'delete'])->name('cartdelete');
+}); 
 
+Route::prefix('/')->middleware('checkadmin2')->group(function (){
+    Route::get('/product', [ProductController::class, 'product'])->name('product');
+    Route::get('/', [ProductController::class, 'indexUser'])->name('index');
+    Route::get('/productdetail/{id}', [ProductDetailController::class, 'show'])->name('productdetail');
+    Route::get('/brands', [BrandController::class, 'brand'])->name('brand');
+    Route::get('/branddetail/{id}', [BrandController::class, 'showbrand'])->name('branddetail');
+    Route::get('/scent/{id}', [ScentController::class, 'showscent'])->name('scent');        
+});
 
-Route::get('/product', [ProductController::class, 'product'])->name('product');
+Route::get('logout', [UserController::class, 'logout'])->name('logout')->middleware('auth');
 
-Route::get('/aboutus', function () {
-    return view('aboutus');
-})->name('aboutus');
-
-
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
+Route::get('/login', [UserController::class, 'formlogin'])->name('login')->middleware('checkuser');
+Route::post('/handlelogin', [UserController::class, 'handlelogin'])->name('handlelogin');
 
 Route::get('/term', function () {
     return view('term');
@@ -40,27 +51,13 @@ Route::get('/testimonial', function () {
     return view('testimonial');
 })->name('testimonial');
 
-Route::get('/admin', function () {
+Route::prefix('admin')->middleware('checkadmin')->group(function (){
+Route::get('/', function () {
     return view('index_admin');
 })->name('indexAdmin');
-
-Route::get('/', [ProductController::class, 'indexUser'])->name('index');
-Route::get('/login', [UserController::class, 'formlogin'])->name('login')->middleware('checkuser');
-Route::get('/logout', [UserController::class, 'logout'])->name('logout');
-Route::post('/updateuser', [UserController::class, 'updateuser'])->name('updateuser');
-Route::post('/handlelogin', [UserController::class, 'handlelogin'])->name('handlelogin');
-Route::get('/changepass', [UserController::class, 'showchangePass'])->name('changepass');
-Route::post('/changepass', [UserController::class, 'changePass'])->name('changepassform');
-Route::get('/productdetail/{id}', [ProductDetailController::class, 'show'])->name('productdetail');
-Route::get('/brands', [BrandController::class, 'brand'])->name('brand');
-Route::get('/branddetail/{id}', [BrandController::class, 'showbrand'])->name('branddetail');
-Route::get('/scent/{id}', [ScentController::class, 'showscent'])->name('scent');
-Route::resource('cart', CartController::class);
-Route::resource('invoice', InvoiceController::class);
-Route::get('/cartd/{id}', [CartController::class, 'delete'])->name('cartdelete');
-
-Route::resource('account', UserController::class);
+Route::resource('account', UserController::class)->except(['create', 'store']);
 Route::resource('brand', BrandController::class)->except('show');
 Route::resource('productad', ProductController::class)->except('show');
 Route::resource('scent', ScentController::class)->except('show');
-Route::resource('product_detail', ProductDetailController::class);
+Route::resource('product_detail', ProductDetailController::class)->except('show');
+});

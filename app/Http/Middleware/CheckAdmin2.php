@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
-class CheckUser
+class CheckAdmin2
 {
     /**
      * Handle an incoming request.
@@ -24,6 +24,6 @@ class CheckUser
             }
             return Redirect::back()->withInput();
         }
-        return $next($request);
+       return $next($request);
     }
 }

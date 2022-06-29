@@ -32,9 +32,9 @@
         </div>
        
         <div class="col-md-6">
-            <form action="{{ route('account.update',2) }}" method="POST" enctype="multipart/form-data">
-              @csrf
-              @method('PATCH')
+            <form action="{{ route('handleupdateuser') }}" method="POST" enctype="multipart/form-data">
+              @csrf   
+              <input type="hidden"  name="id" value="{{ $user->id }}">
                 <div class="form-group">
                   <label for="username" class="col-form-label">Username: </label>
                   <input type="text" class="form-control" name="username" value="{{ $user->username }}" readonly>

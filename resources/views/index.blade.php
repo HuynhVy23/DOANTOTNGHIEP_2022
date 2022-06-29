@@ -76,7 +76,6 @@
                 <li><a href="#">It aquecorporis nulla aspernatur</a></li>
                 <li><a href="#">Corporis, omnis doloremque</a></li>
               </ul>
-              <a href="{{ route('aboutus') }}" class="filled-button">Read More</a>
             </div>
           </div>
           <div class="col-md-6">
