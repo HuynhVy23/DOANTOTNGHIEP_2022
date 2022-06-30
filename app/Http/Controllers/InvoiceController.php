@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use App\Models\Cart;
 use App\Models\Invoice;
 use App\Models\InvoiceDetail;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ProductDetail;
 use Illuminate\Support\Facades\Redirect;
@@ -22,7 +22,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoice=Invoice::where('username','like','dinooo')->get();
+        $invoice=Invoice::where('username','like',Auth::user()->username)->get();
         $date=array();
         foreach($invoice as $inv){
             $day=substr($inv->id,6,2);
@@ -38,8 +38,10 @@ class InvoiceController extends Controller
                 $inv->status='Waiting for confirmation';
             }else if($inv->status==1){
                 $inv->status='Being shipped';
-            }else{
+            }else if($inv->status==2||$inv->status==4){
                 $inv->status='Delivered';
+            }else{
+                $inv->status='Cancelled';
             }
         }
         return view('invoice',['invoice'=>$invoice,'date'=>$date]);
@@ -65,7 +67,8 @@ class InvoiceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'phone'=>'bail|required|numeric|digits:10'
+            'phone'=>'bail|required|numeric|digits:10',
+            'address'=>'required'
         ]);
         $year =  Carbon::now('Asia/Ho_Chi_Minh')->year;
         $month = (int)Carbon::now('Asia/Ho_Chi_Minh')->month;
@@ -102,7 +105,7 @@ class InvoiceController extends Controller
         $invoice=new Invoice();
         $invoice->fill([
             'id'=>$id,
-            'username'=>'dinooo',
+            'username'=>Auth::user()->username,
             'shipping_address'=>$request->address,
             'shipping_phone'=>$request->phone,
             'status'=>0,
@@ -110,7 +113,7 @@ class InvoiceController extends Controller
         $invoice->save();
         $product=Cart::select('product_details.id','price','quantity','carts.id as cart')
         ->join('product_details','product_details.id','=','carts.product_id')
-        ->where('username','like','dinooo')->get();
+        ->where('username','like',Auth::user()->username)->get();
         foreach ($product as $pd) {
             $invdetail=new InvoiceDetail();
             $invdetail->fill([
@@ -138,12 +141,17 @@ class InvoiceController extends Controller
     public function show($id)
     {
         $invoice=Invoice::find($id);
+        if($invoice->username!=Auth::user()->username){
+            return Redirect::action([InvoiceController::class,'index']);
+        }
         if($invoice->status==0){
             $invoice->status='Waiting for confirmation';
         }else if($invoice->status==1){
             $invoice->status='Being shipped';
-        }else{
+        }else if($invoice->status==2||$invoice->status==4){
             $invoice->status='Delivered';
+        }else{
+            $invoice->status='Cancelled';
         }
         $invoicedetail=InvoiceDetail::select('product_details.id','image','name','invoice_details.price','invoice_details.quantity','capacity')
         ->join('product_details','product_details.id','=','invoice_details.id_product')
@@ -196,5 +204,13 @@ class InvoiceController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function cancel($id)
+    {
+        $inv=Invoice::find($id);
+        $inv->status=3;
+        $inv->save();
+        return Redirect::back();
     }
 }

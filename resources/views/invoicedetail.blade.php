@@ -71,6 +71,13 @@
                       </div>
                  </div>
               </li>
+              @if ($invoice->status=="Waiting for confirmation")
+              <li  class="list-group-item">
+                <div style="text-align: center;">
+                <a href="{{ route('invoicecancel',$invoice->id) }} " class="btn btn-danger btn-rounded">Cancel order</a></div>
+              </li>
+              @endif
+             
           </ul>
       </div>
     </div>

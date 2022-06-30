@@ -68,7 +68,7 @@
                 </li>
 
                 <li class="nav-item"><a class="nav-link" href="{{ route('brand') }}">Brand</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('cart.show','dinooo') }}">Cart</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('cart') }}">Cart</a></li>
 
                 <li class="nav-item"><a class="nav-link" href="{{ route('invoice.index') }}">My bill</a></li>
                 {{-- @if ( Auth::guard('user')->check() )

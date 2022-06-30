@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\ProductDetail;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -19,7 +20,6 @@ class CartController extends Controller
      */
     public function index()
     {
-        return view('cart');
     }
 
     /**
@@ -42,7 +42,7 @@ class CartController extends Controller
     {
       $id=$request->idproduct;
       $quantity=$request->input('quantity');
-      $username='dinooo';
+      $username=Auth::user()->username;
       $productincart=Cart::where('username','=',$username)->where('product_id','=',$id)->first();
       if($productincart==null){
         $cart=new Cart();
@@ -74,19 +74,7 @@ class CartController extends Controller
      */
     public function show($username)
     {
-        $product=Cart::select('product_details.id','image','name','price','stock','quantity','capacity','carts.id as cart')
-        ->join('product_details','product_details.id','=','carts.product_id')
-        ->join('products','products.id','=','product_details.product_id')
-        ->where('username','like',$username)->get();
-        foreach($product as $pd){
-            $this->fixImage($pd);
-        }
-        $total=0;
-        foreach($product as $pd){
-            $total+=$pd->price*$pd->quantity;
-        }
-        $user=User::find(2);
-        return view('cart',['product'=>$product,'total'=>$total,'user'=>$user]);
+        
     }
 
     public function fixImage($pd){
@@ -138,5 +126,20 @@ class CartController extends Controller
         return back();
     }
 
-    
+    public function showcart()
+    {
+        $product=Cart::select('product_details.id','image','name','price','stock','quantity','capacity','carts.id as cart')
+        ->join('product_details','product_details.id','=','carts.product_id')
+        ->join('products','products.id','=','product_details.product_id')
+        ->where('username','like',Auth::user()->username)->get();
+        foreach($product as $pd){
+            $this->fixImage($pd);
+        }
+        $total=0;
+        foreach($product as $pd){
+            $total+=$pd->price*$pd->quantity;
+        }
+        $user=User::find(Auth::user()->id);
+        return view('cart',['product'=>$product,'total'=>$total,'user'=>$user]);
+    }
 }

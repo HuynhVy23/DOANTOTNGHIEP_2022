@@ -55,7 +55,12 @@
 
               <p class="lead">
                 {{-- <small><del> $999.00</del></small><strong class="text-primary">$779.00</strong> --}}
+                @if (empty($detail))
+                <strong  style="color: #f33f3f">Out Stock</strong>
+                @else
                 <strong id="price" style="color: #f33f3f">{{ number_format( $detail[0]->price , 0, ',', '.') . " VND" }}</strong>
+                @endif
+                
                 @foreach ($detail as $dt)
                 <input id="price{{ $dt->id }}" style="display: none;opacity:0" type="hidden" value=" {{ number_format( $dt->price , 0, ',', '.') . " VND" }}"/>
                 @endforeach
@@ -70,6 +75,7 @@
               </p><br>
               @endforeach
               <br> 
+              @if (!empty($detail))
               <div class="row">
                 <div class="col-sm-4">
                   <label class="control-label">Choose capacity</label>
@@ -81,13 +87,17 @@
                     </select>
                   </div>
                 </div>
+               
                 <div class="col-sm-8">
                   <label class="control-label">Quantity</label>
                   <div class="row">
                     <div class="col-sm-6">
+                      
                       <div class="form-group">
                         <input id="quantity" name="quantity" type="number" class="form-control" min="1" max="{{ $detail[0]->stock }}" value="1">
                       </div>
+                     
+                      
                     </div>
                     @foreach ($detail as $dt)
                 <input id="stock{{ $dt->id }}" style="display: none;opacity:0" type="hidden" value="{{ $dt->stock }}"/>
@@ -99,6 +109,7 @@
                   </div>
                 </div>
               </div>
+              @endif
             </form>
           </div>
         </div>

@@ -68,7 +68,8 @@ class UserController extends Controller
             $user->avatar = 'img/user/auto.jpg';
            }
            $user->save();
-           return view('register',['success'=>1]);
+           Auth::login($user);
+           return Redirect::action([ProductController::class,'indexUser']);
         
          
     }
@@ -156,7 +157,6 @@ class UserController extends Controller
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
             $user=User::where('username','=',$request->username)->first();
             Auth::login($user);
-            Auth::user()->avatar=Storage::url($user->avatar);
             if($user->username=="Admin")
             {
                 return Redirect::route('indexAdmin');
