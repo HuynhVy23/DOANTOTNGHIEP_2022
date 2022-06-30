@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
-use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -23,7 +22,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -93,9 +91,6 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user=User::find($id);
-        $this->fixImage($user);
-        return view('infouser',['user'=>$user]);
     }
 
     /**
@@ -105,14 +100,18 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
+    {
+    }
+
+    public function handleupdateuser(Request $request)
     {
         $request->validate([
             'address'=>'required|alpha_dash',
             'phone'=>'bail|required|numeric|digits:10'
         ]);
 
-        $user=User::find($id);
+        $user=User::find($request->id);
         if($request->hasFile('avatar')){
             $user->avatar=$request->file('avatar')->store('img/user/'.$user->id,'public');
         }
@@ -142,22 +141,50 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function login(Request $request)
+    public function formlogin()
+    {
+       return view('login');
+    }
+
+    public function handlelogin(Request $request)
     {
         $this->validate($request, [
-            'email'   => 'required|email',
+            'username'   => 'required',
             'password' => 'required'
         ]);
 
-        if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password])) {
-
-            return redirect()->intended('/');
+        if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+            $user=User::where('username','=',$request->username)->first();
+            Auth::login($user);
+            Auth::user()->avatar=Storage::url($user->avatar);
+            if($user->username=="Admin")
+            {
+                return Redirect::route('indexAdmin');
+            }else{
+                return Redirect::action([ProductController::class,'indexUser']);
+            }
         }
-        elseif (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
-
-            return redirect()->intended('/admin');
+        else{
+            $user=User::where('username','=',$request->username)->first();
+            if($user){
+                return Redirect::back()->withErrors(['fail' =>"Incorrect password."]);
+            }else{
+                return Redirect::back()->withErrors(['fail' =>"Incorrect username and password."]);
+            }
         }
-        return back()->withInput($request->only('email'));
+    }
+
+    public function updateuser(Request $request)
+    {
+        $user=User::find($request->id);
+        $this->fixImage($user);
+        return view('infouser',['user'=>$user]);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return Redirect::action([ProductController::class,'indexUser']);
     }
 
     public function showchangePass()
@@ -165,9 +192,9 @@ class UserController extends Controller
         return view('changepass');
     }
 
-    public function changePass(Request $request,$id)
+    public function changePass(Request $request)
     {
-        $user=User::find($id);
+        $user=User::find($request->id);
         $request->request->add(['password_old' => $user->password]);
         $this->validate($request, [
             'password' => 'required|same:password_old',

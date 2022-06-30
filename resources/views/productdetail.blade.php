@@ -17,6 +17,26 @@
     <div class="products">
       <div class="container">
         <div class="row">
+         <div class="col-md-12">
+          @if($errors->any())
+          @error('success')
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{$message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          @enderror
+          @error('fail')
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{$message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          @enderror
+          @endif
+         </div>
           <div class="col-md-4 col-xs-12">
             <div>
               <img src="{{ $product[0]->image }}" alt="" class="img-fluid wc-image" width="370px" height="370px">
@@ -27,7 +47,8 @@
           </div>
 
           <div class="col-md-8 col-xs-12">
-            <form action="#" method="post" class="form">
+            <form method="post" class="form" action="{{ route('cart.store') }}">
+              @csrf
               <h2>{{ $product[0]->name }}</h2>
 
               <br>
@@ -53,7 +74,7 @@
                 <div class="col-sm-4">
                   <label class="control-label">Choose capacity</label>
                   <div class="form-group">
-                    <select class="form-control"  id="getprice" onchange="a($detail)">
+                    <select class="form-control" id="getprice" name="idproduct">
                       @foreach ($detail as $dt)
                       <option value="{{ $dt->id }}">{{ $dt->capacity }}</option>
                       @endforeach
@@ -65,13 +86,12 @@
                   <div class="row">
                     <div class="col-sm-6">
                       <div class="form-group">
-                        <input id="quantity" name="quantity" type="number" class="form-control" placeholder="1" min="0" max="{{ $detail[0]->stock }}" >
+                        <input id="quantity" name="quantity" type="number" class="form-control" min="1" max="{{ $detail[0]->stock }}" value="1">
                       </div>
                     </div>
                     @foreach ($detail as $dt)
                 <input id="stock{{ $dt->id }}" style="display: none;opacity:0" type="hidden" value="{{ $dt->stock }}"/>
                 @endforeach
-
                     <div class="col-sm-6">
                       <button class="btn btn-primary btn-block" type="submit">Add to cart</button>
                       {{-- <a href="#" class="btn btn-primary btn-block">Add to Cart</a> --}}

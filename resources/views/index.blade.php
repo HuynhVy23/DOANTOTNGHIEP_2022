@@ -6,20 +6,16 @@
       <div class="owl-banner owl-carousel">
         <div class="banner-item-01">
           <div class="text-content">
-            <h4></h4>
-            <h2>Lorem ipsum dolor sit amet</h2>
+            {{-- <h4></h4>
+            <h2>Lorem ipsum dolor sit amet</h2> --}}
           </div>
         </div>
         <div class="banner-item-02">
           <div class="text-content">
-            <h4>Fugiat Aspernatur</h4>
-            <h2>Laboriosam reprehenderit ducimus</h2>
           </div>
         </div>
         <div class="banner-item-03">
           <div class="text-content">
-            <h4>Saepe Omnis</h4>
-            <h2>Quaerat suscipit unde minus dicta</h2>
           </div>
         </div>
       </div>
@@ -80,7 +76,6 @@
                 <li><a href="#">It aquecorporis nulla aspernatur</a></li>
                 <li><a href="#">Corporis, omnis doloremque</a></li>
               </ul>
-              <a href="{{ route('aboutus') }}" class="filled-button">Read More</a>
             </div>
           </div>
           <div class="col-md-6">
@@ -106,9 +101,8 @@
           <div class="col-lg-4 col-md-6">
             <div class="service-item">
               <a href="{{ route('branddetail',$b->id) }}" class="services-item-image"><img src="{{ $b->image_brand }}" class="img-fluid" alt="" width="289px" height="211px"></a>
-
               <div class="down-content">
-                <h4><a href="#">{{ $b->name_brand }}</a></h4>
+                <h4><a href="{{ route('branddetail',$b->id) }}">{{ $b->name_brand }}</a></h4>
                 <p style="margin: 0;"> {{ $b->detail }}</p>
               </div>
             </div>

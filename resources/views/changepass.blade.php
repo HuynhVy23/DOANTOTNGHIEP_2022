@@ -33,6 +33,7 @@
         <div class="col-md-6">
             <form action="{{ route('changepassform') }}" method="POST">
               @csrf
+              <input type="hidden" class="form-control" name="id" value="{{ Auth::user()->id }}">
                 <div class="form-group">
                   <label for="username" class="col-form-label">Current password :<em style="color: red">*</em></label>
                   <input type="password" class="form-control" name="password">
