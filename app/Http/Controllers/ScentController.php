@@ -41,12 +41,15 @@ class ScentController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name_scent'=>'bail|required|alpha_dash|between:4,50',
+        ]);
         $lstScent = new Scent;
         $lstScent->fill([
             'name_scent'=>$request->input('name_scent'),
         ]);
         $lstScent->save();
-        return Redirect::route('scent.index',['lstScent'=>$lstScent]);
+        return Redirect::route('scentad.index',['lstScent'=>$lstScent]);
     }
 
     /**
@@ -86,7 +89,7 @@ class ScentController extends Controller
             'name_scent'=>$request->input('name_scent'),
         ]);
         $lstScent->save();
-        return Redirect::route('scent.index',['lstScent'=>$lstScent]);
+        return Redirect::route('scentad.index',['lstScent'=>$lstScent]);
     }
 
     /**
@@ -99,7 +102,7 @@ class ScentController extends Controller
     {
         $lstScent=Scent::find($id);
         $lstScent->delete();
-        return Redirect::route('scent.index');
+        return Redirect::route('scentad.index');
     }
 
     public function showscent($id)

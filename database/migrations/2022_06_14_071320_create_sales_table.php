@@ -18,6 +18,7 @@ class CreateSalesTable extends Migration
             $table->string('name');
             $table->dateTime('date_start');
             $table->dateTime('date_end');
+            $table->string('image_banner');
             $table->timestamps();
             $table->softDeletes();
         });

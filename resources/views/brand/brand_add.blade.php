@@ -1,29 +1,41 @@
-
 @extends('layout_admin.layout')
 @section('container')
-<div class="row page-titles">
-    <div class="col-md-5 align-self-center">
-        <h3 class="text-primary">Add Brand</h3> </div>
-</div>
-@stop
-@section('main')
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-        <div class="button-list">
-        <form action="{{ route('brand.store') }}" method="post" enctype="multipart/form-data">
-            @csrf
-Name : <pre></pre><input type="text" name="name_brand"/><em style="color:tomato">*</em></br></br>
-Detail : <pre></pre><input type="text" name="detail"/><em style="color:tomato">*</em></br></br>
-<label for="file">Image : </label>
-            <input type="file" name="image_brand" id="file"/>
-<input class="btn btn-success" type="submit" name="submit" value="Add Brand"/></br></br>
-<label style="color: red;"></label>
-        </form>
-                </div>
-            </div>
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-primary">Add Brand</h3>
         </div>
     </div>
-</div>
+@stop
+@section('main')
+    <div class="col-md-6">
+        <form action="{{ route('brand.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <label for="name" class="col-form-label">Name: <em style="color: red">*</em></label>
+                <input type="text" class="form-control" name="name_brand" placeholder="Enter name"
+                    style="text-align: left; border-style:groove">
+            </div>
+            @if ($errors->first('name_brand'))
+                <div class="error">
+                    <p>{{ $errors->first('name_brand') }}</p>
+                </div>
+            @endif
+            <div class="form-group">
+                <label for="detail" class="col-form-label">Detail: <em style="color: red">*</em></label>
+                <input type="text" class="form-control" name="detail" placeholder="Enter detail"
+                    style="text-align: left; border-style:groove">
+            </div>
+            @if ($errors->first('detail'))
+                <div class="error">
+                    <p>{{ $errors->first('detail') }}</p>
+                </div>
+            @endif
+            <label for="file">Image : </label>
+            <input type="file" name="image_brand" id="file" />
+            <div style="text-align: center">
+                <button type="submit" class="btn btn-primary">Done</button>
+            </div>
+        </form>
+    </div>
 
 @stop

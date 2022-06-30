@@ -1,26 +1,28 @@
-
 @extends('layout_admin.layout')
 @section('container')
-<div class="row page-titles">
-    <div class="col-md-5 align-self-center">
-        <h3 class="text-primary">Add Scent</h3> </div>
-</div>
-@stop
-@section('main')
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-        <div class="button-list">
-        <form action="{{ route('scent.store') }}" method="post" enctype="multipart/form-data">
-            @csrf
-Name : <pre></pre><input type="text" name="name_scent"/><em style="color:tomato">*</em></br></br>
-<input class="btn btn-success" type="submit" name="submit" value="Add Scent"/></br></br>
-<label style="color: red;"></label>
-        </form>
-                </div>
-            </div>
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-primary">Add Scent</h3>
         </div>
     </div>
-</div>
-
+@stop
+@section('main')
+    <div class="col-md-6">
+        <form action="{{ route('scentad.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <label for="name" class="col-form-label">Name: <em style="color: red">*</em></label>
+                <input type="text" class="form-control" name="name_scent"
+                    placeholder="Enter name" style="text-align: left; border-style:groove">
+            </div>
+            @if ($errors->first('name_scent'))
+                <div class="error">
+                    <p>{{ $errors->first('name_scent') }}</p>
+                </div>
+            @endif
+            <div style="text-align: center">
+                <button type="submit" class="btn btn-primary">Done</button>
+            </div>
+        </form>
+    </div>
 @stop

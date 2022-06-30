@@ -33,7 +33,8 @@
                 <!-- Logo -->
                 <div class="navbar-header">
                     <a class="navbar-brand" href="">
-                        <span><img src="{{ url('images/logo.png') }}" alt="homepage" class="dark-logo" height="80" width="150" /></span>
+                        <span><img src="{{ url('images/logo.png') }}" alt="homepage" class="dark-logo" height="100" width="150" /></span>
+                        <p class="font-italic" style="color:rgb(178, 14, 82)">Carrot Di Perfume Magic</p>
                     </a>
                 </div>
                 <!-- End Logo -->
@@ -85,9 +86,9 @@
                         <li ><a aria-expanded="false" href="{{ route('productad.index') }}"><i class="fa fa-pagelines "></i><span class="hide-menu ">Product Model</span></a></li>
                         <li ><a aria-expanded="false" href="{{ route('product_detail.index') }}"><i class="fa fa-snowflake-o "></i><span class="hide-menu ">Product</span></a></li>
                         <li ><a aria-expanded="false" href="{{ route('brand.index') }}"><i class="fa fa-leaf"></i><span class="hide-menu">Brand</span></a></li>
-                        <li ><a aria-expanded="false" href="{{ route('scent.index') }}"><i class="fa fa-star"></i></i><span class="hide-menu">Scent</span></a></li>
+                        <li ><a aria-expanded="false" href="{{ route('scentad.index') }}"><i class="fa fa-star"></i></i><span class="hide-menu">Scent</span></a></li>
                         <li ><a aria-expanded="false" href=""><i class="fa fa-user"></i><span class="hide-menu">Account</span></a></li>
-                        <li ><a aria-expanded="false" href=""><i class="fa fa-comment"></i><span class="hide-menu">Comment</span></a></li>
+                        {{-- <li ><a aria-expanded="false" href=""><i class="fa fa-comment"></i><span class="hide-menu">Comment</span></a></li> --}}
                         
                     </ul>
                 </nav>

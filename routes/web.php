@@ -54,12 +54,12 @@ Route::get('/testimonial', function () {
 })->name('testimonial');
 
 Route::prefix('admin')->middleware('checkadmin')->group(function (){
-Route::get('/', function () {
-    return view('index_admin');
-})->name('indexAdmin');
-Route::resource('account', UserController::class)->except(['create', 'store']);
-Route::resource('brand', BrandController::class)->except('show');
-Route::resource('productad', ProductController::class)->except('show');
-Route::resource('scent', ScentController::class)->except('show');
-Route::resource('product_detail', ProductDetailController::class)->except('show');
+    Route::get('/', function () {
+        return view('index_admin');
+    })->name('indexAdmin');
+    Route::resource('account', UserController::class)->except(['create', 'store']);
+    Route::resource('brand', BrandController::class)->except('show');
+    Route::resource('productad', ProductController::class)->except('show');
+    Route::resource('scentad', ScentController::class)->except('show');
+    Route::resource('product_detail', ProductDetailController::class);
 });
