@@ -11,14 +11,30 @@ use Illuminate\Support\Facades\Redirect;
 
 class BrandController extends Controller
 {
+    public function fixImage(Brand $brand){
+        if(Storage::disk('public')->exists($brand->image_brand)){
+            $brand->image_brand = Storage::url($brand->image_brand);
+        }else{
+            $brand->image_brand='/image/brand/auto.jpg';
+        }
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $lstBrand = Brand::all();
+        $searchBrand = $request['searchBrand'] ?? "";
+        if($searchBrand != ""){
+            $lstBrand = Brand::where('name_brand', 'LIKE',"%$searchBrand%")->get();
+        }else{
+            $lstBrand = Brand::all();
+        }
+        
+        foreach($lstBrand as $brand){
+            $this->fixImage($brand);
+        }
         return view('brand.brand_index',['lstBrand'=>$lstBrand]);
     }
 
@@ -41,6 +57,10 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name_brand'=>'bail|required|alpha_dash|between:4,50',
+            'detail'=>'bail|required|',
+        ]);
         $lstBrand = new Brand;
         $lstBrand->fill([
             'name_brand'=>$request->input('name_brand'),
@@ -49,7 +69,7 @@ class BrandController extends Controller
         ]);
         $lstBrand->save();
         if ($request->hasFile('image_brand')) {
-            $lstBrand->imgae_brand = $request->file('image_brand')->store('img/brand/' . $lstBrand->id, 'public');
+            $lstBrand->image_brand = $request->file('image_brand')->store('img/brand/' . $lstBrand->id, 'public');
         }
         $lstBrand->save();
         return Redirect::route('brand.index',['lstBrand'=>$lstBrand]);
@@ -75,6 +95,7 @@ class BrandController extends Controller
     public function edit($id)
     {
         $lstBrand=Brand::find($id);
+        $this->fixImage($lstBrand);
         return view('brand.brand_update',['lstBrand'=>$lstBrand]);
     }
 
@@ -88,8 +109,13 @@ class BrandController extends Controller
     public function update(Request $request, $id)
     {
         $lstBrand=Brand::find($id);
+        if($request->hasFile('image_brand')){
+            $lstBrand->image_brand=$request->file('image_brand')->store('img/brand/' . $lstBrand->id, 'public');
+        }
         $lstBrand->fill([
             'name_brand'=>$request->input('name_brand'),
+            'detail'=>$request->input('detail'),
+
         ]);
         $lstBrand->save();
         return Redirect::route('brand.index',['lstBrand'=>$lstBrand]);

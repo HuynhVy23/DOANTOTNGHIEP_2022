@@ -25,9 +25,14 @@ class ProductDetailController extends Controller
         }
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $lstProductDetail = ProductDetail::all();
+        $searchDetail = $request['searchDetail'] ?? "";
+        if($searchDetail != ""){
+            $lstProductDetail = ProductDetail::where('capacity', 'LIKE',"%$searchDetail%")->orWhere('price', 'LIKE',"%$searchDetail%")->get();
+        }else{
+            $lstProductDetail = ProductDetail::all();
+        }
         return view('product_detail.product_detail_index',['lstProductDetail'=>$lstProductDetail]);
     }
 
@@ -50,6 +55,13 @@ class ProductDetailController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'capacity'=>'bail|required|alpha_dash|between:4,50',
+            'price'=>'bail|required',
+            'stock'=>'bail|required',
+            'product_id'=>'required',
+            'status'=>'bail|required'
+        ]);
         $productDetail = new ProductDetail;
         $productDetail->fill([
             'capacity'=>$request->input('capacity'),

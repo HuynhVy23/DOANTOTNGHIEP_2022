@@ -59,5 +59,5 @@ Route::get('/scent/{id}', [ScentController::class, 'showscent'])->name('scent');
 Route::resource('account', UserController::class);
 Route::resource('brand', BrandController::class)->except('show');
 Route::resource('productad', ProductController::class)->except('show');
-Route::resource('scent', ScentController::class)->except('show');
+Route::resource('scentad', ScentController::class)->except('show');
 Route::resource('product_detail', ProductDetailController::class);

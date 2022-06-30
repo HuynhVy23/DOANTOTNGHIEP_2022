@@ -35,9 +35,16 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $lstProduct=Product::all();
+       
+        $search = $request['search'] ?? "";
+        if($search != ""){
+            $lstProduct = Product::where('name', 'LIKE',"%$search%")->orWhere('concentration', 'LIKE',"%$search%")->get();
+        }else{
+            $lstProduct=Product::all();
+            
+        }
         foreach($lstProduct as $pd){
             $this->fixImage($pd);
         }
@@ -64,6 +71,13 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'=>'bail|required|alpha_dash|between:4,50',
+            'concentration'=>'bail|required|',
+            'description'=>'bail|required',
+            'brand_id'=>'required',
+            'scent_id'=>'bail|required'
+        ]);
         $product=new Product();
 
         $product->fill([
