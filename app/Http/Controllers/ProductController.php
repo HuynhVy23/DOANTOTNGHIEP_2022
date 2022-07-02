@@ -23,10 +23,10 @@ class ProductController extends Controller
     }
 
     public function fixImageBrand(Brand $br){
-        if(Storage::disk('public')->exists($br->image)){
-            $br->image=Storage::url($br->image);
+        if(Storage::disk('public')->exists($br->image_brand)){
+            $br->image_brand=Storage::url($br->image_brand);
         }else{
-            $br->image='/image/brand/auto.jpg';
+            $br->image_brand='/image/brand/auto.jpg';
         }
     }
 
@@ -183,6 +183,23 @@ class ProductController extends Controller
         foreach($lstProduct as $pd){
             $this->fixImage($pd);
         }
-        return view('index',['lstProduct'=>$lstProduct,'brand'=>$lstBrand]);
+        $lstScent=Scent::all();
+        return view('index',['lstProduct'=>$lstProduct,'brand'=>$lstBrand,'scent'=>$lstScent]);
+    }
+
+    public function gender($id)
+    {
+        if($id==0){
+            $title="Men";
+        }elseif($id==1){
+            $title="Women";
+        }else{
+            $title="Unisex";
+        }
+        $lstProduct=Product::where('gender','=',$id)->get();
+        foreach($lstProduct as $p){
+            $p->image=Storage::url($p->image);
+        }
+        return view('scent',['title'=>$title,'lstProduct'=>$lstProduct]);
     }
 }

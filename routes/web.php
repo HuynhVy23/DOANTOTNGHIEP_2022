@@ -8,6 +8,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ScentController;
 use App\Http\Controllers\ProductDetailController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,7 @@ Route::resource('cart', CartController::class)->only('store');
 Route::resource('invoice', InvoiceController::class)->only(['show','store','index']);
 Route::get('cart/{id}', [CartController::class, 'delete'])->name('cartdelete');
 Route::get('cancel/{id}', [InvoiceController::class, 'cancel'])->name('invoicecancel');
+Route::resource('review', ReviewController::class)->only(['show','store']);
 }); 
 
 Route::prefix('/')->middleware('checkadmin2')->group(function (){
@@ -37,7 +39,8 @@ Route::prefix('/')->middleware('checkadmin2')->group(function (){
     Route::get('/productdetail/{id}', [ProductDetailController::class, 'show'])->name('productdetail');
     Route::get('/brands', [BrandController::class, 'brand'])->name('brand');
     Route::get('/branddetail/{id}', [BrandController::class, 'showbrand'])->name('branddetail');
-    Route::get('/scent/{id}', [ScentController::class, 'showscent'])->name('scent');        
+    Route::get('/scent/{id}', [ScentController::class, 'showscent'])->name('scent');
+    Route::get('/gender/{id}', [ProductController::class, 'gender'])->name('gender');        
 });
 
 Route::resource('account', UserController::class)->only(['create', 'store']);

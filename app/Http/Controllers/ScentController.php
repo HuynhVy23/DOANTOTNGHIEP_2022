@@ -108,10 +108,11 @@ class ScentController extends Controller
     public function showscent($id)
     {
         $scent=Scent::find($id);
+        $title=$scent->name_scent;
         $lstProduct=Product::where('scent_id','=',$id)->get();
         foreach($lstProduct as $p){
             $p->image=Storage::url($p->image);
         }
-        return view('scent',['scent'=>$scent,'lstProduct'=>$lstProduct]);
+        return view('scent',['title'=>$title,'lstProduct'=>$lstProduct]);
     }
 }

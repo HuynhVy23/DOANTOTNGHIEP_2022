@@ -20,4 +20,8 @@ class Product extends Model
     public function scent(){
         return $this->belongsTo(Scent::class);
     }
+
+    public function review(){
+        return $this->belongsTo(Review::class);
+    }
 }

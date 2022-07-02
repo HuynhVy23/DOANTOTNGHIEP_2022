@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProductDetail;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
@@ -86,16 +87,30 @@ class ProductDetailController extends Controller
         foreach($productall as $pd){
             $this->fixImage($pd);
         }
-        $product=Product::
-        join('brands','brands.id','=','products.brand_id')
+        $product=Product::select('products.name','products.image','products.description','brands.name_brand','scents.name_scent','brands.id as id_brand','scents.id as id_scent')
+        ->join('brands','brands.id','=','products.brand_id')
         ->join('scents','scents.id','=','products.scent_id')
         ->where('products.id','=',$id)->get();
         $product[0]->image=Storage::url($product[0]->image);
         $productDetail=ProductDetail::where('product_id','=',$id)
         ->where('stock','>',0)
         ->get();
-        $array=explode('.', $product[0]->description );
-        return view('productdetail',['product'=>$product,'detail'=>$productDetail,'all'=>$productall,'array'=>$array]);
+        $product[0]->description=explode('.', $product[0]->description );
+        $review=Review::select('users.avatar','users.username','reviews.content','reviews.date_write','reviews.id')
+        ->join('users','users.username','=','reviews.username')
+        ->where('product_id','=',$id)->paginate(10);
+        $date=array();
+        foreach ($review as $r) {
+            $r->avatar=Storage::url($r->avatar);
+            $day=substr($r->date_write,6,2);
+        $month=substr($r->date_write,4,2);
+        $year=substr($r->date_write,0,4);
+        $hour=substr($r->date_write,8,2);
+        $minute=substr($r->date_write,10,2);
+        $second=substr($r->date_write,12,2);
+        $date[$r->id]=$hour.":".$minute.":".$second." ".$day."-".$month."-".$year;
+        }
+        return view('productdetail',['product'=>$product,'detail'=>$productDetail,'all'=>$productall,'date'=>$date,'review'=>$review]);
     }
 
     /**

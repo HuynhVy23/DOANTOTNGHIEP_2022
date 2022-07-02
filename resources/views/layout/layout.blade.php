@@ -56,17 +56,16 @@
                     </a>
                 </li> 
 
-                <li class="nav-item"><a class="nav-link" href="{{ route('product') }}">Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('product') }}">Perfume</a></li>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">Gender</a>
                     <div class="dropdown-menu">
-                      <a class="dropdown-item" href="">Men</a>
-                      <a class="dropdown-item" href="">Women</a>
-                      <a class="dropdown-item" href="">Unisex</a>
+                      <a class="dropdown-item" href="{{ route('gender',0) }}">Men</a>
+                      <a class="dropdown-item" href="{{ route('gender',1) }}">Women</a>
+                      <a class="dropdown-item" href="{{ route('gender',2) }}">Unisex</a>
                     </div>
                 </li>
-
                 <li class="nav-item"><a class="nav-link" href="{{ route('brand') }}">Brand</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('cart') }}">Cart</a></li>
 
@@ -199,4 +198,26 @@
   bill=new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format(total1);
   document.getElementById('total').innerHTML=bill;
 }
+//        $(document).ready(function() {
+//            $(".btn-submit").click(function(e){
+//                e.preventDefault();
+          
+//                var _token = $("input[name='_token']").val();
+//                var idproduct = $("input[name='idproduct']").val();
+//                var quantity = $("input[name='quantity']").val();
+//                var url = $(this).attr('data-action');
+//                $.ajax({   
+//                    type:'POST',
+//                    url: url,
+//                    data: new FormData(this),
+//                   //    data: {_token:_token, idproduct:idproduct, quantity:quantity},
+//                    success:function(response){
+//           console.log(response);
+//           if(response) {
+//             $('.success').text(response.success);
+//           }
+//         }
+//        });
+//   });
+// });
   </script>

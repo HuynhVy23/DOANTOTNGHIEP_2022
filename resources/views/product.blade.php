@@ -31,12 +31,20 @@
           </div>
         </div>
         <br>
+
         <div>
           <h5>Scents</h5>
         </div>
         @foreach ($scent as $c)
         <a href="{{ route('scent',$c->id) }}">{{ $c->name_scent    }} ({{ $c->totalPerfume->count() }})</a><br>
       @endforeach
+      <br>
+      <div>
+        <h5>Gender</h5>
+      </div>
+      <a href="{{ route('gender',0) }}">Men</a><br>
+      <a href="{{ route('gender',1) }}">Women</a><br>
+      <a href="{{ route('gender',2) }}">Unisex</a><br>
       </div>
       <div class="col-md-8">
         <div class="row">

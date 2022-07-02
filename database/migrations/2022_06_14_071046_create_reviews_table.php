@@ -17,8 +17,8 @@ class CreateReviewsTable extends Migration
             $table->id();
             $table->string('username');
             $table->unsignedBigInteger('product_id');
-            $table->string('content');
-            $table->dateTime('date_write');
+            $table->longText('content');
+            $table->string('date_write');
             $table->timestamps();
             $table->softDeletes();
 

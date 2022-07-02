@@ -1122,3 +1122,8 @@ footer .inner-content p a {
     font-weight: 400;
     color: #212529;
 }
+.imagebrand{
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center center;
+}

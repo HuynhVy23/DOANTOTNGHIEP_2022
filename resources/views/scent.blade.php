@@ -7,7 +7,7 @@
       <div class="col-md-12">
         <div class="text-content">
           <h4>Scent</h4>
-          <h2>{{ $scent->name_scent }}</h2>
+          <h2>{{ $title }}</h2>
         </div>
       </div>
     </div>

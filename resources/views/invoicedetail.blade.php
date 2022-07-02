@@ -19,7 +19,7 @@
             <div class="inv">
             <p>Shipping Address : {{ $invoice->shipping_address }}</p><br>
             <p>Shipping Phone : {{ $invoice->shipping_phone }}</p><br>
-            <p>Date payment : {{ $date }}</p><br>
+            <p>Date payment : {{ $detail[1] }}</p><br>
         </div>
                <div class="table-responsive">
                     <table class="table table-striped">
@@ -77,7 +77,12 @@
                 <a href="{{ route('invoicecancel',$invoice->id) }} " class="btn btn-danger btn-rounded">Cancel order</a></div>
               </li>
               @endif
-             
+              {{-- @if ($detail[0]==2)
+              <li  class="list-group-item">
+                <div style="text-align: center;">
+                <a href="{{ route('invoicereview',$invoice->id) }} " class="btn btn-info btn-rounded">Review</a></div>
+              </li>
+              @endif --}}
           </ul>
       </div>
     </div>
