@@ -130,7 +130,6 @@
     <script src="{{ url('js/lib/calendar-2/pignose.init.js') }}"></script>
     <script src="{{ url('js/lib/owl-carousel/owl.carousel.min.js') }}"></script>
     <script src="{{ url('js/lib/owl-carousel/owl.carousel-init.js') }}"></script>
-
     <script src="{{ url('js/scripts.js') }}"></script>
 
     <script src="{{ url('js/lib/datatables/datatables.min.js') }}"></script>

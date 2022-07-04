@@ -21,6 +21,17 @@
       </div>
     </div>
     <!-- Banner Ends Here -->
+    <div class="row">
+    <div class="col-md-8" style="margin-left: 15%;margin-top: 10px;">
+      <form action="{{ route('product') }}" method="GET">
+    <div class="search">
+      <i class="fa fa-search"></i>
+      <input type="text" class="form-control" placeholder="Perfume's name" name="name">
+      <button class="btn btn-primary">Search</button>
+    </form>
+    </div>
+    </div>
+  </div>
 
     <div class="latest-products">
       <div class="container">

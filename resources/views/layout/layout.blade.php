@@ -164,60 +164,9 @@
       <!-- Bootstrap core JavaScript -->
       <script src="{{ url('jquery/jquery.min.js')}}"></script>
       <script src="{{ url('bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-  
-  
+      <script src="{{ url('js/script.js') }}"></script>
       <!-- Additional Scripts -->
       <script src="{{ url('js/custom.js')}}"></script>
       <script src="{{ url('js/owl.js')}}"></script>
     </body>
   </html>
-  <script>
- document.getElementById("getprice").onchange = function(){
-    var value = document.getElementById("getprice").value;
-    var max=document.getElementById('stock'+value).value;
-    document.getElementById('price').innerHTML=document.getElementById('price'+value).value;
-    document.getElementById("quantity").max = max;
- }
-
-    function cartquantity(id)
-{
-    var price = document.getElementById('price'+id).value;
-    var quantity = document.getElementById('quantity'+id).value;
-    a=price*quantity;
-    total=new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format(a);
-    document.getElementById('total'+id).innerHTML=total;
-    document.getElementById('ttotal'+id).value=a;
-
-    var total1=0;
-    var x = document.getElementsByClassName("total");
-    var i;
-    for (i = 0; i < x.length; i++) {
-    total1=total1+parseInt(x[i].value);
-    
-  }
-  bill=new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format(total1);
-  document.getElementById('total').innerHTML=bill;
-}
-//        $(document).ready(function() {
-//            $(".btn-submit").click(function(e){
-//                e.preventDefault();
-          
-//                var _token = $("input[name='_token']").val();
-//                var idproduct = $("input[name='idproduct']").val();
-//                var quantity = $("input[name='quantity']").val();
-//                var url = $(this).attr('data-action');
-//                $.ajax({   
-//                    type:'POST',
-//                    url: url,
-//                    data: new FormData(this),
-//                   //    data: {_token:_token, idproduct:idproduct, quantity:quantity},
-//                    success:function(response){
-//           console.log(response);
-//           if(response) {
-//             $('.success').text(response.success);
-//           }
-//         }
-//        });
-//   });
-// });
-  </script>

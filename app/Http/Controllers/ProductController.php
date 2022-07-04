@@ -164,7 +164,21 @@ class ProductController extends Controller
 
     public function product()
     {
-        $lstProduct=Product::paginate(9);
+        $sort=isset($_GET['sort'])?$_GET['sort']:'';
+        $name=isset($_GET['name'])?$_GET['name']:'';
+        $column='id';
+        $type='asc';
+        if($sort=='az'){
+            $column='name';
+        }else if($sort=='za'){
+            $column='name';
+            $type='desc';
+        }
+        if($name!=''){
+            $lstProduct= Product::where('name','like','%'.$name.'%')->orderBy($column,$type)->paginate(9);
+        }else{
+            $lstProduct= Product::orderBy($column,$type)->paginate(9);
+        }
         foreach($lstProduct as $pd){
             $this->fixImage($pd);
         }
@@ -175,6 +189,7 @@ class ProductController extends Controller
 
     public function indexUser()
     {
+        
         $lstBrand=Brand::take(3)->get();
         foreach($lstBrand as $br){
             $this->fixImageBrand($br);
