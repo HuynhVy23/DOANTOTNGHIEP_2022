@@ -23,8 +23,9 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoice=Invoice::where('username','like','dinooo')->get();
+        $invoice=Invoice::where('username','like',Auth::user()->username)->get();
         $date=array();
+        $status=array();
         foreach($invoice as $inv){
             $day=substr($inv->id,6,2);
             $month=substr($inv->id,4,2);
@@ -33,17 +34,19 @@ class InvoiceController extends Controller
             $minute=substr($inv->id,10,2);
             $second=substr($inv->id,12,2);
             $date[$inv->id]=$hour.":".$minute.":".$second." ".$day."-".$month."-".$year;
-        }
-        foreach($invoice as $inv){
+
+
             if($inv->status==0){
-                $inv->status='Waiting for confirmation';
+                $status[$inv->id]='Waiting for confirmation';
             }else if($inv->status==1){
-                $inv->status='Being shipped';
+                $status[$inv->id]='Being shipped';
+            }else if($inv->status==2||$inv->status==4){
+                $status[$inv->id]='Delivered';
             }else{
-                $inv->status='Delivered';
+                $status[$inv->id]='Cancelled';
             }
         }
-        return view('invoice',['invoice'=>$invoice,'date'=>$date]);
+        return view('invoice',['invoice'=>$invoice,'date'=>$date,'status'=>$status]);
         
     }
 
@@ -66,7 +69,8 @@ class InvoiceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'phone'=>'bail|required|numeric|digits:10'
+            'phone'=>'bail|required|numeric|digits:10',
+            'address'=>'required'
         ]);
         $year =  Carbon::now('Asia/Ho_Chi_Minh')->year;
         $month = (int)Carbon::now('Asia/Ho_Chi_Minh')->month;
@@ -103,7 +107,7 @@ class InvoiceController extends Controller
         $invoice=new Invoice();
         $invoice->fill([
             'id'=>$id,
-            'username'=>'dinooo',
+            'username'=>Auth::user()->username,
             'shipping_address'=>$request->address,
             'shipping_phone'=>$request->phone,
             'status'=>0,
@@ -111,12 +115,12 @@ class InvoiceController extends Controller
         $invoice->save();
         $product=Cart::select('product_details.id','price','quantity','carts.id as cart')
         ->join('product_details','product_details.id','=','carts.product_id')
-        ->where('username','like','dinooo')->get();
+        ->where('username','like',Auth::user()->username)->get();
         foreach ($product as $pd) {
             $invdetail=new InvoiceDetail();
             $invdetail->fill([
-                'id_invoice'=>$id,
-                'id_product'=>$pd->id,
+                'invoice_id'=>$id,
+                'product_id'=>$pd->id,
                 'quantity'=>$request->input('quantity'.$pd->id),
                 'price'=>$pd->price
             ]);
@@ -138,18 +142,25 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
+        $detail=array();
         $invoice=Invoice::find($id);
+        $detail[0]=$invoice->status;
+        if($invoice->username!=Auth::user()->username){
+            return Redirect::action([InvoiceController::class,'index']);
+        }
         if($invoice->status==0){
             $invoice->status='Waiting for confirmation';
         }else if($invoice->status==1){
             $invoice->status='Being shipped';
-        }else{
+        }else if($invoice->status==2||$invoice->status==4){
             $invoice->status='Delivered';
+        }else{
+            $invoice->status='Cancelled';
         }
         $invoicedetail=InvoiceDetail::select('product_details.id','image','name','invoice_details.price','invoice_details.quantity','capacity')
-        ->join('product_details','product_details.id','=','invoice_details.id_product')
+        ->join('product_details','product_details.id','=','invoice_details.product_id')
         ->join('products','products.id','=','product_details.product_id')
-        ->where('id_invoice','=',$id)->get();
+        ->where('invoice_id','=',$id)->get();
         $total=0;
         $day=substr($invoice->id,6,2);
         $month=substr($invoice->id,4,2);
@@ -157,12 +168,12 @@ class InvoiceController extends Controller
         $hour=substr($invoice->id,8,2);
         $minute=substr($invoice->id,10,2);
         $second=substr($invoice->id,12,2);
-        $date=$hour.":".$minute.":".$second." ".$day."-".$month."-".$year;
+        $detail[1]=$hour.":".$minute.":".$second." ".$day."-".$month."-".$year;
         foreach($invoicedetail as $inv){
             $total+=$inv->price*$inv->quantity;
             $inv->image=Storage::url($inv->image);
         }
-        return view('invoicedetail',['invoicedetail'=>$invoicedetail,'total'=>$total,'invoice'=>$invoice,'date'=>$date]);
+        return view('invoicedetail',['invoicedetail'=>$invoicedetail,'total'=>$total,'invoice'=>$invoice,'detail'=>$detail]);
     }
 
     /**

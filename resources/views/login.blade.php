@@ -51,6 +51,8 @@
                 <p>{{$errors->first('password')}}</p>
               </div>
                 @endif
+                <div style="text-align: center;">
+                <p>Do not have an account? <a href="{{ route('account.create') }}"> Register</a></p></div>
                 <div style="text-align: center">
                 <button type="submit" class="btn btn-primary">Login</button>
             </div>

@@ -56,19 +56,18 @@
                     </a>
                 </li> 
 
-                <li class="nav-item"><a class="nav-link" href="{{ route('product') }}">Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('product') }}">Perfume</a></li>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">Gender</a>
                     <div class="dropdown-menu">
-                      <a class="dropdown-item" href="">Men</a>
-                      <a class="dropdown-item" href="">Women</a>
-                      <a class="dropdown-item" href="">Unisex</a>
+                      <a class="dropdown-item" href="{{ route('gender',0) }}">Men</a>
+                      <a class="dropdown-item" href="{{ route('gender',1) }}">Women</a>
+                      <a class="dropdown-item" href="{{ route('gender',2) }}">Unisex</a>
                     </div>
                 </li>
-
                 <li class="nav-item"><a class="nav-link" href="{{ route('brand') }}">Brand</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('cart.show','dinooo') }}">Cart</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('cart') }}">Cart</a></li>
 
                 <li class="nav-item"><a class="nav-link" href="{{ route('invoice.index') }}">My bill</a></li>
                 {{-- @if ( Auth::guard('user')->check() )
@@ -165,38 +164,9 @@
       <!-- Bootstrap core JavaScript -->
       <script src="{{ url('jquery/jquery.min.js')}}"></script>
       <script src="{{ url('bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-  
-  
+      <script src="{{ url('js/script.js') }}"></script>
       <!-- Additional Scripts -->
       <script src="{{ url('js/custom.js')}}"></script>
       <script src="{{ url('js/owl.js')}}"></script>
     </body>
   </html>
-  <script>
- document.getElementById("getprice").onchange = function(){
-    var value = document.getElementById("getprice").value;
-    var max=document.getElementById('stock'+value).value;
-    document.getElementById('price').innerHTML=document.getElementById('price'+value).value;
-    document.getElementById("quantity").max = max;
- }
-
-    function cartquantity(id)
-{
-    var price = document.getElementById('price'+id).value;
-    var quantity = document.getElementById('quantity'+id).value;
-    a=price*quantity;
-    total=new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format(a);
-    document.getElementById('total'+id).innerHTML=total;
-    document.getElementById('ttotal'+id).value=a;
-
-    var total1=0;
-    var x = document.getElementsByClassName("total");
-    var i;
-    for (i = 0; i < x.length; i++) {
-    total1=total1+parseInt(x[i].value);
-    
-  }
-  bill=new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format(total1);
-  document.getElementById('total').innerHTML=bill;
-}
-  </script>

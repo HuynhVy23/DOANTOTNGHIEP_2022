@@ -21,6 +21,17 @@
       </div>
     </div>
     <!-- Banner Ends Here -->
+    <div class="row">
+    <div class="col-md-8" style="margin-left: 15%;margin-top: 10px;">
+      <form action="{{ route('product') }}" method="GET">
+    <div class="search">
+      <i class="fa fa-search"></i>
+      <input type="text" class="form-control" placeholder="Perfume's name" name="name">
+      <button class="btn btn-primary">Search</button>
+    </form>
+    </div>
+    </div>
+  </div>
 
     <div class="latest-products">
       <div class="container">
@@ -100,7 +111,14 @@
           @foreach ($brand as $b)
           <div class="col-lg-4 col-md-6">
             <div class="service-item">
-              <a href="{{ route('branddetail',$b->id) }}" class="services-item-image"><img src="{{ $b->image_brand }}" class="img-fluid" alt="" width="289px" height="211px"></a>
+              <a href="{{ route('branddetail',$b->id) }}" class="services-item-image">
+                <div style="width:290px;height:190px;text-align:center">
+                  
+                  <img src="{{ $b->image_brand }}" class="img-fluid" alt="" style="object-fit:cover;position: absolute;background-size: cover;display: block;background-position: center center;width: 350px;height: 190px;">
+               
+                </div>
+              </a>
+                
               <div class="down-content">
                 <h4><a href="{{ route('branddetail',$b->id) }}">{{ $b->name_brand }}</a></h4>
                 <p style="margin: 0;"> {{ $b->detail }}</p>

@@ -140,7 +140,10 @@ class BrandController extends Controller
 
     public function brand()
     {
-        $lstBrand=Brand::all();
+        $lstBrand=Brand::paginate(9);
+        foreach($lstBrand as $br){
+            $this->fixImage($br);
+        }
         return view('brand',['brand'=>$lstBrand]);
     }
 
@@ -148,6 +151,7 @@ class BrandController extends Controller
     {
         $brand=Brand::find($id);
         $brand->detail=explode('.',$brand->detail);
+        $brand->image_brand=Storage::url($brand->image_brand);
         $product=Product::where('brand_id','=',$id)->get();
         foreach($product as $p){
             $p->image=Storage::url($p->image);
@@ -155,4 +159,5 @@ class BrandController extends Controller
         return view('branddetail',['brand'=>$brand,'product'=>$product]);
     }
 
+    
 }

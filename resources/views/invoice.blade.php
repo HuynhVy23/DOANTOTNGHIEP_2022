@@ -15,6 +15,16 @@
 
     <div class="products call-to-action">
       <div class="container">
+        @if($errors->any())
+          @error('success')
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{$message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          @enderror
+          @endif
           @if(count($invoice)<1)
           <div class="col-12" style="text-align: center">
                <h1 style="color: #dd2b0b">Oops...</h1>
@@ -43,9 +53,16 @@
                               <td>{{ $inv->shipping_address }}</td>
                               <td>{{ $inv->shipping_phone }}</td>
                               <td>{{ $date[$inv->id] }}</td>
-                              <td style="color: #FFA500">{{ $inv->status }}</td>
+                              <td style="color: #FFA500">{{ $status[$inv->id] }}</td>
                               <td><a href="{{ route('invoice.show',$inv->id) }}" class="btn btn-info btn-rounded">
                                    Detail</a></td>
+                            
+                            <td>
+                              @if ($inv->status==2)<a href="{{ route('review.show',$inv->id) }}" class="btn btn-info btn-rounded">
+                              Review</a>
+                              @endif</td>
+                              
+                            
                            </tr>
                            @endforeach  
                              </tbody>

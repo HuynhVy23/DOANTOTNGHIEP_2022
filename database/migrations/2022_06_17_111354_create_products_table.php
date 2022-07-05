@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->longText('description');
             $table->string('gender');
             $table->string('image');
+            $table->integer('gender')->default(0);
             $table->integer('brand_id');
             $table->integer('scent_id');
             $table->timestamps();

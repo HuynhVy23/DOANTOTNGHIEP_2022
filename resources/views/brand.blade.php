@@ -23,7 +23,10 @@
               @foreach ($brand as $br)
               <div class="col-md-4">
                 <div class="service-item">
-                  <a href="{{ route('branddetail',$br->id) }}" class="services-item-image"><img src="{{ $br->image_brand }}" class="img-fluid" alt="" width="290px" height="212px"></a>
+                  <a href="{{ route('branddetail',$br->id) }}" class="services-item-image" >
+                    <div style="width:290px;height:212px; background-image: url({{ $br->image_brand }});" class="imagebrand" >
+                      {{-- <img src="{{ $br->image_brand }}" style="object-fit:cover;position: absolute;background-size: cover;display: block;background-position: center center;width: 290px;height: 212px;" class="img-fluid" alt=""> --}}
+                      </div></a>
 
                   <div class="down-content">
                     <h4><a href="{{ route('branddetail',$br->id) }}">{{ $br->name_brand }}</a></h4>
@@ -47,13 +50,7 @@
               </div> --}}
 
               <div class="col-md-12">
-                <ul class="pages">
-                  <li><a href="#">1</a></li>
-                  <li class="active"><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-                </ul>
+                {{ $brand->appends(request()->all())->links() }}
               </div>
             </div>
           </div>

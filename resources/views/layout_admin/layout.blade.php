@@ -146,7 +146,6 @@
     <script src="{{ url('js/lib/calendar-2/pignose.init.js') }}"></script>
     <script src="{{ url('js/lib/owl-carousel/owl.carousel.min.js') }}"></script>
     <script src="{{ url('js/lib/owl-carousel/owl.carousel-init.js') }}"></script>
-
     <script src="{{ url('js/scripts.js') }}"></script>
 
     <script src="{{ url('js/lib/datatables/datatables.min.js') }}"></script>
@@ -159,8 +158,5 @@
     <script src="{{ url('js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js') }}"></script>
     <script src="{{ url('js/lib/datatables/datatables-init.js') }}"></script>
     <script src="{{ url('js/lib/money/simple.money.format.js') }}"></script>
-    <script type="text/javascript">
-        $('.price_format').simpleMoneyFormat();
-    </script>
 
 </html>

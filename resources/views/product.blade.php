@@ -6,8 +6,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="text-content">
-          <h4>Perfume</h4>
-          <h2>All Product</h2>
+          <h2>Product</h2>
         </div>
       </div>
     </div>
@@ -15,6 +14,22 @@
 </div>
 
 <div class="products">
+  <div class="row" >
+    <div class="col-md-12"style="margin: 10px 0 20px 20%;width:1000px;">
+      <form action="{{ route('product') }}" method="GET">
+    <div class="search" style="width:800px;display: flex;float:left">
+      <i class="fa fa-search"></i>
+      <input type="text" class="form-control" placeholder="Perfume's name" name="name">
+      <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+    </div>
+      <select name="sort" id="sort" class="form-control" style="width: 170px;height:50px;">
+        <option value="{{ Request::url() }}?sort=az">A->Z</option>
+        <option value="{{ Request::url() }}?sort=za">Z->A</option>
+      </select>
+    
+  </div>
+  </div>
   <div class="container" style="max-width:1500px">
     <div class="row">
       <div class="col-md-2">
@@ -31,12 +46,20 @@
           </div>
         </div>
         <br>
+
         <div>
           <h5>Scents</h5>
         </div>
         @foreach ($scent as $c)
         <a href="{{ route('scent',$c->id) }}">{{ $c->name_scent    }} ({{ $c->totalPerfume->count() }})</a><br>
       @endforeach
+      <br>
+      <div>
+        <h5>Gender</h5>
+      </div>
+      <a href="{{ route('gender',0) }}">Men</a><br>
+      <a href="{{ route('gender',1) }}">Women</a><br>
+      <a href="{{ route('gender',2) }}">Unisex</a><br>
       </div>
       <div class="col-md-8">
         <div class="row">
