@@ -175,7 +175,7 @@ class ProductController extends Controller
             $type='desc';
         }
         if($name!=''){
-            $lstProduct= Product::where('name','like','%'.$name.'%')->orderBy($column,$type)->paginate(9);
+            $lstProduct= Product::where('name','like','%'.$name.'%')->orderBy($column,$type)->paginate(1);
         }else{
             $lstProduct= Product::orderBy($column,$type)->paginate(9);
         }
@@ -184,7 +184,8 @@ class ProductController extends Controller
         }
         $brand=Brand::all();
         $scent=Scent::all();
-        return view('product',['lstProduct'=>$lstProduct,'brand'=>$brand,'scent'=>$scent]);
+        $pagination = $lstProduct->appends(array('value' => 'key'));
+        return view('product',['lstProduct'=>$lstProduct,'brand'=>$brand,'pagination' => $pagination,'scent'=>$scent]);
     }
 
     public function indexUser()
