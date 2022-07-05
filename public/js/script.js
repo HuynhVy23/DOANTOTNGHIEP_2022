@@ -12,7 +12,7 @@ $(document).ready(function(){
                 var max=document.getElementById('stock'+value).value;
                 document.getElementById('price').innerHTML=document.getElementById('price'+value).value;
                 document.getElementById("quantity").max = max;
-             }
+             };
             
                 function cartquantity(id)
             {
@@ -32,16 +32,22 @@ $(document).ready(function(){
               }
               bill=new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format(total1);
               document.getElementById('total').innerHTML=bill;
-            }
+            };
 
-            function hidecapacity(a){
-                var idproduct = document.getElementById('idproduct').value;
-                if (idproduct != ''){
-                   for (let i = 0; i < a.length; i++) {
-                    if(a[i]['product_id']==idproduct){
-                        var html = '<option value="'+a[i]['id']+'">'+a[i]['capacity']+'</option>';
-                        document.getElementById('capacity').insertAdjacentHTML('afterend', html);
+            function hidecapacity(a) {
+                var idproduct = document.getElementById("idproduct").value;
+                var x = document.getElementById('capacity');
+                $('#capacity').empty();
+                if (idproduct != '') {
+                    for (let i = 0; i < a.length; i++) {
+                        if (a[i]['product_id'] == idproduct) {
+                            // var html = '<option value="' + a[i]['id'] + '">' + a[i]['capacity'] + '</option>';
+                            // document.getElementById('capacity').innerHTML = html;
+                            var option = document.createElement("option");
+              option.value = a[i]['id'];
+              option.text = a[i]['capacity'];console.log(option.value);
+              x.add(option);
+                        }
                     }
                 }
-            }
-            }
+            };
