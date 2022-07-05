@@ -12,7 +12,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="button-list">
-                    <a class="btn btn-warning btn-rounded m-b-10 m-l-5" href="{{ route('productad.create') }}">Add New
+                    <a class="btn btn-primary btn-rounded m-b-10 m-l-5" href="{{ route('productad.create') }}">Add New
                         Perfume Model</a>
                 </div>
                 <div class="row" style="padding: 15px">
@@ -21,8 +21,9 @@
                     <div class="row">
                         <form action="" class="row m-2">
                             <div class="row m-2">
-                                <input type="search" name="search" id="" class="form-control" style="border-style: groove" placeholder="What do you want?">
-                            </div> 
+                                <input type="search" name="search" id="" class="form-control"
+                                    style="border-style: groove" placeholder="What do you want?">
+                            </div>
                             <div class=" btn-rounded m-b-10 m-l-5">
                                 <button type="submit"class="btn btn-info btn-rounded">Search</i></button>
                             </div>
@@ -36,6 +37,7 @@
                                     <th>Name</th>
                                     <th>Concentration</th>
                                     <th>Description</th>
+                                    <th>Gender</th>
                                     <th>Brand</th>
                                     <th>Scent</th>
                                     <th style="text-align: center">Image</th>
@@ -48,16 +50,19 @@
                                         <td>{{ $pd->name }}</td>
                                         <td>{{ $pd->concentration }}</td>
                                         <td>{{ $pd->description }}</td>
+                                        <td>{{ $pd->gender }}</td>
                                         <td>{{ $pd->brand->name_brand }}</td>
                                         <td>{{ $pd->scent->name_scent }}</td>
                                         <td><img src="{{ $pd->image }}" width="100px" height="100px"> </td>
                                         <td><a class="btn btn-info btn-rounded"
-                                                href="{{ route('productad.edit', $pd->id) }}"> <i class="fa fa-edit"></a></td>
+                                                href="{{ route('productad.edit', $pd->id) }}"> <i class="fa fa-edit">
+                                        </td>
                                         <td>
-                                            <form method="post" action="{{ route('productad.destroy', $pd->id) }}" style="text-align: center">
+                                            <form method="post" action="{{ route('productad.destroy', $pd->id) }}"
+                                                style="text-align: center">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit"class="btn btn-info btn-rounded"><i
+                                                <button type="submit"class="btn btn-info btn-rounded btn btn-danger"><i
                                                         class="fa fa-trash"></i></button>
                                             </form>
                                         </td>
@@ -66,18 +71,18 @@
                             </tbody>
                         </table>
 
-                        {{-- </div>
-            {{ $lstSanPham->appends(request()->all())->links() }}
-            </div> --}}
-                    </div>
-                </div>
+                    {{-- </div>
+                    {{ $lstProduct->appends(request()->all())->links() }}
+                </div> --}}
             </div>
         </div>
+    </div>
+    </div>
 
-    @stop
+@stop
 
 
-    {{-- <div class="row">
+{{-- <div class="row">
         <ul class="nav nav-tabs profile-tab" role="tablist">
             <li class="nav-item"> <a class="nav-link"  href="">ALL<span class="label label-rouded label-primary pull-right" style="margin-left:10px"></span></a> </li>
         <li class="nav-item"> <a class="nav-link"  href="">Stock <= 5<span class="label label-rouded label-primary pull-right" style="margin-left:10px"></span></a> </li>

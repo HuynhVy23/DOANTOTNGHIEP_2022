@@ -12,7 +12,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="button-list">
-                    <a class="btn btn-warning btn-rounded m-b-10 m-l-5" href="{{ route('product_detail.create') }}">Add New
+                    <a class="btn btn-primary btn-rounded m-b-10 m-l-5" href="{{ route('product_detail.create') }}">Add New
                         Perfume</a>
                 </div>
                 <div class="row" style="padding: 15px">
@@ -44,7 +44,7 @@
                                     <tr>
                                         <td>{{ $pddt->id }}</td>
                                         <td>{{ $pddt->capacity }}</td>
-                                        <td>{{ $pddt->price }}</td>
+                                        <td>{{ number_format($pddt->price, 0, ',', '.') }}</td>
                                         <td>{{ $pddt->stock }}</td>
                                         <td>{{ $pddt->product->name }}</td>
                                         <td><a class="btn btn-info btn-rounded"
@@ -55,7 +55,7 @@
                                                 style="text-align: center">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit"class="btn btn-info btn-rounded"><i
+                                                <button type="submit"class="btn btn-info btn-rounded btn btn-danger"><i
                                                         class="fa fa-trash"></i></button>
                                             </form>
                                         </td>

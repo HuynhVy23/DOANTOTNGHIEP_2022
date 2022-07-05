@@ -65,4 +65,10 @@ Route::prefix('admin')->middleware('checkadmin')->group(function (){
     Route::resource('productad', ProductController::class)->except('show');
     Route::resource('scentad', ScentController::class)->except('show');
     Route::resource('product_detail', ProductDetailController::class);
+    Route::get('/invoiceAdmin', [InvoiceController::class, 'invoiceAdmin'])->name('invoiceAdmin');
+    Route::get('/invoiceAdmin/{id}', [InvoiceController::class, 'showInvoiceAdmin'])->name('showInvoiceAdmin');
+    Route::get('/hoadonnhap',[ InvoiceController::class,'hoadonnhap'])->name('receipt');
+    Route::get('/hoadonnhap/{id}',[ InvoiceController::class,'chitietnhap'])->name('showreceipt');
+    Route::get('/hoadonnhapp/add',[InvoiceController::class,'themhdnhap'])->name('addreceipt');
+    Route::post('/xuli',[InvoiceController::class,'xulihdnhap'])->name('add');
 });
