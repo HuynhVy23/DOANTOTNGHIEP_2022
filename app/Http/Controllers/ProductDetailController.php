@@ -56,16 +56,17 @@ class ProductDetailController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'capacity'=>'bail|required|alpha_dash|between:4,50',
+            'capacity'=>'bail|required',
             'price'=>'bail|required',
             'stock'=>'bail|required',
             'product_id'=>'required',
             'status'=>'bail|required'
         ]);
         $productDetail = new ProductDetail;
+        $num = filter_var($request->price, FILTER_SANITIZE_NUMBER_INT);
         $productDetail->fill([
             'capacity'=>$request->input('capacity'),
-            'price'=>$request->input('price'),
+            'price'=>$num,
             'stock'=>$request->input('stock'),
             'product_id'=>$request->input('product_id'),
             'status'=>$request->input('status'),

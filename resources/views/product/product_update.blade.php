@@ -22,6 +22,7 @@
                         <p>{{ $errors->first('name') }}</p>
                     </div>
                 @endif
+
                 <div class="form-group">
                     <label for="concentration" class="col-form-label">Concentration: <em style="color: red">*</em></label>
                     <input type="text" class="form-control" name="concentration" value="{{ $product->concentration }}"
@@ -32,6 +33,7 @@
                         <p>{{ $errors->first('concentration') }}</p>
                     </div>
                 @endif
+
                 <div class="form-group">
                     <label for="description" class="col-form-label">Description: <em style="color: red">*</em></label>
                     <input type="text" class="form-control" name="description" value="{{ $product->description }}"
@@ -42,6 +44,22 @@
                         <p>{{ $errors->first('description') }}</p>
                     </div>
                 @endif
+
+                <div class="form-group">
+                    <label for="model" class="col-form-label">Gender: <em style="color: red">*</em></label>
+                    <select name="gender">
+                        <option value="" style="text-align: center">--Select gender--</option>
+                        <option value="Male" style="text-align: center">Male</option>
+                        <option value="Female" style="text-align: center">Female</option>
+                        <option value="Unisex" style="text-align: center">Unisex</option>
+                    </select>
+                </div>
+                @if ($errors->first('gender'))
+                    <div class="error">
+                        <p>{{ $errors->first('gender') }}</p>
+                    </div>
+                @endif
+                
                 <div class="form-group">
                     <label for="model" class="col-form-label">Brand: <em style="color: red">*</em></label>
                     <select name="brand_id">

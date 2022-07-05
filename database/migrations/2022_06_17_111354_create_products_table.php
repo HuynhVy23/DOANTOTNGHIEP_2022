@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('concentration');
             $table->longText('description');
+            $table->string('gender');
             $table->string('image');
             $table->integer('brand_id');
             $table->integer('scent_id');

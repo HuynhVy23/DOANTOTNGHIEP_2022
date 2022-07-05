@@ -18,7 +18,7 @@ class ProductController extends Controller
         if(Storage::disk('public')->exists($pd->image)){
             $pd->image=Storage::url($pd->image);
         }else{
-            $pd->image='/image/product/auto.jpg';
+            $pd->image='/image/auto.jpg';
         }
     }
 
@@ -60,6 +60,7 @@ class ProductController extends Controller
     {
         $lstBrand=Brand::all();
         $lstScent=Scent::all();
+        $pd=Product::all();
         return view('product.product_add',['lstBrand'=>$lstBrand],['lstScent'=>$lstScent]);
     }
 
@@ -72,9 +73,10 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'bail|required|alpha_dash|between:4,50',
+            'name'=>'bail|required',
             'concentration'=>'bail|required|',
             'description'=>'bail|required',
+            'gender'=>'bail|required',
             'brand_id'=>'required',
             'scent_id'=>'bail|required'
         ]);
@@ -84,6 +86,7 @@ class ProductController extends Controller
             'name'=>$request->input('name'),
             'concentration'=>$request->input('concentration'),
             'description'=>$request->input('description'),
+            'gender'=>$request->input('gender'),
             'image'=>'',
             'brand_id'=>$request->input('brand_id'),
             'scent_id'=>$request->input('scent_id'),
@@ -92,6 +95,9 @@ class ProductController extends Controller
         $product->save();
         if($request->hasFile('image')){
             $product->image=$request->file('image')->store('img/product/'.$product->id,'public');
+        }
+        else{
+            $product->image='image/auto.jpg';
         }
 
         $product->save();
@@ -133,6 +139,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name'=>'bail|required',
+            'concentration'=>'bail|required|',
+            'description'=>'bail|required',
+            'gender'=>'bail|required',
+            'brand_id'=>'required',
+            'scent_id'=>'bail|required'
+        ]);
         $product=Product::find($id);
         if($request->hasFile('image')){
             $product->image=$request->file('image')->store('img/product/'.$product->id,'public');
@@ -141,6 +155,7 @@ class ProductController extends Controller
             'name'=>$request->input('name'),
             'concentration'=>$request->input('concentration'),
             'description'=>$request->input('description'),
+            'gender'=>$request->input('gender'),
             'brand_id'=>$request->input('brand_id'),
             'scent_id'=>$request->input('scent_id'),
         ]);

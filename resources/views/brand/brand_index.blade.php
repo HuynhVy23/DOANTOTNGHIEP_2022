@@ -32,9 +32,7 @@
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Detail</th>
-                                        <th>Image</th>
-                                        <th></th>
-                                        <th></th>
+                                        <th style="text-align: center">Image</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,14 +43,15 @@
                                             <td>{{ $brand->detail }}</td>
                                             <td><img src="{{ $brand->image_brand }}" width="100px" height="100px"></td>
                                             <td><a class="btn btn-info btn-rounded"
-                                                    href="{{ route('brand.edit', $brand->id) }}"><i class="fa fa-edit"></i></a>
+                                                    href="{{ route('brand.edit', $brand->id) }}"><i
+                                                        class="fa fa-edit"></i></a>
                                             </td>
                                             <td>
                                                 <form method="post" action="{{ route('brand.destroy', $brand->id) }}"
                                                     style="text-align: center">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit"class="btn btn-info btn-rounded"><i
+                                                    <button type="submit"class="btn btn-info btn-rounded btn btn-danger"><i
                                                             class="fa fa-trash"></i></button>
                                                 </form>
                                             </td>

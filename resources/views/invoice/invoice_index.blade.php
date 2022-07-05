@@ -2,7 +2,7 @@
 @section('container')
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
-            <h3 class="text-primary">Scent</h3>
+            <h3 class="text-primary">Invoice</h3>
         </div>
     </div>
 @stop
@@ -12,30 +12,39 @@
             <div class="card">
                 <div class="button-list">
                     <a type="submit" class="btn btn-primary btn-rounded m-b-10 m-l-5"
-                        href="{{ route('scentad.create') }}">Add New Scent</a>
+                        href="">Add
+                        New Invoice</a>
                     <div class="card-body">
                         <div class="table-responsive m-t-40">
-                            <table class="table table-bordered table-striped" style="text-align: center; border-style:groove">
+                            <table class="table table-bordered table-striped" style="text-align: center">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Name</th>
-                                        <th class="col-2"></th>
-                                        <th class="col-2" style="text-align: center"></th>
+                                        <th>User Name</th>
+                                        <th>Shipping Address</th>
+                                        <th>Shipping Phone</th>
+                                        <th>Type</th>
+                                        <th style="text-align: center">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($lstScent as $scent)
+                                    @foreach ($lstInvoice as $invoice)
                                         <tr>
-                                            <td>{{ $scent->id }}</td>
-                                            <td>{{ $scent->name_scent }}</td>
+                                            <td>{{ $invoice->id }}</td>
+                                            <td>{{ $invoice->username }}</td>
+                                            <td>{{ $invoice->shipping_address }}</td>
+                                            <td>{{ $invoice->shipping_phone }}</td>
+                                            <td>{{ $invoice->type }}</td>
+                                            <td>{{ $invoice->status }}</td>
                                             <td><a class="btn btn-info btn-rounded"
-                                                    href="{{ route('scentad.edit', $scent->id) }}"><i class="fa fa-edit"></a></td>
+                                                    href="{{ route('showInvoiceAdmin', $invoice->id) }}"><i
+                                                        class="fa fa-eye"></i></a>
+                                            </td>
                                             <td>
-                                                <form method="post" action="{{ route('scentad.destroy', $scent->id) }}" style="text-align: center">
+                                                <form method="post" action="" style="text-align: center">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit"class="btn btn-info btn-rounded btn btn-danger"><i
+                                                    <button type="submit"class="btn btn-info btn-rounded"><i
                                                             class="fa fa-trash"></i></button>
                                                 </form>
                                             </td>

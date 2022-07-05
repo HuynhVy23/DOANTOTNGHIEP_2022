@@ -58,7 +58,7 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name_brand'=>'bail|required|alpha_dash|between:4,50',
+            'name_brand'=>'bail|required|',
             'detail'=>'bail|required|',
         ]);
         $lstBrand = new Brand;
@@ -108,6 +108,10 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name_brand'=>'bail|required|',
+            'detail'=>'bail|required|',
+        ]);
         $lstBrand=Brand::find($id);
         if($request->hasFile('image_brand')){
             $lstBrand->image_brand=$request->file('image_brand')->store('img/brand/' . $lstBrand->id, 'public');
