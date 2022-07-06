@@ -45,9 +45,9 @@
                 <label for="model" class="col-form-label">Gender: <em style="color: red">*</em></label>
                 <select name="gender">
                     <option value="" style="text-align: center">--Select gender--</option>
-                    <option value="Male" style="text-align: center">Male</option>
-                    <option value="Female" style="text-align: center">Female</option>
-                    <option value="Unisex" style="text-align: center">Unisex</option>
+                    <option value="0" style="text-align: center">Male</option>
+                    <option value="1" style="text-align: center">Female</option>
+                    <option value="2" style="text-align: center">Unisex</option>
                 </select>
             </div>
             @if ($errors->first('gender'))

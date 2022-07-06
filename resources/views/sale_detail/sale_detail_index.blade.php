@@ -2,7 +2,7 @@
 @section('container')
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
-            <h3 class="text-primary">Promotion</h3>
+            <h3 class="text-primary">Promotion Detail</h3>
         </div>
     </div>
 @stop
@@ -11,8 +11,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="button-list">
-                    <a type="submit" class="btn btn-primary btn-rounded m-b-10 m-l-5" href="{{ route('salead.create') }}">Add
-                        New Promotion</a>
+                    <a type="submit" class="btn btn-primary btn-rounded m-b-10 m-l-5" href="{{ route('sale_detailad.create') }}">Add
+                        New Promotion Detail</a>
                     <div class="card-body">
                         <div class="row">
                             {{-- <form action="" class="row m-2">
@@ -30,26 +30,24 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Date Start</th>
-                                        <th>Date End</th>
-                                        <th style="text-align: center">Image Banner</th>
+                                        <th>Promotion</th>
+                                        <th>Product</th>
+                                        <th style="text-align: center">Price Sale</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($lstSale as $sale)
+                                    @foreach ($lstSaleDetail as $sdt)
                                         <tr>
-                                            <td>{{ $sale->id }}</td>
-                                            <td>{{ $sale->name }}</td>
-                                            <td>{{ $sale->date_start }}</td>
-                                            <td>{{ $sale->date_end }}</td>
-                                            <td><img src="{{ $sale->image_banner }}" width="100px" height="100px"></td>
+                                            <td>{{ $sdt->id }}</td>
+                                            <td>{{ $sdt->sale->name }}</td>
+                                            <td>{{ $sdt->detail->capacity }}</td>
+                                            <td >{{ $sdt->price_sale }}</td>
                                             <td><a class="btn btn-info btn-rounded"
-                                                    href="{{ route('salead.edit', $sale->id) }}"><i
+                                                    href="{{ route('sale_detailad.edit', $sdt->id) }}"><i
                                                         class="fa fa-edit"></i></a>
                                             </td>
                                             <td>
-                                                <form method="post" action="{{ route('salead.destroy', $sale->id) }}"
+                                                <form method="post" action="{{ route('sale_detailad.destroy', $sdt->id) }}"
                                                     style="text-align: center">
                                                     @csrf
                                                     @method('DELETE')

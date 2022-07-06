@@ -9,6 +9,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ScentController;
 use App\Http\Controllers\ProductDetailController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SaleController;
+use App\Http\Controllers\SaleDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,4 +73,6 @@ Route::prefix('admin')->middleware('checkadmin')->group(function (){
     Route::get('/hoadonnhap/{id}',[ InvoiceController::class,'chitietnhap'])->name('showreceipt');
     Route::get('/hoadonnhapp/add',[InvoiceController::class,'themhdnhap'])->name('addreceipt');
     Route::post('/xuli',[InvoiceController::class,'xulihdnhap'])->name('add');
+    Route::resource('/salead', SaleController::class)->except('show');
+    Route::resource('/sale_detailad', SaleDetailController::class)->except('show');
 });

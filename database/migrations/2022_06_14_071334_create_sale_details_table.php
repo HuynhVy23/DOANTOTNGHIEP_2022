@@ -15,8 +15,8 @@ class CreateSaleDetailsTable extends Migration
     {
         Schema::create('sale_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_sale');
-            $table->unsignedBigInteger('id_product');
+            $table->unsignedBigInteger('sale_id');
+            $table->unsignedBigInteger('product_detail_id');
             $table->integer('price_sale');
             $table->timestamps();
             $table->softDeletes();

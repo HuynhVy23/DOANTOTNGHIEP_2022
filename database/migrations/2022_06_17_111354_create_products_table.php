@@ -18,7 +18,6 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('concentration');
             $table->longText('description');
-            $table->string('gender');
             $table->string('image');
             $table->integer('gender')->default(0);
             $table->integer('brand_id');

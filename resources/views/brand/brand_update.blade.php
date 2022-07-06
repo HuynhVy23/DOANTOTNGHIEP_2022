@@ -2,7 +2,7 @@
 @section('container')
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
-            <h3 class="text-primary">Brand Update</h3>
+            <h3 class="text-primary">Update Brand</h3>
         </div>
     </div>
 @stop

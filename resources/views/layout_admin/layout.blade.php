@@ -101,7 +101,12 @@
                         <li><a aria-expanded="false" href="{{ route('brand.index') }}"><i
                                     class="fa fa-leaf"></i><span class="hide-menu">Brand</span></a></li>
                         <li><a aria-expanded="false" href="{{ route('scentad.index') }}"><i
-                                    class="fa fa-star"></i></i><span class="hide-menu">Scent</span></a></li>
+                                    class="fa fa-star"></i><span class="hide-menu">Scent</span></a></li>
+                        <li><a aria-expanded="false" href="{{ route('salead.index') }}"><i
+                                    class="fa fa-bookmark"></i><span class="hide-menu">Promotion</span></a></li>
+                        <li><a aria-expanded="false" href="{{ route('sale_detailad.index') }}"><i
+                                    class="fa fa-bookmark"></i><span class="hide-menu">Promotion Detail</span></a>
+                        </li>
                         <li><a aria-expanded="false" href=""><i class="fa fa-user"></i><span
                                     class="hide-menu">Account</span></a></li>
                         {{-- <li ><a aria-expanded="false" href=""><i class="fa fa-comment"></i><span class="hide-menu">Comment</span></a></li> --}}

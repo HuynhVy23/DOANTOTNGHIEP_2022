@@ -20,15 +20,17 @@
                     <p>{{ $errors->first('capacity') }}</p>
                 </div>
             @endif
+
             <div class="form-group">
                 <label for="price" class="col-form-label">Price: <em style="color: red">*</em></label>
-                <input type="text" class="form-control" name="price" placeholder="Enter price" style="text-align: left">
+                <input type="number" class="form-control" name="price" placeholder="Enter price" style="text-align: left">
             </div>
             @if ($errors->first('price'))
                 <div class="error">
                     <p>{{ $errors->first('price') }}</p>
                 </div>
             @endif
+
             <div class="form-group">
                 <label for="stock" class="col-form-label">Stock: <em style="color: red">*</em></label>
                 <input type="number" class="form-control" name="stock" placeholder="Enter stock" value="0" readonly>
