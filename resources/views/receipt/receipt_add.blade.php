@@ -12,17 +12,18 @@
             @csrf
             <div class="form-group">
                 <label for="model" class="col-form-label">Product Model: <em style="color: red">*</em></label>
-                <select name="product_id" style="border-style:groove">
+                <select name="product_id" id="idproduct" style="border-style:groove" onchange="hidecapacity({{ $pddt }})">
                     <option value="" style="text-align: center">--Select product--</option>
                     @foreach ($pd as $item)
                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                     @endforeach
                 </select>
+                <p style="opacity: 0;display:none;">{{ $pddt }}</p>
             </div>
 
             <div class="form-group">
                 <label for="model" class="col-form-label">Capacity: <em style="color: red">*</em></label>
-                <select id="capacity" name="capacity" style="border-style:groove" onchange="hidecapacity({{$pddt}})">
+                <select id="capacity" name="capacity" style="border-style:groove" >
                     {{-- <option value="" style="text-align: center">--Select capacity--</option>
                     @foreach ($pddt as $item)
                         @if ($item->product_id == $pd->id)

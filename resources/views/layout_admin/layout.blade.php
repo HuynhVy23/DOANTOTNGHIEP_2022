@@ -152,7 +152,7 @@
     <script src="{{ url('js/lib/owl-carousel/owl.carousel.min.js') }}"></script>
     <script src="{{ url('js/lib/owl-carousel/owl.carousel-init.js') }}"></script>
     <script src="{{ url('js/scripts.js') }}"></script>
-
+    <script src="{{ url('js/script.js') }}"></script>
     <script src="{{ url('js/lib/datatables/datatables.min.js') }}"></script>
     <script src="{{ url('js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ url('js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js') }}"></script>
@@ -163,5 +163,5 @@
     <script src="{{ url('js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js') }}"></script>
     <script src="{{ url('js/lib/datatables/datatables-init.js') }}"></script>
     <script src="{{ url('js/lib/money/simple.money.format.js') }}"></script>
-
+ 
 </html>

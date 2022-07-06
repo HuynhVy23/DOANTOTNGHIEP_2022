@@ -23,10 +23,10 @@
       <button class="btn btn-primary" type="submit">Search</button>
     </form>
     </div>
-      <select name="sort" id="sort" class="form-control" style="width: 170px;height:50px;">
+      {{-- <select name="sort" id="sort" class="form-control" style="width: 170px;height:50px;">
         <option value="{{ Request::url() }}?sort=az">A->Z</option>
         <option value="{{ Request::url() }}?sort=za">Z->A</option>
-      </select>
+      </select> --}}
     
   </div>
   </div>
@@ -76,7 +76,7 @@
           </div>  
       @endforeach
         
-      <div class="col-md-12">
+      <div class="col-md-12" style="margin-left: 50%;">
         {{ $lstProduct->appends(request()->all())->links() }}
       </div>
     </div>
