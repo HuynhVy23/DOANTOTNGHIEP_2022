@@ -9,6 +9,7 @@ use App\Models\Sale;
 use App\Models\ProductDetail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\Product;
 
 
 class SaleDetailController extends Controller
@@ -20,8 +21,11 @@ class SaleDetailController extends Controller
      */
     public function index()
     {
+        $pdmd=Product::select('products.name')
+        ->join('product_details','product_details.product_id','=','products.id')->get();
         $lstSaleDetail = SaleDetail::all();
-        return view('sale_detail.sale_detail_index',['lstSaleDetail'=>$lstSaleDetail]);
+        //return $pdmd[0]->name;
+        return view('sale_detail.sale_detail_index',['lstSaleDetail'=>$lstSaleDetail,'pdmd'=>$pdmd]);
     }
 
     /**
@@ -31,9 +35,10 @@ class SaleDetailController extends Controller
      */
     public function create()
     {
+        $pd = Product::all();
         $lstSale=Sale::all();
         $lstProductDetail=ProductDetail::all();
-        return view('sale_detail.sale_detail_add',['lstSale'=>$lstSale],['lstProductDetail'=>$lstProductDetail]);
+        return view('sale_detail.sale_detail_add',['lstSale'=>$lstSale],['lstProductDetail'=>$lstProductDetail,'pd'=>$pd]);
     }
 
     /**
@@ -78,10 +83,11 @@ class SaleDetailController extends Controller
      */
     public function edit($id)
     {
+        $pd = Product::all();
         $saleDetail=SaleDetail::find($id);
         $lstProductDetail=ProductDetail::all();
         $lstSale=Sale::all();
-        return view('sale_detail.sale_detail_update',['saleDetail'=>$saleDetail,'lstProductDetail'=>$lstProductDetail,'lstSale'=>$lstSale]);
+        return view('sale_detail.sale_detail_update',['saleDetail'=>$saleDetail,'lstProductDetail'=>$lstProductDetail,'lstSale'=>$lstSale,'pd'=>$pd]);
     }
 
     /**

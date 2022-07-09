@@ -23,8 +23,7 @@
 
             <div class="form-group">
                 <label for="date" class="col-form-label">Date Start:</label>
-                <input type="date" class="form-control" name="date_start" value="2010-12-31" min="1930-01-01"
-                    max="2010-12-31">
+                <input type="date" class="form-control" name="date_start" value="2022-01-01" min="2022-01-01">
             </div>
             @if ($errors->first('date_start'))
                 <div class="error">
@@ -34,8 +33,7 @@
 
             <div class="form-group">
                 <label for="date" class="col-form-label">Date End:</label>
-                <input type="date" class="form-control" name="date_end" value="2010-12-31" min="1930-01-01"
-                    max="2010-12-31">
+                <input type="date" class="form-control" name="date_end" value="2022-01-01" min="2022-01-01">
             </div>
             @if ($errors->first('date_end'))
                 <div class="error">

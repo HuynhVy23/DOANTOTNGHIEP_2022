@@ -50,7 +50,7 @@
                                         <td>{{ $pd->name }}</td>
                                         <td>{{ $pd->concentration }}</td>
                                         <td>{{ $pd->description }}</td>
-                                        <td>{{ $pd->gender }}</td>
+                                        <td>{{ $sex[$pd->id] }}</td>
                                         <td>{{ $pd->brand->name_brand }}</td>
                                         <td>{{ $pd->scent->name_scent }}</td>
                                         <td><img src="{{ $pd->image }}" width="100px" height="100px"> </td>

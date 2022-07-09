@@ -24,15 +24,6 @@
             <div class="form-group">
                 <label for="model" class="col-form-label">Capacity: <em style="color: red">*</em></label>
                 <select id="capacity" name="capacity" style="border-style:groove" >
-                    {{-- <option value="" style="text-align: center">--Select capacity--</option>
-                    @foreach ($pddt as $item)
-                        @if ($item->product_id == $pd->id)
-                            
-                            
-                        @endif
-                    @endforeach
-                    
-                    <option value="{{ $$pd[0]->id ==$pddt[0]->product_id  }}">{{ $pddt->capacity }}</option> --}}
                 </select>
             </div>
 
