@@ -51,3 +51,20 @@ $(document).ready(function(){
                     }
                 }
             };
+            // $(document).ready(function() {
+            //     // $('#submit1').on('click',function(e){
+            //   $("#submit1").click(function(e){
+                document.getElementById("submit1").addEventListener("click", function() {
+                    var a=$("input[name='idproduct']").val();
+                arlet(a);
+                  e.preventDefault();
+                  $.ajax({
+                      url: "{{ route('cart.store') }}",
+                      type:'POST',
+                      data: {
+                        idproduct: $("input[name='idproduct']").val(),
+                      quantity: $("input[name='quantity']").val(),
+                           },
+                  });
+              }); 
+        //   });

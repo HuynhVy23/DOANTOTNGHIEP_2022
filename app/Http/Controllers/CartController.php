@@ -63,7 +63,7 @@ class CartController extends Controller
             $productincart->save();
         }
       }
-       return Redirect::back()->withErrors(['success' => 'Added the product to the cart.']);
+    //    return Redirect::back()->withErrors(['success' => 'Added the product to the cart.']);
     }
 
     /**

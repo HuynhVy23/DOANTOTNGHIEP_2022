@@ -8,6 +8,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ScentController;
 use App\Http\Controllers\ProductDetailController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SaleDetailController;
@@ -42,7 +43,13 @@ Route::prefix('/')->middleware('checkadmin2')->group(function (){
     Route::get('/brands', [BrandController::class, 'brand'])->name('brand');
     Route::get('/branddetail/{id}', [BrandController::class, 'showbrand'])->name('branddetail');
     Route::get('/scent/{id}', [ScentController::class, 'showscent'])->name('scent');
-    Route::get('/gender/{id}', [ProductController::class, 'gender'])->name('gender');        
+    Route::get('/gender/{id}', [ProductController::class, 'gender'])->name('gender');      
+    Route::post('reset-password', [ResetPasswordController::class,'sendMail']);
+    Route::put('reset-password/{token}', [ResetPasswordController::class,'sreset']);  
+    Route::get('forgotpassword', [ResetPasswordController::class,'index'])->name('forgotpassword');
+    Route::post('forgotHandler', [ResetPasswordController::class,'forgotHandler'])->name('forgotHandler');
+    Route::get('resetpassword/{token}',[ResetPasswordController::class,'resetpassword'])->name('resetpassword');
+    Route::post('resetHandler', [ResetPasswordController::class,'resetHandler'])->name('resetHandler');
 });
 
 Route::resource('account', UserController::class)->only(['create', 'store']);
@@ -76,3 +83,4 @@ Route::prefix('admin')->middleware('checkadmin')->group(function (){
     Route::resource('/salead', SaleController::class)->except('show');
     Route::resource('/sale_detailad', SaleDetailController::class)->except('show');
 });
+// dhwcztyshoffkzdi

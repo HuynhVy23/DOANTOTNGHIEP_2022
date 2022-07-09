@@ -9,10 +9,10 @@ use App\Models\Cart;
 use App\Models\Invoice;
 use App\Models\InvoiceDetail;
 use App\Models\Product;
-
 use Illuminate\Support\Facades\Storage;
 use App\Models\ProductDetail;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
 {
