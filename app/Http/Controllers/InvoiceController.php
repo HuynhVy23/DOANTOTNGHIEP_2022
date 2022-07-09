@@ -184,7 +184,16 @@ class InvoiceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $lstInvoice=Invoice::find($id);
+        if($lstInvoice->status==5){
+            $lstInvoice->status=4;
+            $lstInvoice->save();
+            return Redirect::route('invoice.invoice_index');
+        }else{
+            $lstInvoice->status+=1;
+            $lstInvoice->save();
+            return redirect()->back();
+        }
     }
 
     /**
@@ -212,9 +221,30 @@ class InvoiceController extends Controller
 
     public function invoiceAdmin()
     {
-        $lstInvoice = Invoice::all();
-        return view('invoice.invoice_index',['lstInvoice'=>$lstInvoice]);
+        if(isset($_GET['status'])&&$_GET['status']!=null){
+            $lstInvoice = Invoice::where('status','=',$_GET['status'],'and')->where('type','=',0)->paginate(10);
+        }else{
+            $lstInvoice = Invoice::where('status','=',0,'and')->where('type','=',0)->paginate(10);
+        }
+        $pending=Invoice::where('status','=',0,'and')->where('type','=',0)->count();
+        $toship=Invoice::where('status','=',1,'and')->where('type','=',0)->count();
+        $toreceive=Invoice::where('status','=',2,'and')->where('type','=',0)->count();
+        $complete=Invoice::where('status','=',3,'and')->where('type','=',0)->count();
+        $cancel=Invoice::where('status','=',5,'and')->where('type','=',0)->count();
+        $canceled=Invoice::where('status','=',4,'and')->where('type','=',0)->count();
+        //return view('Invoice.Invoice',['lstHoaDon'=>$lstHoaDon,'pending'=>$pending,'toship'=>$toship,'toreceive'=>$toreceive,'complete'=>$complete,'cancel'=>$cancel,'canceled'=>$canceled]);
         
+        //$lstInvoice = Invoice::all();
+        return view('invoice.invoice_index',['lstInvoice'=>$lstInvoice,'pending'=>$pending,'toship'=>$toship,'toreceive'=>$toreceive,'complete'=>$complete,'cancel'=>$cancel,'canceled'=>$canceled]);
+        
+    }
+
+    public function huy($id)
+    {
+        $lstInvoice=Invoice::find($id);
+        $lstInvoice->status=0;
+        $lstInvoice->save();
+        return Redirect::route('invoice.invoice_index');
     }
 
     public function showInvoiceAdmin($id)
@@ -224,8 +254,14 @@ class InvoiceController extends Controller
             $invoice->status='Waiting for confirmation';
         }else if($invoice->status==1){
             $invoice->status='Being shipped';
+        }else if($invoice->status==2){
+            $invoice->status='Receive';
+        }else if($invoice->status==3){
+            $invoice->status='Complete';
+        }else if($invoice->status==4){
+            $invoice->status='Cancel';
         }else{
-            $invoice->status='Delivered';
+            $invoice->status='Cancelled';
         }
         $invoicedetail=InvoiceDetail::select('product_details.id','image','name','invoice_details.price','invoice_details.quantity','capacity')
         ->join('product_details','product_details.id','=','invoice_details.product_id')
@@ -331,7 +367,7 @@ class InvoiceController extends Controller
          'username' => 'ADMIN',
          'shipping_address' => 'Huynh Thuc Khang, Quan 1',
          'shipping_phone' => '0123456789',
-         'type'=>1,
+         'type'=>1, //hóa đơn nhập
          'status'=>0
         ]);
         $invoice->save();

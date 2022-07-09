@@ -82,5 +82,7 @@ Route::prefix('admin')->middleware('checkadmin')->group(function (){
     Route::post('/xuli',[InvoiceController::class,'xulihdnhap'])->name('add');
     Route::resource('/salead', SaleController::class)->except('show');
     Route::resource('/sale_detailad', SaleDetailController::class)->except('show');
+    Route::get('/huy/{id}',[ InvoiceController::class,'huy'])->name('Cancel');
+    Route::get('/invoiceAdminn/{id}',[ InvoiceController::class,'editInvoiceAdmin'])->name('editInvoiceAdmin');
+    Route::resource('invoiceAdminn', InvoiceController::class);
 });
-// dhwcztyshoffkzdi

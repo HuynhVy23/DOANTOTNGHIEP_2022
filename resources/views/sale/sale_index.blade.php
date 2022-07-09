@@ -11,7 +11,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="button-list">
-                    <a type="submit" class="btn btn-primary btn-rounded m-b-10 m-l-5" href="{{ route('salead.create') }}">Add
+                    <a type="submit" class="btn btn-primary btn-rounded m-b-10 m-l-5"
+                        href="{{ route('salead.create') }}">Add
                         New Promotion</a>
                     <div class="card-body">
                         <div class="row">

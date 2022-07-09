@@ -62,11 +62,15 @@
                         </div>
 
                         <div class="col-6 text-right">
-                            <strong style="color:#FFA500">{{ $invoice->status }}</strong>
+                            <strong style="color:#ff0000">{{ $invoice->status }}</strong>
                         </div>
                     </div>
                 </li>
             </ul>
+            @if ($invoicedetail[0]->status == 5)
+                <a class="btn btn-warning btn-rounded" href="{{ route('Cancel', $invoicedetail[0]->invoice_id) }}"><i
+                        class="fa fa-close"></i></a>
+            @endif
         </div>
     </div>
 @stop

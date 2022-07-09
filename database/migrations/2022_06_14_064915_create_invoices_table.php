@@ -18,7 +18,7 @@ class CreateInvoicesTable extends Migration
             $table->string('username');
             $table->string('shipping_address');
             $table->string('shipping_phone');
-            $table->integer('type')->default(0);
+            $table->integer('type')->default(0); //0 hđ bán, 1 phiếu nhập
             $table->integer('status')->default(0); # 0 chờ xác nhận, 1 đang vận chuyển, 2 đã nhận hàng
             $table->timestamps();
             $table->softDeletes();

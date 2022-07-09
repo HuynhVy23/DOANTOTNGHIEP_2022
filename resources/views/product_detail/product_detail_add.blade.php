@@ -57,7 +57,7 @@
             <div class="form-group">
                 <label for="status" class="col-form-label">Status: <em style="color: red">*</em></label>
                 <input type="text" class="form-control" name="status" value="0" placeholder="Enter status"
-                    style="text-align: left">
+                    style="text-align: left" readonly>
             </div>
             @if ($errors->first('status'))
                 <div class="error">

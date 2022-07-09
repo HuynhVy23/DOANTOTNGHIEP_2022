@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sale;
+use App\Models\SaleDetail;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\Product;
+use App\Models\ProductDetail;
 
 class SaleController extends Controller
 {
@@ -57,7 +60,6 @@ class SaleController extends Controller
             'date_end'=>'required',
         ]);
         $sale=new Sale();
-
 
         $sale->fill([
             'name'=>$request->input('name'),

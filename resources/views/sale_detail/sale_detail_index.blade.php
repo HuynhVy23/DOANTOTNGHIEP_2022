@@ -11,7 +11,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="button-list">
-                    <a type="submit" class="btn btn-primary btn-rounded m-b-10 m-l-5" href="{{ route('sale_detailad.create') }}">Add
+                    <a type="submit" class="btn btn-primary btn-rounded m-b-10 m-l-5"
+                        href="{{ route('sale_detailad.create') }}">Add
                         New Promotion Detail</a>
                     <div class="card-body">
                         <div class="row">
@@ -40,14 +41,16 @@
                                         <tr>
                                             <td>{{ $sdt->id }}</td>
                                             <td>{{ $sdt->sale->name }}</td>
+                                            <td>{{ $pdmd[$sdt->product_detail_id]->name }}</td>
                                             <td>{{ $sdt->detail->capacity }}</td>
-                                            <td >{{ $sdt->price_sale }}</td>
+                                            <td>{{ $sdt->price_sale }}</td>
                                             <td><a class="btn btn-info btn-rounded"
                                                     href="{{ route('sale_detailad.edit', $sdt->id) }}"><i
                                                         class="fa fa-edit"></i></a>
                                             </td>
                                             <td>
-                                                <form method="post" action="{{ route('sale_detailad.destroy', $sdt->id) }}"
+                                                <form method="post"
+                                                    action="{{ route('sale_detailad.destroy', $sdt->id) }}"
                                                     style="text-align: center">
                                                     @csrf
                                                     @method('DELETE')

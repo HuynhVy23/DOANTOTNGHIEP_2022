@@ -48,7 +48,18 @@ class ProductController extends Controller
         foreach($lstProduct as $pd){
             $this->fixImage($pd);
         }
-        return view('product.product_index',['lstProduct'=>$lstProduct]);
+
+        $sex = array();
+        foreach($lstProduct as $gen){
+            if($gen->gender == 0){
+                $sex[$gen->id] = "Male";
+            }else if($gen->gender == 1){
+                $sex[$gen->id] = "Female";
+            }else{
+                $sex[$gen->id] = "Unisex";
+            }
+        }
+        return view('product.product_index',['lstProduct'=>$lstProduct,'sex'=>$sex]);
     }
 
     /**
@@ -126,6 +137,15 @@ class ProductController extends Controller
         $product=Product::find($id);
         $lstBrand=Brand::all();
         $lstScent=Scent::all();
+
+        if($product->gender==0){
+            $product->gender='Male';
+        }else if($product->gender==1){
+            $product->gender='Female';
+        }else{
+            $product->gender='Unisex';
+        }
+        
         $this->fixImage($product);
         return view('product.product_update',['product'=>$product,'lstBrand'=>$lstBrand],['product'=>$product,'lstScent'=>$lstScent]);
     }
@@ -155,7 +175,7 @@ class ProductController extends Controller
             'name'=>$request->input('name'),
             'concentration'=>$request->input('concentration'),
             'description'=>$request->input('description'),
-            'gender'=>$request->input('gender'),
+            'gender'=>$request->gender,
             'brand_id'=>$request->input('brand_id'),
             'scent_id'=>$request->input('scent_id'),
         ]);

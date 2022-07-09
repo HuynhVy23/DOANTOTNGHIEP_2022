@@ -28,22 +28,23 @@
                         <p>{{ $errors->first('sale_id') }}</p>
                     </div>
                 @endif
+
+                <div class="form-group">
+                    <label for="model" class="col-form-label">Product Model: <em style="color: red">*</em></label>
+                    <select name="product_detail_id" id="idproduct" style="border-style:groove" onchange="hidecapacity({{ $lstProductDetail }})">
+                        <option value="" style="text-align: center">--Select product--</option>
+                        @foreach ($pd as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                    <p style="opacity: 0;display:none;">{{ $lstProductDetail }}</p>
+                </div>
     
                 <div class="form-group">
                     <label for="model" class="col-form-label">Capacity: <em style="color: red">*</em></label>
-                    <select name="product_detail_id">
-                        @foreach ($lstProductDetail as $item)
-                            <option value="{{ $item->id }}" @if ($item->id == $saleDetail->product_detail_id) selected @endif>
-                                {{ $item->capacity }}</option>
-                        @endforeach
+                    <select id="capacity" name="capacity" style="border-style:groove" >
                     </select>
-
                 </div>
-                @if ($errors->first('product_detail_id'))
-                    <div class="error">
-                        <p>{{ $errors->first('product_detail_id') }}</p>
-                    </div>
-                @endif
     
                 <div class="form-group">
                     <label for="price" class="col-form-label">Price Sale: <em style="color: red">*</em></label>
