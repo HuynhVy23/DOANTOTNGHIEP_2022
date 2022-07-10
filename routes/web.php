@@ -43,7 +43,8 @@ Route::prefix('/')->middleware('checkadmin2')->group(function (){
     Route::get('/brands', [BrandController::class, 'brand'])->name('brand');
     Route::get('/branddetail/{id}', [BrandController::class, 'showbrand'])->name('branddetail');
     Route::get('/scent/{id}', [ScentController::class, 'showscent'])->name('scent');
-    Route::get('/gender/{id}', [ProductController::class, 'gender'])->name('gender');      
+    Route::get('/gender/{id}', [ProductController::class, 'gender'])->name('gender'); 
+    Route::get('/sale/{id}', [SaleController::class, 'showsale'])->name('sale');     
     Route::post('reset-password', [ResetPasswordController::class,'sendMail']);
     Route::put('reset-password/{token}', [ResetPasswordController::class,'sreset']);  
     Route::get('forgotpassword', [ResetPasswordController::class,'index'])->name('forgotpassword');

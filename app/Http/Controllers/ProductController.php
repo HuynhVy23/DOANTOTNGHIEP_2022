@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Models\Brand;
+use App\Models\Sale;
 use App\Models\Scent;
+use Carbon\Carbon;
 
 class ProductController extends Controller
 {
@@ -27,6 +29,14 @@ class ProductController extends Controller
             $br->image_brand=Storage::url($br->image_brand);
         }else{
             $br->image_brand='/image/brand/auto.jpg';
+        }
+    }
+
+    public function fixImageSale(Sale $sale){
+        if(Storage::disk('public')->exists($sale->image_banner)){
+            $sale->image_banner=Storage::url($sale->image_banner);
+        }else{
+            $sale->image_banner='/image/brand/auto.jpg';
         }
     }
 
@@ -234,8 +244,14 @@ class ProductController extends Controller
         foreach($lstProduct as $pd){
             $this->fixImage($pd);
         }
+        $date=Carbon::now()->toDateString();
+        $lstSale=Sale::where('date_start','<=',$date)
+        ->where('date_end','>=',$date)->get();
+        foreach($lstSale as $s){
+            $this->fixImageSale($s);
+        }
         $lstScent=Scent::all();
-        return view('index',['lstProduct'=>$lstProduct,'brand'=>$lstBrand,'scent'=>$lstScent]);
+        return view('index',['lstProduct'=>$lstProduct,'brand'=>$lstBrand,'scent'=>$lstScent,'lstSale'=>$lstSale]);
     }
 
     public function gender($id)

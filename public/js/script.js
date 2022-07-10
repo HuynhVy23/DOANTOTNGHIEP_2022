@@ -7,10 +7,28 @@ $(document).ready(function () {
         return false;
     })
 });
-document.getElementById("getprice").onchange = function () {
+function showprice(a) {
     var value = document.getElementById("getprice").value;
     var max = document.getElementById('stock' + value).value;
-    document.getElementById('price').innerHTML = document.getElementById('price' + value).value;
+    
+    // if(isset(a[value])){
+    //     document.getElementById('pricesale').innerHTML=a[value]['pricesale'];
+    // }
+    var bill='';
+    for (let i = 0; i < a.length; i++) {
+        if(a[i]['product_detail_id']==value){
+            bill = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format(a[i]['price_sale']);
+        }
+    }if(bill==''){
+        document.getElementById('pricesale').innerHTML='';
+        document.getElementById('price').innerHTML = document.getElementById('price' + value).value;
+    }else{
+        document.getElementById('pricesale').innerHTML=document.getElementById('price' + value).value;
+        document.getElementById('price').innerHTML = bill;
+    }
+    
+    // document.getElementById('price').innerHTML = document.getElementById('price' + value).value;
+    
     document.getElementById("quantity").max = max;
 };
 

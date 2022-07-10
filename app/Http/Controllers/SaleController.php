@@ -138,4 +138,9 @@ class SaleController extends Controller
         $sale->delete();
         return Redirect::route('salead.index');
     }
+
+    public function showsale($id)
+    {
+        // $lstSale=SaleDetail::select;
+    }
 }

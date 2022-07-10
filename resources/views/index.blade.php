@@ -4,20 +4,22 @@
     <!-- Banner Starts Here -->
     <div class="banner header-text">
       <div class="owl-banner owl-carousel">
-        <div class="banner-item-01">
+        @foreach ($lstSale as $s)
+        <a href="#"><div class="banner-item-01" style="background-image: url({{ $s->image_banner }})">
           <div class="text-content">
-            {{-- <h4></h4>
-            <h2>Lorem ipsum dolor sit amet</h2> --}}
+            <h2 style="color: black">{{ $s->name }}</h2>
           </div>
-        </div>
-        <div class="banner-item-02">
+        </div></a>
+        @endforeach
+        
+        {{-- <div class="banner-item-02">
           <div class="text-content">
           </div>
         </div>
         <div class="banner-item-03">
           <div class="text-content">
           </div>
-        </div>
+        </div> --}}
       </div>
     </div>
     <!-- Banner Ends Here -->
