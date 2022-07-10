@@ -162,9 +162,9 @@
   
   
       <!-- Bootstrap core JavaScript -->
+      <script src="{{ url('js/script.js') }}"></script>
       <script src="{{ url('jquery/jquery.min.js')}}"></script>
       <script src="{{ url('bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-      <script src="{{ url('js/script.js') }}"></script>
       <!-- Additional Scripts -->
       <script src="{{ url('js/custom.js')}}"></script>
       <script src="{{ url('js/owl.js')}}"></script>

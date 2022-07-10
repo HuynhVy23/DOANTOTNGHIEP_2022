@@ -43,7 +43,7 @@
               </div>
                 @endif
                 <div class="form-group">
-                  <label for="password" class="col-form-label">Password: <em style="color: red">*</em></label>
+                  <label for="password" class="col-form-label">Password: <em style="color: red">*</em></label><a href="{{ route('forgotpassword') }}" style="padding-left: 50%;">Forgot Password?</a>
                   <input type="password" class="form-control" name="password" placeholder="Enter Password" >
                 </div>
                 @if ($errors->first('password'))
