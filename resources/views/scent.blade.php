@@ -6,8 +6,8 @@
     <div class="row">
       <div class="col-md-12">
         <div class="text-content">
-          <h4>Scent</h4>
-          <h2>{{ $title }}</h2>
+          <h4>{{ $title[0] }}</h4>
+          <h2>{{ $title[1] }}</h2>
         </div>
       </div>
     </div>

@@ -94,7 +94,11 @@ class ProductDetailController extends Controller
         ->join('brands','brands.id','=','products.brand_id')
         ->join('scents','scents.id','=','products.scent_id')
         ->where('products.id','=',$id)->get();
-        $product[0]->image=Storage::url($product[0]->image);
+        if(Storage::disk('public')->exists($product[0]->image)){
+            $product[0]->image=Storage::url($product[0]->image);
+        }else{
+            $product[0]->image='/image/auto.jpg';
+        }
         $productDetail=ProductDetail::where('product_id','=',$id)
         ->where('stock','>',0)
         ->get();
@@ -103,7 +107,7 @@ class ProductDetailController extends Controller
         ->join('users','users.username','=','reviews.username')
         ->where('product_id','=',$id)->paginate(10);
         $sale=new SaleDetail();
-        $datetime=Carbon::now()->toDateString();
+        $datetime=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
         foreach ($productDetail as $dt) {
             $a=SaleDetail::select('product_detail_id','price_sale')
             ->join('sales','sales.id','sale_details.sale_id')

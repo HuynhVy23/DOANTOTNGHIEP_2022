@@ -11,6 +11,7 @@ use App\Models\InvoiceDetail;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ProductDetail;
+use App\Models\SaleDetail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 
@@ -112,11 +113,20 @@ class InvoiceController extends Controller
             'shipping_phone'=>$request->phone,
             'status'=>0,
         ]);
+        $datetime=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
         $invoice->save();
         $product=Cart::select('product_details.id','price','quantity','carts.id as cart')
         ->join('product_details','product_details.id','=','carts.product_id')
         ->where('username','like',Auth::user()->username)->get();
         foreach ($product as $pd) {
+            $sale=SaleDetail::select('product_detail_id','price_sale')
+            ->join('sales','sales.id','sale_details.sale_id')
+            ->where('product_detail_id','=',$pd->id)
+            ->where('date_start','<=',$datetime)
+            ->where('date_end','>=',$datetime)->first();
+            if($sale!=''){
+                $pd->price=$sale->price_sale;
+            }
             $invdetail=new InvoiceDetail();
             $invdetail->fill([
                 'invoice_id'=>$id,

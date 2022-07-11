@@ -22,6 +22,7 @@ class CreateInvoicesTable extends Migration
             $table->integer('status')->default(0); # 0 chờ xác nhận, 1 đang vận chuyển, 2 đã nhận hàng
             $table->timestamps();
             $table->softDeletes();
+            
         });
     }
 

@@ -5,7 +5,7 @@
     <div class="banner header-text">
       <div class="owl-banner owl-carousel">
         @foreach ($lstSale as $s)
-        <a href="#"><div class="banner-item-01" style="background-image: url({{ $s->image_banner }})">
+        <a href="{{ route('showsale',$s->id) }}"><div class="banner-item-01" style="background-image: url({{ $s->image_banner }})">
           <div class="text-content">
             <h2 style="color: black">{{ $s->name }}</h2>
           </div>

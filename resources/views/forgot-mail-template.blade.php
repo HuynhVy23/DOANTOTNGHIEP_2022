@@ -521,7 +521,7 @@
                       <p class="f-fallback sub align-center" style="font-size: 13px; line-height: 1.625; text-align: center; color: #A8AAAF; margin: .4em 0 1.1875em;" align="center">© 2022 Perfume Shop. All rights reserved.</p>
                       <p class="f-fallback sub align-center" style="font-size: 13px; line-height: 1.625; text-align: center; color: #A8AAAF; margin: .4em 0 1.1875em;" align="center">
                         <br />Cao Thang Technical College
-                        <br />Graduation Project ssl
+                        <br />Graduation Project
                       </p>
                     </td>
                   </tr>

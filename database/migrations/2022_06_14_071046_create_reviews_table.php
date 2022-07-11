@@ -21,7 +21,6 @@ class CreateReviewsTable extends Migration
             $table->string('date_write');
             $table->timestamps();
             $table->softDeletes();
-
         });
     }
 

@@ -220,7 +220,7 @@ class ProductController extends Controller
             $type='desc';
         }
         if($name!=''){
-            $lstProduct= Product::where('name','like','%'.$name.'%')->orderBy($column,$type)->paginate(1);
+            $lstProduct= Product::where('name','like','%'.$name.'%')->orderBy($column,$type)->paginate(9);
         }else{
             $lstProduct= Product::orderBy($column,$type)->paginate(9);
         }

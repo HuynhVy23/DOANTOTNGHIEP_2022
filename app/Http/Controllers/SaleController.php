@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Product;
 use App\Models\ProductDetail;
+use Carbon\Carbon;
 
 class SaleController extends Controller
 {
@@ -18,6 +19,13 @@ class SaleController extends Controller
             $sale->image_banner = Storage::url($sale->image_banner);
         }else{
             $sale->image_banner='/image/auto.jpg';
+        }
+    }
+    public function fixImageSaleDetail(SaleDetail $sd){
+        if(Storage::disk('public')->exists($sd->image)){
+            $sd->image=Storage::url($sd->image);
+        }else{
+            $sd->image='/image/auto.jpg';
         }
     }
 
@@ -141,6 +149,22 @@ class SaleController extends Controller
 
     public function showsale($id)
     {
-        // $lstSale=SaleDetail::select;
+        $sale=Sale::find($id);
+        $datetime=Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString();
+        if($sale->date_start>=$datetime&&$sale->date_end<=$datetime){
+            return Redirect::back();
+        }
+        $lstSaleDetail=SaleDetail::select('products.id as id','products.image','products.name','products.description')
+        ->join('product_details','product_details.id','=','sale_details.product_detail_id')
+        ->join('products','products.id','=','product_details.product_id')
+        ->where('sale_id','=',$sale->id)
+        ->distinct('products.id')
+        ->get();
+        foreach ($lstSaleDetail as $sd) {
+            $this->fixImageSaleDetail($sd);
+        }
+        $title[0]="Promotions";
+        $title[1]=$sale->name;
+        return view('scent',['title'=>$title,'lstProduct'=>$lstSaleDetail]);
     }
 }

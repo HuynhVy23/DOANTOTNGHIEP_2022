@@ -44,7 +44,7 @@
           </div>
 
           <div class="col-md-8 col-xs-12">
-            <form   id="myForm1" name="myForm">
+            <form  method="post" action="{{ route('cart.store') }}" >
               @csrf
               <h2>{{ $product[0]->name }}</h2>
               <input type="hidden" name="id" value="{{ $product[0]->id }}">
@@ -103,7 +103,7 @@
                 <input id="stock{{ $dt->id }}" style="display: none;opacity:0" type="hidden" value="{{ $dt->stock }}"/>
                 @endforeach
                     <div class="col-sm-6">
-                      <button class="btn btn-primary btn-block " id="submit1" type="submit">Add to cart</button>
+                      <button class="btn btn-primary btn-block " type="submit">Add to cart</button>
                       {{-- <a href="#" class="btn btn-primary btn-block">Add to Cart</a> --}}
                     </div>
                   </div>
