@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateScentsTable extends Migration
+class ProductdetailForeignkey extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateScentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('scents', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name_scent');
-            $table->timestamps();
-            $table->softDeletes();
+        Schema::table('product_details', function (Blueprint $table) {
+            $table->foreign('product_id')->references('id')->on('products');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateScentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scents');
+        Schema::table('product_details', function (Blueprint $table) {
+            $table->dropForeign('product_details_product_id_foreign');
+        });
     }
 }

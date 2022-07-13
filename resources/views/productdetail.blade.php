@@ -44,7 +44,7 @@
           </div>
 
           <div class="col-md-8 col-xs-12">
-            <form   id="myForm1" name="myForm">
+            <form  method="post" action="{{ route('cart.store') }}" >
               @csrf
               <h2>{{ $product[0]->name }}</h2>
               <input type="hidden" name="id" value="{{ $product[0]->id }}">
@@ -55,8 +55,10 @@
                 {{-- <small><del> $999.00</del></small><strong class="text-primary">$779.00</strong> --}}
                 @if (count($detail)==0)
                 <strong  style="color: #f33f3f">Out Stock</strong>
+                @elseif(isset($sale[$detail[0]->id]['product_detail_id']))
+                <small><del id="pricesale">{{ number_format($detail[0]->price , 0, ',', '.') . " VND" }}</del></small><strong id="price" style="color: #f33f3f">{{ number_format( $sale[$detail[0]->id]['price_sale'] , 0, ',', '.') . " VND" }}</strong>
                 @else
-                <strong id="price" style="color: #f33f3f">{{ number_format( $detail[0]->price , 0, ',', '.') . " VND" }}</strong>
+                <small><del id="pricesale"></del></small><strong id="price" style="color: #f33f3f">{{ number_format( $detail[0]->price , 0, ',', '.') . " VND" }}</strong>
                 @endif
                 
                 @foreach ($detail as $dt)
@@ -78,7 +80,7 @@
                 <div class="col-sm-4">
                   <label class="control-label">Choose capacity</label>
                   <div class="form-group">
-                    <select class="form-control" id="getprice" name="idproduct">
+                    <select class="form-control" id="getprice" name="idproduct" onchange="showprice({{ $sale }})">
                       @foreach ($detail as $dt)
                       <option value="{{ $dt->id }}">{{ $dt->capacity }}</option>
                       @endforeach
@@ -101,7 +103,7 @@
                 <input id="stock{{ $dt->id }}" style="display: none;opacity:0" type="hidden" value="{{ $dt->stock }}"/>
                 @endforeach
                     <div class="col-sm-6">
-                      <button class="btn btn-primary btn-block " id="submit1" type="submit">Add to cart</button>
+                      <button class="btn btn-primary btn-block " type="submit">Add to cart</button>
                       {{-- <a href="#" class="btn btn-primary btn-block">Add to Cart</a> --}}
                     </div>
                   </div>

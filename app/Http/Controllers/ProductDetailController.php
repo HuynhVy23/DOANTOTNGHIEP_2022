@@ -6,6 +6,8 @@ use App\Models\ProductDetail;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Review;
+use App\Models\SaleDetail;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
@@ -92,7 +94,11 @@ class ProductDetailController extends Controller
         ->join('brands','brands.id','=','products.brand_id')
         ->join('scents','scents.id','=','products.scent_id')
         ->where('products.id','=',$id)->get();
-        $product[0]->image=Storage::url($product[0]->image);
+        if(Storage::disk('public')->exists($product[0]->image)){
+            $product[0]->image=Storage::url($product[0]->image);
+        }else{
+            $product[0]->image='/image/auto.jpg';
+        }
         $productDetail=ProductDetail::where('product_id','=',$id)
         ->where('stock','>',0)
         ->get();
@@ -100,6 +106,21 @@ class ProductDetailController extends Controller
         $review=Review::select('users.avatar','users.username','reviews.content','reviews.date_write','reviews.id')
         ->join('users','users.username','=','reviews.username')
         ->where('product_id','=',$id)->paginate(10);
+        $sale=new SaleDetail();
+        $datetime=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        foreach ($productDetail as $dt) {
+            $a=SaleDetail::select('product_detail_id','price_sale')
+            ->join('sales','sales.id','sale_details.sale_id')
+            ->where('product_detail_id','=',$dt->id)
+            ->where('date_start','<=',$datetime)
+            ->where('date_end','>=',$datetime)->first();
+            if($a!=''){
+                // $sale[$dt->id]['id']=$dt->id;
+                $sale[$dt->id]=$a;
+            }
+        }
+        // return $sale;
+        // return $sale['product_detail_id'];
         $date=array();
         foreach ($review as $r) {
             $r->avatar=Storage::url($r->avatar);
@@ -111,7 +132,7 @@ class ProductDetailController extends Controller
         $second=substr($r->date_write,12,2);
         $date[$r->id]=$hour.":".$minute.":".$second." ".$day."-".$month."-".$year;
         }
-        return view('productdetail',['product'=>$product,'detail'=>$productDetail,'all'=>$productall,'date'=>$date,'review'=>$review]);
+        return view('productdetail',['product'=>$product,'detail'=>$productDetail,'all'=>$productall,'date'=>$date,'review'=>$review,'sale'=>$sale]);
     }
 
     /**
