@@ -96,7 +96,7 @@ class ReviewController extends Controller
             $review->save();
         }
         $invoice=Invoice::find($request->id);
-        $invoice->status=4;
+        $invoice->status=5;
         $invoice->save();
         return Redirect::route('invoice.index')->withErrors(['success' => 'Thank you for rating the order '.$request->id]);
     }

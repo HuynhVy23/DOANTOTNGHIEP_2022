@@ -21,6 +21,7 @@
       <i class="fa fa-search"></i>
       <input type="text" class="form-control" placeholder="Perfume's name" name="name">
       <button class="btn btn-primary" type="submit">Search</button>
+      {{-- @livewire('product') --}}
     </form>
     </div>
       {{-- <select name="sort" id="sort" class="form-control" style="width: 170px;height:50px;">
@@ -38,9 +39,9 @@
             <h5>Brands</h5>
           </div>
           <div class="row">
-            <div class="col-8">
+            <div class="col-8" >
               @foreach ($brand as $b)
-                <a href="{{ route('branddetail',$b->id) }}">{{ $b->name_brand  }} ({{ $b->totalPerfume->count() }})</a><br>
+                <a href="{{ route('branddetail',$b->id) }}"style="color: orange;">{{ $b->name_brand  }} ({{ $b->totalPerfume->count() }})</a><br>
               @endforeach
             </div>
           </div>
@@ -49,17 +50,17 @@
 
         <div>
           <h5>Scents</h5>
-        </div>
+        </div style="color:;">
         @foreach ($scent as $c)
-        <a href="{{ route('scent',$c->id) }}">{{ $c->name_scent    }} ({{ $c->totalPerfume->count() }})</a><br>
+        <a href="{{ route('scent',$c->id) }}" style="color: orange;">{{ $c->name_scent    }} ({{ $c->totalPerfume->count() }})</a><br>
       @endforeach
       <br>
       <div>
         <h5>Gender</h5>
       </div>
-      <a href="{{ route('gender',0) }}">Men</a><br>
-      <a href="{{ route('gender',1) }}">Women</a><br>
-      <a href="{{ route('gender',2) }}">Unisex</a><br>
+      <a href="{{ route('gender',0) }}"style="color: orange;">Men</a><br>
+      <a href="{{ route('gender',1) }}"style="color: orange;">Women</a><br>
+      <a href="{{ route('gender',2) }}"style="color: orange;">Unisex</a><br>
       </div>
       <div class="col-md-8">
         <div class="row">

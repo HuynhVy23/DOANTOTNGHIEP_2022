@@ -65,6 +65,7 @@ class CartController extends Controller
             $productincart->save();
         }
       }
+    //   return response()->json(['success'=>'Ajax request submitted successfully']);
        return Redirect::back()->withErrors(['success' => 'Added the product to the cart.']);
     }
 
@@ -133,7 +134,13 @@ class CartController extends Controller
         $product=Cart::select('product_details.id','image','name','price','stock','quantity','capacity','carts.id as cart')
         ->join('product_details','product_details.id','=','carts.product_id')
         ->join('products','products.id','=','product_details.product_id')
-        ->where('username','like',Auth::user()->username)->get();
+        ->where('username','like',Auth::user()->username)
+        ->where('stock','>',0)->get();
+        $soldout=Cart::select('product_details.id','image','name','price','stock','quantity','capacity','carts.id as cart')
+        ->join('product_details','product_details.id','=','carts.product_id')
+        ->join('products','products.id','=','product_details.product_id')
+        ->where('username','like',Auth::user()->username)
+        ->where('stock','=',0)->get();
         foreach($product as $pd){
             $this->fixImage($pd);
         }
@@ -151,6 +158,6 @@ class CartController extends Controller
             $total+=$pd->price*$pd->quantity;
         }
         $user=User::find(Auth::user()->id);
-        return view('cart',['product'=>$product,'total'=>$total,'user'=>$user]);
+        return view('cart',['product'=>$product,'total'=>$total,'user'=>$user,'soldout'=>$soldout]);
     }
 }

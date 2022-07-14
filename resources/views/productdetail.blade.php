@@ -24,6 +24,7 @@
             {{$message}}
           </div>
           @enderror
+          
           {{-- @error('fail')
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{$message}}
@@ -45,6 +46,8 @@
 
           <div class="col-md-8 col-xs-12">
             <form  method="post" action="{{ route('cart.store') }}" >
+              
+               {{-- <form id="ajaxpost" onsubmit="return false"> --}}
               @csrf
               <h2>{{ $product[0]->name }}</h2>
               <input type="hidden" name="id" value="{{ $product[0]->id }}">
@@ -103,7 +106,8 @@
                 <input id="stock{{ $dt->id }}" style="display: none;opacity:0" type="hidden" value="{{ $dt->stock }}"/>
                 @endforeach
                     <div class="col-sm-6">
-                      <button class="btn btn-primary btn-block " type="submit">Add to cart</button>
+                      <button class="btn btn-primary btn-block " type="submit" >Add to cart</button>
+                      {{-- <button class="btn btn-primary btn-block " type="submit" id="btnpost">Add to cart</button> --}}
                       {{-- <a href="#" class="btn btn-primary btn-block">Add to Cart</a> --}}
                     </div>
                   </div>

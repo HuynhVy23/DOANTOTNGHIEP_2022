@@ -257,12 +257,13 @@ class ProductController extends Controller
     public function gender($id)
     {
         if($id==0){
-            $title="Men";
+            $title[1]="Men";
         }elseif($id==1){
-            $title="Women";
+            $title[1]="Women";
         }else{
-            $title="Unisex";
+            $title[1]="Unisex";
         }
+        $title[0]="Gender";
         $lstProduct=Product::where('gender','=',$id)->get();
         foreach($lstProduct as $p){
             $p->image=Storage::url($p->image);

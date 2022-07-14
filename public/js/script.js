@@ -68,3 +68,34 @@ function hidecapacity(a) {
         }
     }
 };
+$("#btnpost").click(function(event){
+    event.preventDefault();
+
+    let idproduct = document.getElementById('getprice').value;
+    let quantity = document.getElementById('quantity').value;
+    let _token   = document.getElementsByName('_token')[0].value;
+    $.ajax({
+      url: "{{route('save')}}",
+      type:"POST",
+      data:{
+        idproduct:idproduct,
+        quantity:quantity,
+        _token: _token
+      },
+      success:function(response){
+        console.log(response);
+        if(response) {
+          $('#success').text(response.success);
+          $("#ajaxform")[0].reset();
+          alert('hi');
+        }
+      },
+     });
+     
+});
+    window.livewire.on('alert', data => {
+        const type = data[0];
+        const message = data[1];
+        toastr[type](message)
+    });
+    

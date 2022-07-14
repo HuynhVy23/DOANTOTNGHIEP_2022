@@ -12,6 +12,7 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SaleDetailController;
+use App\Http\Livewire\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,7 @@ Route::get('changepass', [UserController::class, 'showchangePass'])->name('chang
 Route::post('changepass', [UserController::class, 'changePass'])->name('changepassform');
 Route::get('cart', [CartController::class,'showcart'])->name('cart');
 Route::resource('cart', CartController::class)->only('store');
+// Route::post('/cartstore',[CartController::class,'store'])->name('save');
 Route::resource('invoice', InvoiceController::class)->only(['show','store','index']);
 Route::get('cart/{id}', [CartController::class, 'delete'])->name('cartdelete');
 Route::get('cancel/{id}', [InvoiceController::class, 'cancel'])->name('invoicecancel');

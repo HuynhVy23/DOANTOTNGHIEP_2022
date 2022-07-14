@@ -24,7 +24,7 @@ class SaleDetailController extends Controller
         $pdmd=Product::select('products.name')
         ->join('product_details','product_details.product_id','=','products.id')->get();
         $lstSaleDetail = SaleDetail::all();
-        //return $pdmd[0]->name;
+        // return $lstSaleDetail;
         return view('sale_detail.sale_detail_index',['lstSaleDetail'=>$lstSaleDetail,'pdmd'=>$pdmd]);
     }
 
