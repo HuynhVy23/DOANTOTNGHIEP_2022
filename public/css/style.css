@@ -1152,7 +1152,6 @@ footer .inner-content p a {
 	}
 
 	.search .fa-search{
-
 	 position: absolute;
 	 top: 16px;
 	 left: 16px;
@@ -1160,12 +1159,17 @@ footer .inner-content p a {
 	}
 
 	.search button{
-
 	 position: absolute;	
 	 top: 5px;
 	 right: 5px;
 	 height: 40px;
 	 width: 110px;
 	 background: blue;
-
 	}
+
+	#successar{
+display: none;
+	 }
+	 #failar{
+		display: none;
+	 }

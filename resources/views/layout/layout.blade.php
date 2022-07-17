@@ -14,9 +14,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-    @livewireStyles
     <title>Store Perfume</title>
 
     <!-- Bootstrap core CSS -->
@@ -29,6 +26,7 @@
   </head>
 
   <body>
+    
 
     <!-- ***** Preloader Start ***** -->
     <div id="preloader">
@@ -162,12 +160,13 @@
   
   
       <!-- Bootstrap core JavaScript -->
+    {{-- <script src="{{ url('js/lib/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url("js/lib/bootstrap/js/popper.min.js") }}"></script> --}}
       <script src="{{ url('js/script.js') }}"></script>
       <script src="{{ url('jquery/jquery.min.js')}}"></script>
       <script src="{{ url('bootstrap/js/bootstrap.bundle.min.js')}}"></script>
       <!-- Additional Scripts -->
       <script src="{{ url('js/custom.js')}}"></script>
       <script src="{{ url('js/owl.js')}}"></script>
-      @livewireScripts
     </body>
   </html>

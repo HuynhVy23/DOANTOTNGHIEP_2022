@@ -42,6 +42,9 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Auth::check()){
+            return response()->json(['status'=>3]);
+        }
       $id=$request->idproduct;
       $quantity=$request->input('quantity');
       $username=Auth::user()->username;
@@ -58,15 +61,16 @@ class CartController extends Controller
         $stock=ProductDetail::where('id','=',$id)->value('stock');
         if($quantity+$productincart->quantity>$stock){
             $productincart->quantity=$stock;
-            return Redirect::back()->withErrors(['fail' =>"No...No...No...Can't buy more than stock."]);
+            return response()->json(['status'=>0]);
+            // return Redirect::back()->withErrors(['status'=>0,'fail' =>"No...No...No...Can't buy more than stock."]);
             //Thông báo lỗi
         }else{
             $productincart->quantity+=$quantity;
             $productincart->save();
         }
       }
-    //   return response()->json(['success'=>'Ajax request submitted successfully']);
-       return Redirect::back()->withErrors(['success' => 'Added the product to the cart.']);
+      return response()->json(['status'=>1]);
+    //    return Redirect::back()->withErrors([,'success' => 'Added the product to the cart.']);
     }
 
     /**
@@ -126,7 +130,7 @@ class CartController extends Controller
     {
         $cart=Cart::find($id);
         $cart->delete();
-        return back();
+        return response()->json(['status'=>1]);;
     }
 
     public function showcart()

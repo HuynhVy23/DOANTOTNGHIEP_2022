@@ -6,7 +6,7 @@
           <div class="col-md-12">
             <div class="text-content">
               <h4>Wellcome to</h4>
-              <h2>Cart</h2>
+              <h2>Cart Hi</h2>
             </div>
           </div>
         </div>
@@ -53,7 +53,7 @@
                          <form action="{{ route('invoice.store') }}" method="POST">
                               @csrf
                               @foreach ( $product as $pd)
-                              <tr>   
+                              <tr id="cart{{ $pd->cart }}">   
                                    <td><img src="{{ $pd->image }}" alt="" width="100px" height="100px"></td>   
                               <td>{{ $pd->name }}</td>
                               <td>{{ $pd->capacity }}</td>
@@ -61,15 +61,16 @@
                              <td>{{ $pd->stock }}</td>
                               <td>{{ number_format( $pd->price , 0, ',', '.') . " VND" }}<input type="hidden" value="{{ $pd->price }} " id="price{{ $pd->id }}"></td>
                               <td><p id="total{{ $pd->id }}" style="color: #212529;font-size:15px;font-weight:400"> {{ number_format( $pd->price*$pd->quantity , 0, ',', '.') . " VND" }}</p><input type="hidden" value="{{ $pd->price*$pd->quantity }}" id="ttotal{{ $pd->id }}" class="total"></td>
-                              {{-- <td><a  class="btn btn-danger btn-rounded btn-deletecart">
-                                   <i class="fa fa-trash"></i></a></td> --}}
-                                   <td><button type="button" class="btn btn-danger btn-rounded btn-deletecart" data-id="{{ $pd->id }}"><i class="fa fa-trash"></i></button></td>
+                              {{-- <td><a href="{{ route('cartdelete',$pd->cart) }}" class="btn btn-danger btn-rounded">
+                                <i class="fa fa-trash"></i></a></td> --}}
+                                   <td><button type="button" class="btn btn-danger btn-rounded btn-deletecart" onclick="deletecart({{ $pd->cart }})"><i class="fa fa-trash"></i></button></td>
                            </tr>
                            @endforeach  
                              </tbody>
                     </table>
             </div>
           </div>
+          <input type="hidden" name="totalproduct" id="totalproduct" value="{{ count($product) }}">
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
             <div class="row">
@@ -129,8 +130,7 @@
                    </div> --}}
 
                    <div class="clearfix">
-                        
-                        <button type="submit" class="filled-button pull-right">Checkout</button>
+                        <button type="submit" class="filled-button pull-right" id="checkout" onclick="checkout()">Checkout</button>
                    </div>
               </form>
           </div>
@@ -152,7 +152,7 @@
           </thead>
           <tbody>
             @foreach ( $soldout as $pd)
-            <tr>   
+            <tr >   
               <td><img src="{{ $pd->image }}" alt="" width="100px" height="100px"></td>   
          <td>{{ $pd->name }}</td>
          <td>{{ $pd->capacity }}</td>
@@ -160,7 +160,9 @@
         <td>{{ $pd->stock }}</td>
          <td>{{ number_format( $pd->price , 0, ',', '.') . " VND" }}<input type="hidden" value="{{ $pd->price }} " id="price{{ $pd->id }}"></td>
          <td><p id="total{{ $pd->id }}" style="color: #212529;font-size:15px;font-weight:400"> {{ number_format( $pd->price*$pd->quantity , 0, ',', '.') . " VND" }}</p><input type="hidden" value="{{ $pd->price*$pd->quantity }}" id="ttotal{{ $pd->id }}" class="total"></td>
-            </tr>
+         <td><a href="{{ route('cartdelete',$pd->cart) }}" class="btn btn-danger btn-rounded">
+          <i class="fa fa-trash"></i></a></td>
+         </tr>
             @endforeach  
         </tbody>
         </table>
