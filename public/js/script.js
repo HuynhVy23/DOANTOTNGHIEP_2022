@@ -39,13 +39,31 @@ function cartquantity(id) {
     total = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format(a);
     document.getElementById('total' + id).innerHTML = total;
     document.getElementById('ttotal' + id).value = a;
-
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+    $.ajax({
+        type: "post",
+        url: "updatecart",
+        data: {
+            idproduct:id,
+            quantity:quantity,
+            // _token:document.getElementsByName('_token')[0].value,
+        },
+        // dataType: "json",
+        // processData:false,
+        // contentType:false,
+        success: function (data) {
+            // alert(data.success);  
+        }
+    });
     var total1 = 0;
     var x = document.getElementsByClassName("total");
     var i;
     for (i = 0; i < x.length; i++) {
         total1 = total1 + parseInt(x[i].value);
-
     }
     bill = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format(total1);
     document.getElementById('total').innerHTML = bill;

@@ -133,6 +133,17 @@ class CartController extends Controller
         return response()->json(['status'=>1]);;
     }
 
+    public function updatecart(Request $request)
+    {
+        $cart=Cart::where('username','like',Auth::user()->username)->where('product_id','=',$request->idproduct)->first();
+        $stock=ProductDetail::where('id','=',$request->idproduct)->first();
+        if($request->quantity>0&&$request->quantity<=$stock->stock){
+            $cart->quantity=$request->quantity;
+            $cart->save();
+        }
+        return response()->json(['status'=>$cart->quantity]);;
+    }
+
     public function showcart()
     {
         $product=Cart::select('product_details.id','image','name','price','stock','quantity','capacity','carts.id as cart')

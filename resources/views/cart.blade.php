@@ -1,5 +1,6 @@
 @extends('layout.layout')
 @section('main')
+<meta name="csrf-token" content="{{ csrf_token() }}">
     <div class="page-heading about-heading header-text" style="background-image: url(../images/heading-6-1920x500.jpg);">
       <div class="container">
         <div class="row">

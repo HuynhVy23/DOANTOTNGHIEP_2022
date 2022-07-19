@@ -27,7 +27,7 @@
                     <h2 style="color: #f33f3f">You have successfully registered an account</h2>
                 @endif
                 <div class="col-md-6">
-                    <form action="{{ route('account.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('account.store') }}" method="POST" enctype="multipart/form-data" autocomplete="on">
                         @csrf
                         <div class="form-group">
                             <label for="username" class="col-form-label">Username: <em style="color: red">*</em></label>

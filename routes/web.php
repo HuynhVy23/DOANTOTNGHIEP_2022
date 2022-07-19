@@ -32,6 +32,7 @@ Route::post('changepass', [UserController::class, 'changePass'])->name('changepa
 Route::get('cart', [CartController::class,'showcart'])->name('cart');
 Route::resource('invoice', InvoiceController::class)->only(['show','store','index']);
 Route::get('cartd/{id}', [CartController::class, 'delete'])->name('cartdelete');
+Route::post('updatecart', [CartController::class, 'updatecart']);
 Route::get('cancel/{id}', [InvoiceController::class, 'cancel'])->name('invoicecancel');
 Route::resource('review', ReviewController::class)->only(['show','store']);
 }); 
