@@ -86,7 +86,7 @@ class ProductDetailController extends Controller
      */
     public function show($id)
     {
-        $productall=Product::all();
+        $productall=Product::take(3)->get();
         foreach($productall as $pd){
             $this->fixImage($pd);
         }
@@ -119,7 +119,7 @@ class ProductDetailController extends Controller
                 $sale[$dt->id]=$a;
             }
         }
-        // return $sale;
+        // return $productall;
         // return $sale['product_detail_id'];
         $date=array();
         foreach ($review as $r) {
