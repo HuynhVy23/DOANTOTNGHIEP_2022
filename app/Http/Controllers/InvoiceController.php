@@ -165,8 +165,10 @@ class InvoiceController extends Controller
             $invoice->status='To Ship';
         }else if($invoice->status==2||$invoice->status==5){
             $invoice->status='Complete';
+        }else if($invoice->status==4){
+            $invoice->status='Waiting for cancellation confirmation';
         }else{
-            $invoice->status='Cancelled';
+            $invoice->status='Canceled';
         }
         $invoicedetail=InvoiceDetail::select('product_details.id','image','name','invoice_details.price','invoice_details.quantity','capacity')
         ->join('product_details','product_details.id','=','invoice_details.product_id')
@@ -233,7 +235,7 @@ class InvoiceController extends Controller
     public function cancel($id)
     {
         $inv=Invoice::find($id);
-        $inv->status=3;
+        $inv->status=4;
         $inv->save();
         return Redirect::back();
     }
