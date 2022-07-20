@@ -1,8 +1,12 @@
 @extends('layout.layout')
 @section('main')
+<div id="toast"></div>
+
+
     <!-- Page Content -->
     <div class="page-heading about-heading header-text" style="background-image: url(../images/heading-5-1920x500.jpg);">
       <div class="container">
+        
         <div class="row">
           <div class="col-md-12">
             <div class="text-content">
@@ -13,17 +17,18 @@
         </div>
       </div>
     </div>
-
     <div class="products">
       <div class="container">
         <div class="row">
          <div class="col-md-12">
+          
           @if($errors->any())
           @error('success')
           <div class="alert alert-success alert-dismissible fade show" role="alert" id="success">
             {{$message}}
           </div>
           @enderror
+         
           {{-- @error('fail')
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{$message}}
@@ -44,7 +49,9 @@
           </div>
 
           <div class="col-md-8 col-xs-12">
-            <form  method="post" action="{{ route('cart.store') }}" >
+            <form  method="post" action="{{ route('cart.store') }}" id="formaddcart" >
+              
+               {{-- <form id="ajaxpost" onsubmit="return false"> --}}
               @csrf
               <h2>{{ $product[0]->name }}</h2>
               <input type="hidden" name="id" value="{{ $product[0]->id }}">
@@ -68,6 +75,7 @@
               <br>
               <p class="lead"><strong>Brand : </strong><a href="{{ route('branddetail',$product[0]->id_brand) }}">{{ $product[0]->name_brand }}</a></p>
               <p class="lead"><strong>Scent : </strong><a href="{{ route('scent',$product[0]->id_scent) }}">{{ $product[0]->name_scent }}</a></p>
+              <p class="lead"><strong>Concentration : </strong>{{ $product[0]->concentration }}</p>
               <br>
               @foreach ($product[0]->description as $a)
               <p class="lead">
@@ -103,11 +111,22 @@
                 <input id="stock{{ $dt->id }}" style="display: none;opacity:0" type="hidden" value="{{ $dt->stock }}"/>
                 @endforeach
                     <div class="col-sm-6">
-                      <button class="btn btn-primary btn-block " type="submit">Add to cart</button>
+                      <button class="btn btn-primary btn-block " id="btnpost" type="submit" >Add to cart</button>
+                     
+                      {{-- <button class="btn btn-primary btn-block " type="submit" id="btnpost">Add to cart</button> --}}
                       {{-- <a href="#" class="btn btn-primary btn-block">Add to Cart</a> --}}
                     </div>
                   </div>
                 </div>
+              </div>
+              
+              <div class="alert alert-success alert-dismissible fade show" role="alert" id="successar">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+               <strong><i class="fa fa-check"></i></strong></strong> Add to cart successfully
+              </div>
+              <div class="alert alert-danger alert-dismissible fade show" role="alert" id="failar">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong><i class="fa fa-close"></i></strong>Exceeding the amount of inventory
               </div>
               @endif
             </form>
@@ -171,4 +190,18 @@
         </div>
       </div>
     </div>
+    <div class="wrapper">
+      <div id="toast">
+          <div class="container-1">
+              <i class="fas fa-check-square"></i>
+          </div>
+          <div class="container-2">
+              <p>Success</p>
+              <p>Your changes are saved successfully.</p>
+          </div>
+          <button id="close" onclick="closeToast()">
+              &times;
+          </button>
+      </div>
+  </div>
 @stop

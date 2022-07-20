@@ -42,6 +42,9 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Auth::check()){
+            return response()->json(['status'=>3]);
+        }
       $id=$request->idproduct;
       $quantity=$request->input('quantity');
       $username=Auth::user()->username;
@@ -58,14 +61,16 @@ class CartController extends Controller
         $stock=ProductDetail::where('id','=',$id)->value('stock');
         if($quantity+$productincart->quantity>$stock){
             $productincart->quantity=$stock;
-            return Redirect::back()->withErrors(['fail' =>"No...No...No...Can't buy more than stock."]);
+            return response()->json(['status'=>0]);
+            // return Redirect::back()->withErrors(['status'=>0,'fail' =>"No...No...No...Can't buy more than stock."]);
             //Thông báo lỗi
         }else{
             $productincart->quantity+=$quantity;
             $productincart->save();
         }
       }
-       return Redirect::back()->withErrors(['success' => 'Added the product to the cart.']);
+      return response()->json(['status'=>1]);
+    //    return Redirect::back()->withErrors([,'success' => 'Added the product to the cart.']);
     }
 
     /**
@@ -125,7 +130,18 @@ class CartController extends Controller
     {
         $cart=Cart::find($id);
         $cart->delete();
-        return back();
+        return response()->json(['status'=>1]);;
+    }
+
+    public function updatecart(Request $request)
+    {
+        $cart=Cart::where('username','like',Auth::user()->username)->where('product_id','=',$request->idproduct)->first();
+        $stock=ProductDetail::where('id','=',$request->idproduct)->first();
+        if($request->quantity>0&&$request->quantity<=$stock->stock){
+            $cart->quantity=$request->quantity;
+            $cart->save();
+        }
+        return response()->json(['status'=>$cart->quantity]);;
     }
 
     public function showcart()
@@ -133,7 +149,13 @@ class CartController extends Controller
         $product=Cart::select('product_details.id','image','name','price','stock','quantity','capacity','carts.id as cart')
         ->join('product_details','product_details.id','=','carts.product_id')
         ->join('products','products.id','=','product_details.product_id')
-        ->where('username','like',Auth::user()->username)->get();
+        ->where('username','like',Auth::user()->username)
+        ->where('stock','>',0)->get();
+        $soldout=Cart::select('product_details.id','image','name','price','stock','quantity','capacity','carts.id as cart')
+        ->join('product_details','product_details.id','=','carts.product_id')
+        ->join('products','products.id','=','product_details.product_id')
+        ->where('username','like',Auth::user()->username)
+        ->where('stock','=',0)->get();
         foreach($product as $pd){
             $this->fixImage($pd);
         }
@@ -151,6 +173,6 @@ class CartController extends Controller
             $total+=$pd->price*$pd->quantity;
         }
         $user=User::find(Auth::user()->id);
-        return view('cart',['product'=>$product,'total'=>$total,'user'=>$user]);
+        return view('cart',['product'=>$product,'total'=>$total,'user'=>$user,'soldout'=>$soldout]);
     }
 }

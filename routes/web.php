@@ -12,6 +12,7 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SaleDetailController;
+use App\Http\Livewire\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +30,9 @@ Route::post('handleupdateuser', [UserController::class, 'handleupdateuser'])->na
 Route::get('changepass', [UserController::class, 'showchangePass'])->name('changepass');
 Route::post('changepass', [UserController::class, 'changePass'])->name('changepassform');
 Route::get('cart', [CartController::class,'showcart'])->name('cart');
-Route::resource('cart', CartController::class)->only('store');
 Route::resource('invoice', InvoiceController::class)->only(['show','store','index']);
-Route::get('cart/{id}', [CartController::class, 'delete'])->name('cartdelete');
+Route::get('cartd/{id}', [CartController::class, 'delete'])->name('cartdelete');
+Route::post('updatecart', [CartController::class, 'updatecart']);
 Route::get('cancel/{id}', [InvoiceController::class, 'cancel'])->name('invoicecancel');
 Route::resource('review', ReviewController::class)->only(['show','store']);
 }); 
@@ -51,6 +52,7 @@ Route::prefix('/')->middleware('checkadmin2')->group(function (){
     Route::post('forgotHandler', [ResetPasswordController::class,'forgotHandler'])->name('forgotHandler');
     Route::get('resetpassword/{token}',[ResetPasswordController::class,'resetpassword'])->name('resetpassword');
     Route::post('resetHandler', [ResetPasswordController::class,'resetHandler'])->name('resetHandler');
+    Route::resource('cart', CartController::class)->only('store');
 });
 
 Route::resource('account', UserController::class)->only(['create', 'store']);

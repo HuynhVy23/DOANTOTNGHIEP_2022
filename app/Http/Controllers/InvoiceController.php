@@ -40,9 +40,9 @@ class InvoiceController extends Controller
             if($inv->status==0){
                 $status[$inv->id]='Waiting for confirmation';
             }else if($inv->status==1){
-                $status[$inv->id]='Being shipped';
+                $status[$inv->id]='To Ship';
             }else if($inv->status==2||$inv->status==4){
-                $status[$inv->id]='Delivered';
+                $status[$inv->id]='Complete';
             }else{
                 $status[$inv->id]='Cancelled';
             }
@@ -117,7 +117,8 @@ class InvoiceController extends Controller
         $invoice->save();
         $product=Cart::select('product_details.id','price','quantity','carts.id as cart')
         ->join('product_details','product_details.id','=','carts.product_id')
-        ->where('username','like',Auth::user()->username)->get();
+        ->where('username','like',Auth::user()->username)
+        ->where('stock','>',0)->get();
         foreach ($product as $pd) {
             $sale=SaleDetail::select('product_detail_id','price_sale')
             ->join('sales','sales.id','sale_details.sale_id')
@@ -161,9 +162,9 @@ class InvoiceController extends Controller
         if($invoice->status==0){
             $invoice->status='Waiting for confirmation';
         }else if($invoice->status==1){
-            $invoice->status='Being shipped';
-        }else if($invoice->status==2||$invoice->status==4){
-            $invoice->status='Delivered';
+            $invoice->status='To Ship';
+        }else if($invoice->status==2||$invoice->status==5){
+            $invoice->status='Complete';
         }else{
             $invoice->status='Cancelled';
         }

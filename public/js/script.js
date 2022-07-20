@@ -39,13 +39,31 @@ function cartquantity(id) {
     total = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format(a);
     document.getElementById('total' + id).innerHTML = total;
     document.getElementById('ttotal' + id).value = a;
-
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+    $.ajax({
+        type: "post",
+        url: "updatecart",
+        data: {
+            idproduct:id,
+            quantity:quantity,
+            // _token:document.getElementsByName('_token')[0].value,
+        },
+        // dataType: "json",
+        // processData:false,
+        // contentType:false,
+        success: function (data) {
+            // alert(data.success);  
+        }
+    });
     var total1 = 0;
     var x = document.getElementsByClassName("total");
     var i;
     for (i = 0; i < x.length; i++) {
         total1 = total1 + parseInt(x[i].value);
-
     }
     bill = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'VND' }).format(total1);
     document.getElementById('total').innerHTML = bill;
@@ -68,3 +86,86 @@ function hidecapacity(a) {
         }
     }
 };
+// $("#btnpost").click(function(e){
+    $("#formaddcart").on('submit',function(e){
+    e.preventDefault();
+    $.ajax({
+        // url: "{{ route('cart.store') }}",
+    //   type:"POST",
+    //   data:{
+    //     idproduct:idproduct,
+    //     quantity:quantity,
+    //     _token: _token
+    //   },
+    //   success:function(response){
+    //     console.log(response);
+    //     if(response) {
+    //       $('#success').text(response.success);
+    //       $("#ajaxform")[0].reset();
+    //       alert('hi');
+    //     }
+    //   },
+        url:$(this).attr('action'),
+        type:$(this).attr('method'),
+        data:new FormData(this),
+        processData:false,
+        dataType:'json',
+        contentType:false,
+        success:function(data){
+            if(data.status==0){
+                showfail();
+            }else if(data.status==1){
+                showsuccess();
+            }else{
+                window.location="http://127.0.0.1:8000/login";
+            }
+        }
+    });
+     
+});
+function showsuccess(){
+    document.getElementById("successar").style.display = "flex";    
+    // success;
+    var x = setTimeout(()=>{
+        document.getElementById("successar").style.display = "none"
+    }, 3000);
+}
+
+function showfail(){
+    document.getElementById("failar").style.display = "flex";    
+    // fail;
+    var x = setTimeout(()=>{
+        document.getElementById("failar").style.display = "none"
+    }, 3000);
+}
+
+function checkout(){
+    document.getElementById("checkout").disabled=true;
+    var x = setTimeout(()=>{
+        document.getElementById("checkout").disabled = false;
+    }, 5000);
+}
+var totalproduct=document.getElementById('totalproduct').value;
+var i=0;
+function deletecart(id){
+    i+=1;
+    $.ajax({
+        type: "get",
+        url: "cartd/"+id,
+       
+        data: {
+            _token:document.getElementsByName('_token')[0].value,
+        },
+        dataType: "json",
+        processData:false,
+        contentType:false,
+        success: function (data) {
+            if(i<totalproduct){
+                $('#cart'+id).remove();
+            }else{
+                window.location="http://127.0.0.1:8000/cart";
+            }
+                
+        }
+    });
+}

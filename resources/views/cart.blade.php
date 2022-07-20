@@ -1,12 +1,13 @@
 @extends('layout.layout')
 @section('main')
+<meta name="csrf-token" content="{{ csrf_token() }}">
     <div class="page-heading about-heading header-text" style="background-image: url(../images/heading-6-1920x500.jpg);">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
             <div class="text-content">
               <h4>Wellcome to</h4>
-              <h2>Cart</h2>
+              <h2>Cart Hi</h2>
             </div>
           </div>
         </div>
@@ -44,6 +45,7 @@
                                 <th>Name</th>
                                 <th>Capacity</th>
                                 <th>Quantity</th>
+                                <th>Stock</th>
                                 <th>Price</th>
                                 <th>Total</th>
                             </tr>
@@ -52,21 +54,24 @@
                          <form action="{{ route('invoice.store') }}" method="POST">
                               @csrf
                               @foreach ( $product as $pd)
-                              <tr>   
+                              <tr id="cart{{ $pd->cart }}">   
                                    <td><img src="{{ $pd->image }}" alt="" width="100px" height="100px"></td>   
                               <td>{{ $pd->name }}</td>
                               <td>{{ $pd->capacity }}</td>
-                              <td><div class="form-group"><input id="quantity{{ $pd->id }}" name="quantity{{ $pd->id }}" class="form-control" style="width:70px;" type="number" min="1" max="{{ $pd->stock }}" value="{{ $pd->quantity }}" onchange="cartquantity({{ $pd->id }})"></div></td>
+                              <td><div class="form-group"><input id="quantity{{ $pd->id }}" name="quantity{{ $pd->id }}" class="form-control"  style="width:70px;" type="number" min="1" max="{{ $pd->stock }}" value="{{ $pd->quantity }}" onchange="cartquantity({{ $pd->id }})"></div></td>
+                             <td>{{ $pd->stock }}</td>
                               <td>{{ number_format( $pd->price , 0, ',', '.') . " VND" }}<input type="hidden" value="{{ $pd->price }} " id="price{{ $pd->id }}"></td>
                               <td><p id="total{{ $pd->id }}" style="color: #212529;font-size:15px;font-weight:400"> {{ number_format( $pd->price*$pd->quantity , 0, ',', '.') . " VND" }}</p><input type="hidden" value="{{ $pd->price*$pd->quantity }}" id="ttotal{{ $pd->id }}" class="total"></td>
-                              <td><a href="{{ route('cartdelete',$pd->cart) }}" class="btn btn-danger btn-rounded">
-                                   <i class="fa fa-trash"></i></a></td>
+                              {{-- <td><a href="{{ route('cartdelete',$pd->cart) }}" class="btn btn-danger btn-rounded">
+                                <i class="fa fa-trash"></i></a></td> --}}
+                                   <td><button type="button" class="btn btn-danger btn-rounded btn-deletecart" onclick="deletecart({{ $pd->cart }})"><i class="fa fa-trash"></i></button></td>
                            </tr>
                            @endforeach  
                              </tbody>
                     </table>
             </div>
           </div>
+          <input type="hidden" name="totalproduct" id="totalproduct" value="{{ count($product) }}">
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
             <div class="row">
@@ -126,12 +131,42 @@
                    </div> --}}
 
                    <div class="clearfix">
-                        
-                        <button type="submit" class="filled-button pull-right">Checkout</button>
+                        <button type="submit" class="filled-button pull-right" id="checkout" onclick="checkout()">Checkout</button>
                    </div>
               </form>
           </div>
         </div>
+        @endif
+        @if(count($soldout)>0)
+        <h2 style="text-align: center">Sold out</h2>
+        <table class="table table-striped" style="opacity: 0.5;">
+          <thead>
+              <tr>
+                <th></th>
+                  <th>Name</th>
+                  <th>Capacity</th>
+                  <th>Quantity</th>
+                  <th>Stock</th>
+                  <th>Price</th>
+                  <th>Total</th>
+              </tr>
+          </thead>
+          <tbody>
+            @foreach ( $soldout as $pd)
+            <tr >   
+              <td><img src="{{ $pd->image }}" alt="" width="100px" height="100px"></td>   
+         <td>{{ $pd->name }}</td>
+         <td>{{ $pd->capacity }}</td>
+         <td><div class="form-group"><input id="quantity{{ $pd->id }}" name="quantity{{ $pd->id }}" class="form-control"  style="width:70px;" type="number" min="1" max="{{ $pd->stock }}" value="{{ $pd->quantity }}" onchange="cartquantity({{ $pd->id }})"></div></td>
+        <td>{{ $pd->stock }}</td>
+         <td>{{ number_format( $pd->price , 0, ',', '.') . " VND" }}<input type="hidden" value="{{ $pd->price }} " id="price{{ $pd->id }}"></td>
+         <td><p id="total{{ $pd->id }}" style="color: #212529;font-size:15px;font-weight:400"> {{ number_format( $pd->price*$pd->quantity , 0, ',', '.') . " VND" }}</p><input type="hidden" value="{{ $pd->price*$pd->quantity }}" id="ttotal{{ $pd->id }}" class="total"></td>
+         <td><a href="{{ route('cartdelete',$pd->cart) }}" class="btn btn-danger btn-rounded">
+          <i class="fa fa-trash"></i></a></td>
+         </tr>
+            @endforeach  
+        </tbody>
+        </table>
         @endif
         @endif
       </div>
