@@ -308,6 +308,7 @@ class InvoiceController extends Controller
         ->join('products','products.id','=','product_details.product_id')
         ->where('invoice_id','=',$id)->get();
 
+        //return $lstInvoiceDetail;
         $total=0;
         $day=substr($InvoiceDetail->id,6,2);
         $month=substr($InvoiceDetail->id,4,2);
@@ -332,7 +333,7 @@ class InvoiceController extends Controller
     }
 
     public function xulihdnhap(Request $request)
-    {
+    {   $pddt = ProductDetail::all();
         $year =  Carbon::now('Asia/Ho_Chi_Minh')->year;
         $month = (int)Carbon::now('Asia/Ho_Chi_Minh')->month;
         $hour = Carbon::now('Asia/Ho_Chi_Minh')->hour;
@@ -384,7 +385,7 @@ class InvoiceController extends Controller
         $invoicedetail=new InvoiceDetail;
         $invoicedetail->fill([
             'invoice_id'=>$id,
-            'product_id'=>$request->product_id,
+            'product_id'=>$pddt[0]->id,
             'quantity'=>$request->quantity,
             'price'=>$request->price,
         ]);

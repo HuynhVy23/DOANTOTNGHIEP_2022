@@ -12,7 +12,7 @@
             @csrf
             <div class="form-group">
                 <label for="model" class="col-form-label">Product Model: </label><br>
-                <select class="custom-select" style="width: 200px" name="product_id" id="idproduct" style="border-style:groove" onchange="hidecapacity({{ $pddt }})">
+                <select class="custom-select" style="width: 200px"  id="idproduct" style="border-style:groove" onchange="hidecapacity({{ $pddt }})">
                     <option value="" style="text-align: center">--Select product--</option>
                     @foreach ($pd as $item)
                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -28,7 +28,7 @@
 
             <div class="form-group">
                 <label for="model" class="col-form-label">Capacity: </label><br>
-                <select id="capacity" name="capacity" style="border-style:groove; width: 200px" class="custom-select"  >
+                <select id="capacity" name="product_id" style="border-style:groove; width: 200px" class="custom-select"  >
                 </select>
             </div>
 

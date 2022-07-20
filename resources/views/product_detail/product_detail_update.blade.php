@@ -13,7 +13,7 @@
             @method('PATCH')
             <div class="form-group">
                 <label for="capacity" class="col-form-label">Capacity: </label><br>
-                <input type="text" class="form-control" name="capacity" value="{{ $productDetail->capacity }}"
+                <input type="number" class="form-control" name="capacity" value="{{ $productDetail->capacity }}"
                     placeholder="Enter capacity" style="text-align: left; border-style:groove;width: 200px">
             </div>
             @if ($errors->first('capacity'))
@@ -55,16 +55,7 @@
                     <p style="color: red">{{ $errors->first('product_id') }}</p>
                 </div>
             @endif
-            <div class="form-group">
-                <label for="status" class="col-form-label">Status: </label><br>
-                <input type="text" class="form-control" name="status" value="{{ $productDetail->status }}" placeholder="Enter status"
-                    style="text-align: left;width: 200px;border-style:groove" readonly>
-            </div>
-            @if ($errors->first('status'))
-                <div class="error">
-                    <p style="color: red">{{ $errors->first('status') }}</p>
-                </div>
-            @endif
+
             <div style="text-align: center">
                 <button type="submit" class="btn btn-primary">Done</button>
             </div>

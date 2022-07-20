@@ -13,4 +13,6 @@ class Invoice extends Model
     // public function totalPerfume(){
     //     return $this->hasMany(InvoiceDetail::class,'id','id_invoice');
     // }
+
+    
 }

@@ -17,7 +17,7 @@
             </div>
             @if ($errors->first('name'))
                 <div class="error">
-                    <p>{{ $errors->first('name') }}</p>
+                    <p style="color: red">{{ $errors->first('name') }}</p>
                 </div>
             @endif
 
@@ -27,7 +27,7 @@
             </div>
             @if ($errors->first('date_start'))
                 <div class="error">
-                    <p>{{ $errors->first('date_start') }}</p>
+                    <p style="color: red">{{ $errors->first('date_start') }}</p>
                 </div>
             @endif
 
@@ -37,7 +37,7 @@
             </div>
             @if ($errors->first('date_end'))
                 <div class="error">
-                    <p>{{ $errors->first('date_end') }}</p>
+                    <p style="color: red">{{ $errors->first('date_end') }}</p>
                 </div>
             @endif
 

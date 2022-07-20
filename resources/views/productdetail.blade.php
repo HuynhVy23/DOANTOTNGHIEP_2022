@@ -175,33 +175,19 @@
               <a href="{{ route('product') }}">view more <i class="fa fa-angle-right"></i></a>
             </div>
           </div>
-          @for ($i=0;$i<3;$i++)
+         @foreach ($all as $a)
           <div class="col-md-4">
             <div class="product-item">
-              <a href="{{route('productdetail',$all[$i]->id)}}"><img src="{{ $all[$i]->image }}" width="250px" height="210px" alt=""></a>
+              <a href="{{route('productdetail',$a->id)}}"><img src="{{ $a->image }}" width="250px" height="210px" alt=""></a>
               <div class="down-content">
-                <a href="{{route('productdetail',$all[$i]->id)}}"><h4>{{ $all[$i]->name }}</h4></a>
+                <a href="{{route('productdetail',$a->id)}}"><h4>{{ $a->name }}</h4></a>
                 {{-- <h6><small><del>$999.00 </del></small> $779.00</h6> --}}
-                <p><strong>Description : </strong>{{ $all[$i]->description }}</p>
+                <p><strong>Description : </strong>{{ $a->description }}</p>
               </div>
             </div>
           </div>
-          @endfor
+          @endforeach
         </div>
       </div>
     </div>
-    <div class="wrapper">
-      <div id="toast">
-          <div class="container-1">
-              <i class="fas fa-check-square"></i>
-          </div>
-          <div class="container-2">
-              <p>Success</p>
-              <p>Your changes are saved successfully.</p>
-          </div>
-          <button id="close" onclick="closeToast()">
-              &times;
-          </button>
-      </div>
-  </div>
 @stop

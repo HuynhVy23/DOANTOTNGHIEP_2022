@@ -70,8 +70,8 @@
 
                                 <ul class="dropdown-user">
                                     <!-- đăng xuất -->
-                                    <li><a href="{{ route('logout') }}"><i class="fa fa-power-off"></i> Log out</a>
-                                    </li>
+                                    <li><a href="{{ route('logout') }}"><i class="fa fa-power-off"></i> Log out</a></li>
+                                    <li style="size: 50px"><a href=""><i class="fa fa-info-circle"></i> Infomation</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -107,8 +107,8 @@
                         <li><a aria-expanded="false" href="{{ route('sale_detailad.index') }}"><i
                                     class="fa fa-gift"></i><span class="hide-menu">Promotion Detail</span></a>
                         </li>
-                        <li><a aria-expanded="false" href=""><i class="fa fa-user"></i><span
-                                    class="hide-menu">Account</span></a></li>
+                        {{-- <li><a aria-expanded="false" href=""><i class="fa fa-user"></i><span
+                                    class="hide-menu">Account</span></a></li> --}}
                         {{-- <li ><a aria-expanded="false" href=""><i class="fa fa-comment"></i><span class="hide-menu">Comment</span></a></li> --}}
 
                     </ul>

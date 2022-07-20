@@ -61,18 +61,15 @@ class ProductDetailController extends Controller
         $request->validate([
             'capacity'=>'bail|required',
             'price'=>'bail|required',
-            'stock'=>'bail|required',
             'product_id'=>'required',
-            'status'=>'bail|required'
         ]);
         $productDetail = new ProductDetail;
-        $num = filter_var($request->price, FILTER_SANITIZE_NUMBER_INT);
         $productDetail->fill([
             'capacity'=>$request->input('capacity'),
-            'price'=>$num,
-            'stock'=>$request->input('stock'),
+            'price'=>$request->input('price'),
+            'stock'=>0,
             'product_id'=>$request->input('product_id'),
-            'status'=>$request->input('status'),
+            'status'=>0,
         ]);
         $productDetail->save();
         return Redirect::route('product_detail.index');
@@ -108,6 +105,7 @@ class ProductDetailController extends Controller
         ->where('product_id','=',$id)->paginate(10);
         $sale=new SaleDetail();
         $datetime=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        // return $productall[0];
         foreach ($productDetail as $dt) {
             $a=SaleDetail::select('product_detail_id','price_sale')
             ->join('sales','sales.id','sale_details.sale_id')
@@ -163,7 +161,6 @@ class ProductDetailController extends Controller
             'price'=>$request->input('price'),
             'stock'=>$request->input('stock'),
             'product_id'=>$request->input('product_id'),
-            'status'=>$request->input('status'),
         ]);
         
         $productDetail->save();
