@@ -11,8 +11,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="button-list">
-                    <a class="btn btn-primary btn-rounded m-b-10 m-l-5" href="{{ route('addreceipt') }}">Add New Good
-                        Receipt</a>
+                    <a class="btn btn-primary btn-rounded m-b-10 m-l-5" href="{{ route('addreceipt') }}">Add New Import Receipt</a>
                     <div class="card-body">
                         <div class="table-responsive m-t-40">
                             <table class="display nowrap table table-hover table-striped table-bordered" cellspacing="0"
@@ -23,6 +22,7 @@
                                         <th>User Name</th>
                                         <th>Shipping Address</th>
                                         <th style="text-align: center">Shipping Phone</th>
+                                        <th style="text-align: center">See Detail</th>
                                     </tr>
                                 </thead>
 
@@ -34,7 +34,8 @@
                                             <td>{{ $invoice->shipping_address }}</td>
                                             <td>{{ $invoice->shipping_phone }}</td>
                                             <td style="text-align: center"><a class="btn btn-info btn-rounded"
-                                                    href="{{ route('showreceipt',$invoice->id) }}">Detail</a></td>
+                                                    href="{{ route('showreceipt',$invoice->id) }}"><i
+                                                    class="fa fa-eye"></i></a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

@@ -11,8 +11,8 @@
         <form action="{{ route('add') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="model" class="col-form-label">Product Model: <em style="color: red">*</em></label>
-                <select class="form-control" name="product_id" id="idproduct" style="border-style:groove" onchange="hidecapacity({{ $pddt }})">
+                <label for="model" class="col-form-label">Product Model: </label><br>
+                <select class="custom-select" style="width: 200px" name="product_id" id="idproduct" style="border-style:groove" onchange="hidecapacity({{ $pddt }})">
                     <option value="" style="text-align: center">--Select product--</option>
                     @foreach ($pd as $item)
                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -27,15 +27,15 @@
             @endif
 
             <div class="form-group">
-                <label for="model" class="col-form-label">Capacity: <em style="color: red">*</em></label>
-                <select id="capacity" name="capacity" style="border-style:groove" >
+                <label for="model" class="col-form-label">Capacity: </label><br>
+                <select id="capacity" name="capacity" style="border-style:groove; width: 200px" class="custom-select"  >
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="price" class="col-form-label">Price: <em style="color: red">*</em></label>
-                <input type="text" class="form-control" name="price" placeholder="Enter price"
-                    style="text-align: left; border-style:groove">
+                <label for="price" class="col-form-label">Price: </label>
+                <input type="number" class="form-control" name="price" placeholder="Enter price"
+                    style="text-align: left; border-style:groove; width: 200px" min="1">
             </div>
             @if ($errors->first('price'))
                 <div class="error">
@@ -44,9 +44,9 @@
             @endif
 
             <div class="form-group">
-                <label for="quantity" class="col-form-label">Quantity: <em style="color: red">*</em></label>
-                <input type="number" class="form-control" name="quantity"  style="text-align: left; border-style:groove"
-                    placeholder="Enter quantity">
+                <label for="quantity" class="col-form-label">Quantity: </label>
+                <input type="number" class="form-control" name="quantity"  style="text-align: left; border-style:groove;width: 200px"
+                    placeholder="Enter quantity" min="1">
             </div>
             @if ($errors->first('quantity'))
                 <div class="error">

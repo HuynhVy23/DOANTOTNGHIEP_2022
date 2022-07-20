@@ -18,10 +18,9 @@
                             <table class="table table-bordered table-striped" style="text-align: center; border-style:groove">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th class="col-2"></th>
-                                        <th class="col-2" style="text-align: center"></th>
+                                        <th class="col-4">ID</th>
+                                        <th class="col-5" style="text-align: center">Name</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>

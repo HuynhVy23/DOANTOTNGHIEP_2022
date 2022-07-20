@@ -260,7 +260,7 @@ class InvoiceController extends Controller
             $invoice->status='Waiting for confirmation';
         }else if($invoice->status==1){
             $invoice->status='Being shipped';
-        }else if($invoice->status==2){
+        }else if($invoice->status==2 || $invoice->status == 5){
             $invoice->status='Complete';
         }else if($invoice->status==3){
             $invoice->status='Cancel';
@@ -332,7 +332,6 @@ class InvoiceController extends Controller
 
     public function xulihdnhap(Request $request)
     {
-        
         $year =  Carbon::now('Asia/Ho_Chi_Minh')->year;
         $month = (int)Carbon::now('Asia/Ho_Chi_Minh')->month;
         $hour = Carbon::now('Asia/Ho_Chi_Minh')->hour;

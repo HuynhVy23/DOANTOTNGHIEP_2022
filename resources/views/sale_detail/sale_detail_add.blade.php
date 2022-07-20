@@ -12,8 +12,8 @@
             @csrf
 
             <div class="form-group">
-                <label for="model" class="col-form-label">Promotion: <em style="color: red">*</em></label>
-                <select name="sale_id">
+                <label for="model" class="col-form-label">Promotion: </label><br>
+                <select class="custom-select" style="width: 200px;border-style:groove" name="sale_id">
                     <option value="" style="text-align: center">--Select promotion--</option>
                     @foreach ($lstSale as $item)
                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -22,28 +22,13 @@
             </div>
             @if ($errors->first('sale_id'))
                 <div class="error">
-                    <p>{{ $errors->first('sale_id') }}</p>
+                    <p style="color: red">{{ $errors->first('sale_id') }}</p>
                 </div>
             @endif
 
-            {{-- <div class="form-group">
-                <label for="model" class="col-form-label">Capacity: <em style="color: red">*</em></label>
-                <select name="product_detail_id">
-                    <option value="" style="text-align: center">--Select capacity--</option>
-                    @foreach ($lstProductDetail as $item)
-                        <option value="{{ $item->id }}">{{ $item->capacity }}</option>
-                    @endforeach
-                </select>
-            </div>
-            @if ($errors->first('product_detail_id'))
-                <div class="error">
-                    <p>{{ $errors->first('product_detail_id') }}</p>
-                </div>
-            @endif --}}
-
             <div class="form-group">
-                <label for="model" class="col-form-label">Product Model: <em style="color: red">*</em></label>
-                <select name="product_detail_id" id="idproduct" style="border-style:groove" onchange="hidecapacity({{ $lstProductDetail }})">
+                <label for="model" class="col-form-label">Product Model: </label><br>
+                <select class="custom-select" style="width: 200px;border-style:groove" name="product_detail_id" id="idproduct" style="border-style:groove" onchange="hidecapacity({{ $lstProductDetail }})">
                     <option value="" style="text-align: center">--Select product--</option>
                     @foreach ($pd as $item)
                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -53,18 +38,18 @@
             </div>
 
             <div class="form-group">
-                <label for="model" class="col-form-label">Capacity: <em style="color: red">*</em></label>
-                <select id="capacity" name="capacity" style="border-style:groove" >
+                <label for="model" class="col-form-label">Capacity: </label><br>
+                <select id="capacity" name="capacity" style="border-style:groove; width: 200px" class="custom-select"  >
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="price" class="col-form-label">Price Sale: <em style="color: red">*</em></label>
-                <input type="number" class="form-control" name="price_sale" placeholder="Enter price" style="text-align: left">
+                <label for="price" class="col-form-label">Price Sale: </label><br>
+                <input type="number" class="form-control" name="price_sale" placeholder="Enter price" style="text-align: left;width: 200px;border-style:groove">
             </div>
             @if ($errors->first('price_sale'))
                 <div class="error">
-                    <p>{{ $errors->first('price_sale') }}</p>
+                    <p style="color: red">{{ $errors->first('price_sale') }}</p>
                 </div>
             @endif
 

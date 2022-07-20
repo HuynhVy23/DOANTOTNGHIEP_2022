@@ -11,4 +11,5 @@ class Sale extends Model
     use HasFactory;
     use SoftDeletes;
     protected $guarded=[];
+    protected $dates = ['date_start','date_end'];
 }
