@@ -230,6 +230,14 @@ class InvoiceController extends Controller
         //
     }
 
+    public function cancel($id)
+    {
+        $inv=Invoice::find($id);
+        $inv->status=3;
+        $inv->save();
+        return Redirect::back();
+    }
+
     public function invoiceAdmin()
     {
         if(isset($_GET['status'])&&$_GET['status']!=null){

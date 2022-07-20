@@ -25,7 +25,7 @@ use App\Http\Livewire\Product;
 |
 */
 Route::prefix('/')->middleware(['auth','checkuser'])->group(function (){
-Route::post('updateuser', [UserController::class, 'updateuser'])->name('updateuser');
+Route::get('updateuser', [UserController::class, 'updateuser'])->name('updateuser');
 Route::post('handleupdateuser', [UserController::class, 'handleupdateuser'])->name('handleupdateuser');
 Route::get('changepass', [UserController::class, 'showchangePass'])->name('changepass');
 Route::post('changepass', [UserController::class, 'changePass'])->name('changepassform');

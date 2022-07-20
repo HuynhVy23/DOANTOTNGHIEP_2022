@@ -21,14 +21,16 @@
           <div class="section-heading">
             <h2>Form Change Password</h2>
           </div>
-          @if (isset($success))
+          @if($errors->any())
+                @error('success')
        <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>Well done!</strong> You have successfully updated your information.
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-       @endif
+      @enderror
+@endif
         </div>
         <div class="col-md-6">
             <form action="{{ route('changepassform') }}" method="POST">
@@ -38,11 +40,13 @@
                   <label for="username" class="col-form-label">Current password :<em style="color: red">*</em></label>
                   <input type="password" class="form-control" name="password">
                 </div>
-                @if ($errors->first('password'))
+                @if($errors->any())
+                @error('pass')
                 <div class="error">
-                <p>{{$errors->first('password')}}</p>
-              </div>
-                @endif
+                  <p>{{$message}}</p>
+                </div>
+@enderror
+@endif
                 <div class="form-group">
                   <label for="newpassword" class="col-form-label">New password : <em style="color: red">*</em></label>
                   <input type="password" class="form-control" name="newpassword">
@@ -57,7 +61,7 @@
                     <input type="password" class="form-control" name="newpassword_confirmation">
                   </div>
                 <div style="password-align: center">
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
               </form>
         </div>

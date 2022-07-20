@@ -22,13 +22,11 @@
           @error('success')
           <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{$message}}
-            </button>
           </div>
           @enderror
           @error('fail')
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{$message}}
-            </button>
           </div>
           @enderror
           @endif
@@ -38,14 +36,6 @@
             <form action="{{ route('resetHandler') }}" method="POST" style="max-width: 60%;
             padding-bottom: 30px;">
               @csrf
-              @if($errors->any())
-          @error('fail')
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{$message}}
-            </button>
-          </div>
-          @enderror
-          @endif
           <input type="hidden" name="token" value="{{ $token }}">
                 <div class="form-group">
                   <label for="email" class="col-form-label">Email : <em style="color: red">*</em></label>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
@@ -174,9 +175,9 @@ class UserController extends Controller
         }
     }
 
-    public function updateuser(Request $request)
+    public function updateuser()
     {
-        $user=User::find($request->id);
+        $user=User::find(Auth::user()->id);
         $this->fixImage($user);
         return view('infouser',['user'=>$user]);
     }
@@ -195,15 +196,19 @@ class UserController extends Controller
     public function changePass(Request $request)
     {
         $user=User::find($request->id);
-        $request->request->add(['password_old' => $user->password]);
-        $this->validate($request, [
-            'password' => 'required|same:password_old',
-            'newpassword'=>'bail|required|between:5,20|confirmed',
-        ]);
-
-        $user->password=bcrypt($request->input('newpassword'));
-        $user->save();
-        return route('changepass',['success'=>1]);
+        if (Hash::check($request->input('password'), $user->password)) {
+            $this->validate($request, [
+                'newpassword'=>'bail|required|between:5,20|confirmed',
+            ]);
+            $user->password=bcrypt($request->input('newpassword'));
+            $user->save();
+            return Redirect::back()->withErrors(['success'=>'1']);
+        }else{
+            return Redirect::back()->withErrors(['pass'=>'The password and password old must match.']);
+        }
+        // $request->request->add(['password_old' => $user->password]);
+        
+        
     }
 
 }
