@@ -59,10 +59,10 @@
                         <!-- Profile -->
                         <li class="nav-item dropdown">
                             <!-- đăng nhập -->
-                            <a class="nav-link dropdown-toggle text-muted  " href="" data-toggle="dropdown"
+                            <a class="nav-link dropdown-toggle text-muted  " href="" data-toggle="dropdown" style="text-align: center"
                                 aria-haspopup="true" aria-expanded="false">
                                 <!-- avatar -->
-                                <img src="../images/logohoa.png" alt="" class="profile-pic" /><br>
+                                <img src="/image/avarta_admin.png" alt="" width="50px" height="100px" class="profile-pic" /><br>
                                 <!-- tên user -->
                                 <span class="middle">Admin</span>
                             </a>
@@ -70,8 +70,8 @@
 
                                 <ul class="dropdown-user">
                                     <!-- đăng xuất -->
-                                    <li><a href="{{ route('logout') }}"><i class="fa fa-power-off"></i> Log out</a>
-                                    </li>
+                                    <li><a href="{{ route('logout') }}"><i class="fa fa-power-off"></i> Log out</a></li>
+                                    <li style="size: 50px"><a href=""><i class="fa fa-info-circle"></i> Infomation</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -93,11 +93,11 @@
                         <li><a aria-expanded="false" href="{{ route('invoiceAdmin') }}"><i
                                     class="fa fa-file-text"></i><span class="hide-menu">Invoice </span></a></li>
                         <li><a aria-expanded="false" href="{{ route('receipt') }}"><i
-                                    class="fa fa-file-text"></i><span class="hide-menu">Good Receipt</span></a></li>
+                                    class="fa fa-indent"></i><span class="hide-menu">Import Receipt</span></a></li>
                         <li><a aria-expanded="false" href="{{ route('productad.index') }}"><i
-                                    class="fa fa-pagelines "></i><span class="hide-menu ">Product Model</span></a></li>
+                                    class="fa fa-pagelines "></i><span class="hide-menu ">Perfume Model</span></a></li>
                         <li><a aria-expanded="false" href="{{ route('product_detail.index') }}"><i
-                                    class="fa fa-snowflake-o "></i><span class="hide-menu ">Product</span></a></li>
+                                    class="fa fa-snowflake-o "></i><span class="hide-menu ">Perfume</span></a></li>
                         <li><a aria-expanded="false" href="{{ route('brand.index') }}"><i
                                     class="fa fa-leaf"></i><span class="hide-menu">Brand</span></a></li>
                         <li><a aria-expanded="false" href="{{ route('scentad.index') }}"><i
@@ -105,10 +105,10 @@
                         <li><a aria-expanded="false" href="{{ route('salead.index') }}"><i
                                     class="fa fa-bookmark"></i><span class="hide-menu">Promotion</span></a></li>
                         <li><a aria-expanded="false" href="{{ route('sale_detailad.index') }}"><i
-                                    class="fa fa-bookmark"></i><span class="hide-menu">Promotion Detail</span></a>
+                                    class="fa fa-gift"></i><span class="hide-menu">Promotion Detail</span></a>
                         </li>
-                        <li><a aria-expanded="false" href=""><i class="fa fa-user"></i><span
-                                    class="hide-menu">Account</span></a></li>
+                        {{-- <li><a aria-expanded="false" href=""><i class="fa fa-user"></i><span
+                                    class="hide-menu">Account</span></a></li> --}}
                         {{-- <li ><a aria-expanded="false" href=""><i class="fa fa-comment"></i><span class="hide-menu">Comment</span></a></li> --}}
 
                     </ul>

@@ -12,9 +12,9 @@
             @csrf
             @method('PATCH')
             <div class="form-group">
-                <label for="name" class="col-form-label">Name: <em style="color: red">*</em></label>
+                <label for="name" class="col-form-label">Name: </label><br>
                 <input type="text" class="form-control" name="name_scent" value="{{ $lstScent->name_scent }}"
-                    placeholder="Enter name" style="text-align: left; border-style:groove">
+                    placeholder="Enter name" style="text-align: left; border-style:groove;width:300px">
             </div>
             @if ($errors->first('name_scent'))
                 <div class="error">

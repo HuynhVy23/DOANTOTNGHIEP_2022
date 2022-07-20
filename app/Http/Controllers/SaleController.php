@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Product;
 use App\Models\ProductDetail;
 use Carbon\Carbon;
+use DateTime;
 
 class SaleController extends Controller
 {
@@ -37,10 +38,14 @@ class SaleController extends Controller
     public function index()
     {
         $lstSale=Sale::all();
+        $date= array();
+        $dateEnd = array();
         foreach($lstSale as $sale){
+            $date[$sale->id] = $sale->date_start->toDateString();
+            $dateEnd[$sale->id] = $sale->date_end->toDateString();
             $this->fixImage($sale);
         }
-        return view('sale.sale_index',['lstSale'=>$lstSale]);
+        return view('sale.sale_index',['lstSale'=>$lstSale,'date'=>$date,'dateEnd'=>$dateEnd]);
     }
 
     /**
@@ -64,8 +69,8 @@ class SaleController extends Controller
     {
         $request->validate([
             'name'=>'bail|required',
-            'date_start'=>'required',
-            'date_end'=>'required',
+            'date_start'=>'required|date',
+            'date_end'=>'required|date|date_equals:date_start',
         ]);
         $sale=new Sale();
 

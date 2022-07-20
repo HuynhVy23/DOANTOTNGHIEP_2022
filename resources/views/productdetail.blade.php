@@ -175,7 +175,7 @@
               <a href="{{ route('product') }}">view more <i class="fa fa-angle-right"></i></a>
             </div>
           </div>
-          @foreach ($all as $a)
+         @foreach ($all as $a)
           <div class="col-md-4">
             <div class="product-item">
               <a href="{{route('productdetail',$a->id)}}"><img src="{{ $a->image }}" width="250px" height="210px" alt=""></a>

@@ -13,35 +13,35 @@
                 @csrf
                 @method('PATCH')
                 <div class="form-group">
-                    <label for="name" class="col-form-label">Name: <em style="color: red">*</em></label>
+                    <label for="name" class="col-form-label">Name: </label><br>
                     <input type="text" class="form-control" name="name" value="{{ $sale->name }}"
-                        placeholder="Enter name" style="text-align: left; border-style:groove">
+                        placeholder="Enter name" style="text-align: left; border-style:groove;width:200px">
                 </div>
                 @if ($errors->first('name'))
                     <div class="error">
-                        <p>{{ $errors->first('name') }}</p>
+                        <p style="color: red">{{ $errors->first('name') }}</p>
                     </div>
                 @endif
 
                 <div class="form-group">
                     <label for="date" class="col-form-label">Date Start:</label>
-                    <input type="date" class="form-control" name="date_start" value="{{ $sale->date_start }}" min="1930-01-01"
-                        max="2010-12-31">
+                    <input type="date" class="form-control" name="date_start" value="{{ $sale->date_start }}"
+                        min="2022-01-01" style="border-style:groove; width:200px">
                 </div>
                 @if ($errors->first('date_start'))
                     <div class="error">
-                        <p>{{ $errors->first('date_start') }}</p>
+                        <p style="color: red">{{ $errors->first('date_start') }}</p>
                     </div>
                 @endif
-    
+
                 <div class="form-group">
                     <label for="date" class="col-form-label">Date End:</label>
-                    <input type="date" class="form-control" name="date_end" value="{{ $sale->date_end }}" min="1930-01-01"
-                        max="2010-12-31">
+                    <input type="date" class="form-control" name="date_end" value="{{ $sale->date_end }}"
+                        min="2022-01-01" style="border-style:groove; width:200px">
                 </div>
                 @if ($errors->first('date_end'))
                     <div class="error">
-                        <p>{{ $errors->first('date_end') }}</p>
+                        <p style="color: red">{{ $errors->first('date_end') }}</p>
                     </div>
                 @endif
 

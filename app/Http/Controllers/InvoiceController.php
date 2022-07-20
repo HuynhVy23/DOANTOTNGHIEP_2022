@@ -196,10 +196,10 @@ class InvoiceController extends Controller
     public function edit($id)
     {
         $lstInvoice=Invoice::find($id);
-        if($lstInvoice->status==5){
-            $lstInvoice->status=4;
+        if($lstInvoice->status==4){
+            $lstInvoice->status=3;
             $lstInvoice->save();
-            return Redirect::route('invoice.invoice_index');
+            return Redirect::route('invoice.index');
         }else{
             $lstInvoice->status+=1;
             $lstInvoice->save();
@@ -239,14 +239,10 @@ class InvoiceController extends Controller
         }
         $pending=Invoice::where('status','=',0,'and')->where('type','=',0)->count();
         $toship=Invoice::where('status','=',1,'and')->where('type','=',0)->count();
-        $toreceive=Invoice::where('status','=',2,'and')->where('type','=',0)->count();
-        $complete=Invoice::where('status','=',3,'and')->where('type','=',0)->count();
-        $cancel=Invoice::where('status','=',5,'and')->where('type','=',0)->count();
-        $canceled=Invoice::where('status','=',4,'and')->where('type','=',0)->count();
-        //return view('Invoice.Invoice',['lstHoaDon'=>$lstHoaDon,'pending'=>$pending,'toship'=>$toship,'toreceive'=>$toreceive,'complete'=>$complete,'cancel'=>$cancel,'canceled'=>$canceled]);
-        
-        //$lstInvoice = Invoice::all();
-        return view('invoice.invoice_index',['lstInvoice'=>$lstInvoice,'pending'=>$pending,'toship'=>$toship,'toreceive'=>$toreceive,'complete'=>$complete,'cancel'=>$cancel,'canceled'=>$canceled]);
+        $complete=Invoice::where('status','=',2,'and')->where('type','=',0)->count();
+        $cancel=Invoice::where('status','=',4,'and')->where('type','=',0)->count();
+        $canceled=Invoice::where('status','=',3,'and')->where('type','=',0)->count();
+        return view('invoice.invoice_index',['lstInvoice'=>$lstInvoice,'pending'=>$pending,'toship'=>$toship,'complete'=>$complete,'cancel'=>$cancel,'canceled'=>$canceled]);
         
     }
 
@@ -265,11 +261,9 @@ class InvoiceController extends Controller
             $invoice->status='Waiting for confirmation';
         }else if($invoice->status==1){
             $invoice->status='Being shipped';
-        }else if($invoice->status==2){
-            $invoice->status='Receive';
-        }else if($invoice->status==3){
+        }else if($invoice->status==2 || $invoice->status == 5){
             $invoice->status='Complete';
-        }else if($invoice->status==4){
+        }else if($invoice->status==3){
             $invoice->status='Cancel';
         }else{
             $invoice->status='Cancelled';
@@ -314,6 +308,7 @@ class InvoiceController extends Controller
         ->join('products','products.id','=','product_details.product_id')
         ->where('invoice_id','=',$id)->get();
 
+        //return $lstInvoiceDetail;
         $total=0;
         $day=substr($InvoiceDetail->id,6,2);
         $month=substr($InvoiceDetail->id,4,2);
@@ -334,13 +329,11 @@ class InvoiceController extends Controller
         $pd = Product::all();
         $pddt = ProductDetail::all();
         $invoice = Invoice::all();
-        // return $pddt[0]->product_id;
-        // return $pd[0]->id;
         return view('receipt.receipt_add',['pd'=>$pd,'invoice'=>$invoice,'pddt'=>$pddt]);
     }
 
     public function xulihdnhap(Request $request)
-    {
+    {   $pddt = ProductDetail::all();
         $year =  Carbon::now('Asia/Ho_Chi_Minh')->year;
         $month = (int)Carbon::now('Asia/Ho_Chi_Minh')->month;
         $hour = Carbon::now('Asia/Ho_Chi_Minh')->hour;
@@ -383,10 +376,16 @@ class InvoiceController extends Controller
         ]);
         $invoice->save();
 
+        $request->validate([
+            'product_id'=>'required',
+            'quantity'=>'required|min:1',
+            'price'=>'required|min:1',
+        ]);
+
         $invoicedetail=new InvoiceDetail;
         $invoicedetail->fill([
             'invoice_id'=>$id,
-            'product_id'=>$request->product_id,
+            'product_id'=>$pddt[0]->id,
             'quantity'=>$request->quantity,
             'price'=>$request->price,
         ]);

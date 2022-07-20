@@ -42,8 +42,8 @@
                                         <tr>
                                             <td>{{ $sale->id }}</td>
                                             <td>{{ $sale->name }}</td>
-                                            <td>{{ $sale->date_start }}</td>
-                                            <td>{{ $sale->date_end }}</td>
+                                            <td>{{ $date[$sale->id] }}</td>
+                                            <td>{{ $dateEnd[$sale->id] }}</td>
                                             <td><img src="{{ $sale->image_banner }}" width="100px" height="100px"></td>
                                             <td><a class="btn btn-info btn-rounded"
                                                     href="{{ route('salead.edit', $sale->id) }}"><i

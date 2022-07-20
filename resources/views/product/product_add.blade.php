@@ -11,39 +11,41 @@
         <form action="{{ route('productad.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="name" class="col-form-label">Name: <em style="color: red">*</em></label>
+                <label for="name" class="col-form-label">Name: </label><br>
                 <input type="text" class="form-control" name="name" placeholder="Enter name"
-                    style="text-align: left; border-style:groove">
+                    style="text-align: left; border-style:groove; width: 200px ">
             </div>
             @if ($errors->first('name'))
                 <div class="error">
-                    <p>{{ $errors->first('name') }}</p>
-                </div>
-            @endif
-            <div class="form-group">
-                <label for="concentration" class="col-form-label">Concentration: <em style="color: red">*</em></label>
-                <input type="text" class="form-control" name="concentration" placeholder="Enter concentration"
-                    style="text-align: left; border-style:groove">
-            </div>
-            @if ($errors->first('concentration'))
-                <div class="error">
-                    <p>{{ $errors->first('concentration') }}</p>
-                </div>
-            @endif
-            <div class="form-group">
-                <label for="description" class="col-form-label">Description: <em style="color: red">*</em></label>
-                <input type="text" class="form-control" name="description" placeholder="Enter description"
-                    style="text-align: left; border-style:groove">
-            </div>
-            @if ($errors->first('description'))
-                <div class="error">
-                    <p>{{ $errors->first('description') }}</p>
+                    <p style="color: red">{{ $errors->first('name') }}</p>
                 </div>
             @endif
 
             <div class="form-group">
-                <label for="model" class="col-form-label">Gender: <em style="color: red">*</em></label>
-                <select name="gender">
+                <label for="concentration" class="col-form-label">Concentration: </label><br>
+                <input type="text" class="form-control" name="concentration" placeholder="Enter concentration"
+                    style="text-align: left; border-style:groove;width: 200px">
+            </div>
+            @if ($errors->first('concentration'))
+                <div class="error">
+                    <p style="color: red">{{ $errors->first('concentration') }}</p>
+                </div>
+            @endif
+
+            <div class="form-group">
+                <label for="description" class="col-form-label">Description: </label><br>
+                <input type="text" class="form-control" name="description" placeholder="Enter description"
+                    style="text-align: left; border-style:groove;width: 200px">
+            </div>
+            @if ($errors->first('description'))
+                <div class="error">
+                    <p style="color: red">{{ $errors->first('description') }}</p>
+                </div>
+            @endif
+
+            <div class="form-group">
+                <label for="model" class="col-form-label">Gender: </label><br>
+                <select class="custom-select" style="width: 200px" name="gender">
                     <option value="" style="text-align: center">--Select gender--</option>
                     <option value="0" style="text-align: center">Male</option>
                     <option value="1" style="text-align: center">Female</option>
@@ -52,13 +54,13 @@
             </div>
             @if ($errors->first('gender'))
                 <div class="error">
-                    <p>{{ $errors->first('gender') }}</p>
+                    <p style="color: red">{{ $errors->first('gender') }}</p>
                 </div>
             @endif
 
             <div class="form-group">
-                <label for="model" class="col-form-label">Brand: <em style="color: red">*</em></label>
-                <select name="brand_id">
+                <label for="model" class="col-form-label">Brand: </label><br>
+                <select class="custom-select" style="width: 200px" name="brand_id">
                     <option value="" style="text-align: center">--Select brand--</option>
                     @foreach ($lstBrand as $item)
                         <option value="{{ $item->id }}">{{ $item->name_brand }}</option>
@@ -67,12 +69,13 @@
             </div>
             @if ($errors->first('brand_id'))
                 <div class="error">
-                    <p>{{ $errors->first('brand_id') }}</p>
+                    <p style="color: red">{{ $errors->first('brand_id') }}</p>
                 </div>
             @endif
+
             <div class="form-group">
-                <label for="model" class="col-form-label">Scent: <em style="color: red">*</em></label>
-                <select name="scent_id">
+                <label for="model" class="col-form-label">Scent: </label><br>
+                <select class="custom-select" style="width: 200px" name="scent_id">
                     <option value="" style="text-align: center">--Select scent--</option>
                     @foreach ($lstScent as $item)
                         <option value="{{ $item->id }}">{{ $item->name_scent }}</option>
@@ -81,7 +84,7 @@
             </div>
             @if ($errors->first('scent_id'))
                 <div class="error">
-                    <p>{{ $errors->first('scent_id') }}</p>
+                    <p style="color: red">{{ $errors->first('scent_id') }}</p>
                 </div>
             @endif
             <label for="file">Image : </label>

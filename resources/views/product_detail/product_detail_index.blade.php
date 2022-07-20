@@ -43,8 +43,8 @@
                                 @foreach ($lstProductDetail as $pddt)
                                     <tr>
                                         <td>{{ $pddt->id }}</td>
-                                        <td>{{ $pddt->capacity }}</td>
-                                        <td>{{ number_format($pddt->price, 0, ',', '.') }}</td>
+                                        <td>{{ $pddt->capacity }} ml</td>
+                                        <td>{{ number_format($pddt->price, 0, ',', '.'). ' VND' }}</td>
                                         <td>{{ $pddt->stock }}</td>
                                         <td>{{ $pddt->product->name }}</td>
                                         <td><a class="btn btn-info btn-rounded"
