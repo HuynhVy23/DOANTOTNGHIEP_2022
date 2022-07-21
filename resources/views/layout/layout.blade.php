@@ -136,8 +136,7 @@
             <div class="col-md-4">
               <div class="inner-content" style="text-align:left">
                 <h6>Contact us :</h6>
-                <p>Ms.Nhu : 0306191150@caothang.edu.vn</p>
-                <p>Ms.Vy : 0306191195@caothang.edu.vn</p><br>
+                <p>perfumeshop19b@gmail.com</p><br>
                 <h6>Address :</h6>
                 <p> 65 Huynh Thuc Khang Street, Ben Nghe Ward, District 1, Ho Chi Minh City</p>
               </div>

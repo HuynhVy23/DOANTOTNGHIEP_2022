@@ -70,7 +70,7 @@ class SaleController extends Controller
         $request->validate([
             'name'=>'bail|required',
             'date_start'=>'required|date',
-            'date_end'=>'required|date|date_equals:date_start',
+            'date_end'=>'required|date|after_or_equal:date_start',
         ]);
         $sale=new Sale();
 

@@ -82,8 +82,10 @@
           </div>
           <div class="col-md-6">
             <div class="left-content">
-              <p>Established in 2022 with 2 employees</p>
+              <p>Established in 2022 with 2 employees, bring you the best shopping experience, 
+                24/7 customer care service :</p>
               <ul class="featured-list">
+                <li><a href="#">Many popular products on the market</a></li>
                 <li><a href="#">Brand variety</a></li>
                 <li><a href="#">Wide range of products at competitive prices</a></li>
                 <li><a href="#">Many attractive offers</a></li>
