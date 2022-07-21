@@ -31,11 +31,11 @@
                     <p style="color: red">{{ $errors->first('price') }}</p>
                 </div>
             @endif
-            <div class="form-group">
-                <label for="stock" class="col-form-label">Stock: </label><br>
-                <input type="number" class="form-control" name="stock" value="{{ $productDetail->stock }}"
+            {{-- <div class="form-group">
+                <label for="stock" class="col-form-label">Stock: </label><br> --}}
+                <input type="hidden" class="form-control" name="stock" value="{{ $productDetail->stock }}"
                     placeholder="Enter stock" style="text-align: left; border-style:groove;width: 200px">
-            </div>
+            {{-- </div> --}}
             @if ($errors->first('stock'))
                 <div class="error">
                     <p style="color: red">{{ $errors->first('stock') }}</p>

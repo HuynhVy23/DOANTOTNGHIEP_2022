@@ -25,8 +25,7 @@
 
                 <div class="form-group">
                     <label for="date" class="col-form-label">Date Start:</label>
-                    <input type="date" class="form-control" name="date_start" value="{{ $sale->date_start }}"
-                        min="2022-01-01" style="border-style:groove; width:200px">
+                    <input type="date" class="form-control" name="date_start" value="2022-01-01" min="2022-01-01" style="border-style:groove; width:200px">
                 </div>
                 @if ($errors->first('date_start'))
                     <div class="error">
@@ -36,8 +35,7 @@
 
                 <div class="form-group">
                     <label for="date" class="col-form-label">Date End:</label>
-                    <input type="date" class="form-control" name="date_end" value="{{ $sale->date_end }}"
-                        min="2022-01-01" style="border-style:groove; width:200px">
+                    <input type="date" class="form-control" name="date_end" value="2022-01-01" min="2022-01-01" style="border-style:groove; width:200px">
                 </div>
                 @if ($errors->first('date_end'))
                     <div class="error">
@@ -47,7 +45,7 @@
 
 
                 <label for="file">Image : </label>
-                <input type="file" name="image_brand" id="file" />
+                <input type="file" name="image_banner" id="file" />
                 <div style="text-align: center">
                     <button type="submit" class="btn btn-primary">Done</button>
                 </div>
