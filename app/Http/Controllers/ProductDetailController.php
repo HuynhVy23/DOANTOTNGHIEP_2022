@@ -32,7 +32,7 @@ class ProductDetailController extends Controller
     {
         $searchDetail = $request['searchDetail'] ?? "";
         if($searchDetail != ""){
-            $lstProductDetail = ProductDetail::where('capacity', 'LIKE',"%$searchDetail%")->orWhere('price', 'LIKE',"%$searchDetail%")->get();
+            $lstProductDetail = ProductDetail::where('capacity', 'LIKE',"%$searchDetail%")->orWhere('price', 'LIKE',"%$searchDetail%")->orWhere('stock', 'LIKE',"%$searchDetail%")->get();
         }else{
             $lstProductDetail = ProductDetail::all();
         }
@@ -87,7 +87,7 @@ class ProductDetailController extends Controller
         foreach($productall as $pd){
             $this->fixImage($pd);
         }
-        $product=Product::select('products.name','products.concentration','products.image','products.description','brands.name_brand','scents.name_scent','brands.id as id_brand','scents.id as id_scent')
+        $product=Product::select('products.name','products.concentration','products.gender','products.image','products.description','brands.name_brand','scents.name_scent','brands.id as id_brand','scents.id as id_scent')
         ->join('brands','brands.id','=','products.brand_id')
         ->join('scents','scents.id','=','products.scent_id')
         ->where('products.id','=',$id)->get();

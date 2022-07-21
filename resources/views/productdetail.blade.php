@@ -75,6 +75,13 @@
               <br>
               <p class="lead"><strong>Brand : </strong><a href="{{ route('branddetail',$product[0]->id_brand) }}">{{ $product[0]->name_brand }}</a></p>
               <p class="lead"><strong>Scent : </strong><a href="{{ route('scent',$product[0]->id_scent) }}">{{ $product[0]->name_scent }}</a></p>
+              <p class="lead"><strong>Gender : </strong><a href="{{ route('gender',$product[0]->gender) }}">@if ($product[0]->gender==0)
+                Men
+                @elseif ($product[0]->gender==1)
+                Women
+              @else
+                Unisex
+              @endif</a></p>
               <p class="lead"><strong>Concentration : </strong>{{ $product[0]->concentration }}</p>
               <br>
               @foreach ($product[0]->description as $a)
