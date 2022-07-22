@@ -77,11 +77,7 @@
                     <a class="nav-link dropdown-toggle" style="margin-top: 0;border-bottom:none;padding-bottom:11px;" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">
                     <img  src="{{ Storage::url(Auth::user()->avatar) }}" alt="" style="border-radius: 50%;" width="50px" height="50px"></a>
                     <div class="dropdown-menu">
-                      <form action="{{ route('updateuser') }} " method="POST">
-                        @csrf
-                        <input type="hidden" value="{{ Auth::user()->id }}" name="id">
-                        <button class="dropdown-item" type="submit">Infomation</button>
-                      </form>
+                      <a href="{{ route('updateuser') }}" class="dropdown-item">Infomation</a>
                       <a class="dropdown-item" href="{{ route('changepassform') }}">Change Password</a>
                       <a class="dropdown-item" href="{{ route('logout') }}">Log out</a>
                     </div>
