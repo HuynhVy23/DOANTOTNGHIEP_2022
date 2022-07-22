@@ -25,7 +25,7 @@
 
                 <div class="form-group">
                     <label for="date" class="col-form-label">Date Start:</label>
-                        <input type="date" class="form-control" name="date_start" value="2022-01-01" min="2022-01-01" style="border-style:groove; width:200px">
+                    <input type="date" class="form-control" name="date_start" value="2022-01-01" min="2022-01-01" style="border-style:groove; width:200px">
                 </div>
                 @if ($errors->first('date_start'))
                     <div class="error">

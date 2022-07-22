@@ -119,7 +119,7 @@ class BrandController extends Controller
         $lstBrand->fill([
             'name_brand'=>$request->input('name_brand'),
             'detail'=>$request->input('detail'),
-
+            
         ]);
         $lstBrand->save();
         return Redirect::route('brand.index',['lstBrand'=>$lstBrand]);

@@ -38,6 +38,7 @@ class SaleController extends Controller
     public function index()
     {
         $lstSale=Sale::all();
+        // return $lstSale;
         $date= array();
         $dateEnd = array();
         foreach($lstSale as $sale){
@@ -67,10 +68,11 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         $request->validate([
             'name'=>'bail|required',
             'date_start'=>'required|date',
-            'date_end'=>'required|date|after_or_equal:date_start',
+            'date_end'=>'required|date|after_or_equal:date_start ',
         ]);
         $sale=new Sale();
 
@@ -126,6 +128,11 @@ class SaleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name'=>'bail|required',
+            'date_start'=>'required|date',
+            'date_end'=>'required|date|after_or_equal:date_start ',
+        ]);
         $sale=Sale::find($id);
         if($request->hasFile('image_banner')){
             $sale->image_banner = $request->file('image_banner')->store('img/sale/'.$sale->id,'public');
