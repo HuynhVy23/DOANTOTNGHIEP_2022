@@ -31,7 +31,7 @@
       </div>
       @enderror
 @endif
-        </div>
+        </div> 
         <div class="col-md-6">
             <form action="{{ route('changepassform') }}" method="POST">
               @csrf
